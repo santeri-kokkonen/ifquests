@@ -24,8 +24,8 @@ function QuestsHub() {
       <p className="eyebrow">SIDEQUESTS</p>
       <h1 className="mt-2 text-4xl font-light">Your main quest? Daily steps.</h1>
       <p className="mt-3 text-muted-foreground">
-        Stay healthy and happy with your step goal every day. Life's big changes become sidequests
-        — pick the chapter you're in, each with its own quests and rewards.
+        Build an active everyday routine with your daily step goal. Explore practical safety
+        checks for life’s big changes, each with its own sidequest and rewards.
       </p>
 
       <h2 className="mt-8 text-xl font-light">Active</h2>
@@ -48,7 +48,8 @@ function QuestsHub() {
         <Progress className="mt-4" value={(state.total / 1000) * 100} />
       </Link>
 
-      <h2 className="mt-8 text-xl font-light">Coming soon</h2>
+      <h2 className="mt-8 text-xl font-light">Future sidequests</h2>
+      <p className="mt-2 text-sm text-muted-foreground">Ideas for future life changes. These sidequests are not available in this demo.</p>
       <div className="mt-4 space-y-3">
         {upcoming.map(({ name, text, icon: Icon }) => (
           <div key={name} className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-dashed bg-secondary/50 p-5">

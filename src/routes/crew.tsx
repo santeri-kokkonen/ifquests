@@ -28,14 +28,14 @@ function Crew() {
       <Button variant="link" asChild className="mb-4 px-0">
         <Link to="/quests/moving">
           <ArrowLeft />
-          Move quests
+          Moving sidequest
         </Link>
       </Button>
       <div className="max-w-2xl">
         <Users className="h-10 w-10 text-primary" strokeWidth={1.2} />
         <h1 className="mt-4 text-4xl font-light">Moving is a team sport.</h1>
         <p className="mt-3 text-muted-foreground">
-          Invite the friends who help carry the boxes. No install needed.
+          Plan your move with friends and record the safety checks they witness.
         </p>
         <div className="mt-7 border-y py-5">
           <label htmlFor="invite" className="text-sm font-medium">
@@ -68,7 +68,7 @@ function Crew() {
             </p>
           )}
           <p className="mt-3 text-xs text-muted-foreground">
-            Demo link opens this crew experience. Shared live crew sessions are not connected.
+            This link opens the crew page. Names and confirmations stay in this browser; friends cannot join a shared session in this demo.
           </p>
         </div>
         <form
@@ -98,12 +98,13 @@ function Crew() {
           </div>
         </form>
         {joinMessage && <p role="status" className="mt-3 text-sm text-success">{joinMessage}</p>}
+        {state.crew.length === 0 && <p className="mt-5 text-sm text-muted-foreground">Every move is easier with a helper. Add your first crew member to start recording witnessed checks.</p>}
         {state.crew.length > 0 && (
           <>
             <p role="status" className="mt-5 text-sm text-success">
               Your crew: {state.crew.join(", ")}
             </p>
-            <h2 className="mt-7 text-xl font-light">I was there. I saw the check.</h2>
+            <h2 className="mt-7 text-xl font-light">Witnessed safety checks</h2>
             <p className="mt-2 text-xs text-muted-foreground">
               Local demo witness confirmations, not independently verified.
             </p>
@@ -125,7 +126,7 @@ function Crew() {
                           Witnessed
                         </>
                       ) : (
-                        "I saw this"
+                        "Confirm check"
                       )}
                     </Button>
                   </div>

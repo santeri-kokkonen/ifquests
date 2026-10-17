@@ -26,7 +26,7 @@ function LeakGuard() {
   const [downloadError, setDownloadError] = useState("");
   const [downloadStarted, setDownloadStarted] = useState(false);
   function draft() {
-    const text = `FAULT REPORT — DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Confirmed by resident" : "Not confirmed"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to the housing company.`;
+    const text = `FAULT REPORT — DEMO DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Marked complete in demo" : "Not recorded"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to maintenance or the housing company.`;
     state.setReport(text);
     state.finishLeak("report");
   }
@@ -60,7 +60,7 @@ function LeakGuard() {
         <Button asChild variant="link" className="mb-4 px-0">
           <Link to="/quests/moving">
             <ArrowLeft />
-            Move quests
+            Moving sidequest
           </Link>
         </Button>
         <Droplets className="h-10 w-10 text-primary" strokeWidth={1.2} />
@@ -72,7 +72,7 @@ function LeakGuard() {
           <section className="mt-7 border-y py-6">
             <p className="text-sm leading-relaxed text-muted-foreground">
               {state.sensorArrived
-                ? "Your demo sensor is online."
+                ? "Sensor setup recorded in this demo. No live sensor is connected."
                 : "No live sensor is connected. Try a simulated alert to walk through your response."}
             </p>
             <Button className="mt-5" onClick={() => state.setLeakAlert(true)}>
@@ -90,7 +90,7 @@ function LeakGuard() {
               <div>
                 <p className="font-medium">Demo alert · Water detected</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Bathroom sink area. Check it only if safe.
+                  Simulated water detection near the bathroom sink. No live sensor is connected.
                 </p>
               </div>
             </div>
@@ -101,9 +101,9 @@ function LeakGuard() {
             <section className="mt-7 border-b pb-6">
               <h2 className="text-xl font-medium">1. Stop the water safely</h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Use your saved valve photo to locate the shut-off. Close it only if you know how and
-                it is safe. Stay away from wet electrical equipment. Contact emergency maintenance
-                immediately; call 112 if there is immediate danger.
+                If anyone is in immediate danger, move to safety and call 112. Contact your building’s
+                emergency maintenance promptly. Use your saved photo to locate the water shut-off
+                only if it is safe and you know how. Stay away from wet electrical equipment.
               </p>
               {state.photos["valve"] ? (
                 <img
@@ -115,9 +115,9 @@ function LeakGuard() {
                 />
               ) : (
                 <div className="mt-4 rounded-lg bg-secondary p-4 text-sm">
-                  No valve photo saved yet.
+                  No valve photo saved yet. Ask maintenance where the shut-off is before you need it.
                   <Button variant="link" asChild className="block px-0">
-                    <Link to="/quests/moving">Find the valve in your Bathroom quest</Link>
+                    <Link to="/quests/moving">Add a valve photo in the moving sidequest</Link>
                   </Button>
                 </div>
               )}
@@ -157,6 +157,7 @@ function LeakGuard() {
               <label htmlFor="fault-description" className="mt-4 block text-sm">
                 What happened?
               </label>
+              <p className="mt-1 text-xs text-muted-foreground">An example description is provided. Edit it to match what you observed.</p>
               <Textarea
                 className="mt-2"
                 id="fault-description"
@@ -168,6 +169,7 @@ function LeakGuard() {
                 Prepare fault report
               </Button>
               </form>
+              {!state.report && <p className="mt-3 text-sm text-muted-foreground">Add the affected address and describe the leak to prepare a draft for maintenance. Nothing is sent automatically.</p>}
               {state.report && (
                 <div className="mt-4">
                   <pre className="whitespace-pre-wrap rounded-lg bg-secondary p-4 font-sans text-xs leading-relaxed">
@@ -206,10 +208,11 @@ function LeakGuard() {
                   {photoError}
                 </p>
               )}
+              {!photo && <p className="mt-3 text-sm text-muted-foreground">No evidence photo saved yet. Add one from a safe place after stopping and reporting the leak.</p>}
               {photo && (
                 <img
                   src={photo}
-                  alt="Leak evidence saved for this session"
+                  alt="Saved leak evidence photo"
                   width={400}
                   height={300}
                   className="mt-3 aspect-[4/3] w-full rounded-lg object-cover"

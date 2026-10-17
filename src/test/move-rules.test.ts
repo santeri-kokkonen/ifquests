@@ -70,8 +70,8 @@ describe("MoveReady credit rules", () => {
   });
   it("coverage guidance supports someone with no policy", () =>
     expect(coverageResult("none", "no", "no")).toContain("buying is not required"));
-  it("coverage guidance lets existing customers keep another insurer", () =>
-    expect(coverageResult("other", "unsure", "no")).toContain("keep your existing provider"));
+  it("coverage checks require no photo, helper or sensor delivery", () =>
+    expect(canCompleteMove("coverage", {}, [], false)).toBe(true));
   it("activity cannot unlock a move reward", () =>
     expect(canClaimMove("pizza", [], [])).toBe(false));
   it("only customers accrue activity credits", () =>

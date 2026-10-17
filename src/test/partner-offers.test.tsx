@@ -25,8 +25,8 @@ describe("Partner offers live on the rewards page", () => {
     expect(screen.getAllByText(/^Pizza/).length ? true : null).toBeTruthy();
     expect(screen.getByText("Packing kit")).toBeTruthy();
     expect(screen.getByText("A month of city bikes")).toBeTruthy();
-    expect(screen.getAllByText(/1000 ActiveCredits/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/3000 ActiveCredits/)).toBeTruthy();
+    expect(screen.getAllByText(/1,000 ActiveCredits/).length).toBeGreaterThan(0);
+    expect(screen.getByText(/3,000 ActiveCredits/)).toBeTruthy();
   });
 
   it("keeps partner offers off the moving sidequest page", async () => {
