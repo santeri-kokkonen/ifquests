@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { activeAward, canClaimMove, CLEANING_COST, moveTotal } from "@/lib/move-rules";
+import { activeAward, canClaimMove, canCompleteMove, CLEANING_COST, moveTotal } from "@/lib/move-rules";
 export function useMoveState() {
   const [completed, setCompleted] = useState<string[]>([]);
   const [photos, setPhotos] = useState<Record<string, string>>({});
@@ -37,7 +37,11 @@ export function useMoveState() {
     sensorArrived,
     setSensorArrived,
     total: moveTotal(completed),
-    complete: (id: string) => setCompleted((p) => (p.includes(id) ? p : [...p, id])),
+    complete: (id: string) => {
+      if (canCompleteMove(id, photos, confirmed, sensorArrived)) {
+        setCompleted((p) => (p.includes(id) ? p : [...p, id]));
+      }
+    },
     savePhoto: (id: string, url: string) => setPhotos((p) => ({ ...p, [id]: url })),
     confirm: (id: string) => setConfirmed((p) => (p.includes(id) ? p : [...p, id])),
     join: (name: string) => setCrew((p) => (p.includes(name) ? p : [...p, name])),
