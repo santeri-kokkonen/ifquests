@@ -110,6 +110,7 @@ export const moveRewards = [
 export const ACTIVE_DAILY_CAP = 50;
 export const ACTIVE_YEARLY_CAP = 10000;
 export const CLEANING_COST = 400;
+export const TRAILER_ACTIVE_COST = 150;
 export function moveTotal(completed: string[]) {
   return tasks.filter((t) => completed.includes(t.id)).reduce((sum, t) => sum + t.credits, 0);
 }
@@ -149,4 +150,7 @@ export function coverageResult(policy: string, liability: string, address: strin
   if (liability === "unsure" || liability === "no" || address !== "yes")
     return "Check your liability cover and insured address with your current insurer before moving. You can keep your existing provider.";
   return "Your answers suggest the basics are in place. Confirm limits, exclusions and the move date with your insurer.";
+}
+export function canBuyTrailer(active: number, alreadyBought: boolean) {
+  return !alreadyBought && active >= TRAILER_ACTIVE_COST;
 }

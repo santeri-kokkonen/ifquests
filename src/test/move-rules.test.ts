@@ -7,6 +7,8 @@ import {
   activeAward,
   moveRewards,
   coverageResult,
+  canBuyTrailer,
+  TRAILER_ACTIVE_COST,
 } from "@/lib/move-rules";
 describe("MoveReady credit rules", () => {
   it("all ten quests total 1,100 MoveCredits", () =>
@@ -85,4 +87,10 @@ describe("MoveReady credit rules", () => {
   it("requires activity opt-in", () => expect(activeAward(true, false, 0, 0, 50)).toBe(0));
   it("caps activity credits daily", () => expect(activeAward(true, true, 40, 0, 50)).toBe(10));
   it("caps activity credits yearly", () => expect(activeAward(true, true, 0, 9990, 50)).toBe(10));
+  it("a trailer hour costs 150 ActiveCredits, not 100", () => {
+    expect(TRAILER_ACTIVE_COST).toBe(150);
+    expect(canBuyTrailer(100, false)).toBe(false);
+    expect(canBuyTrailer(150, false)).toBe(true);
+  });
+  it("a trailer hour can only be bought once", () => expect(canBuyTrailer(500, true)).toBe(false));
 });
