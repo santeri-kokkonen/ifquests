@@ -1,4 +1,7 @@
 # MoveReady delivery
+- [x] Audit every visible interactive flow, feedback, dialogs and navigation end-to-end.
+- [x] Preserve mock progress and evidence across refreshes with safe browser storage and regression tests.
+- [x] Re-test fixes and document remaining prototype limitations.
 - [x] Audit imports, dependencies, null handling and all event handlers across the project.
 - [x] Fix confirmed state and error-handling bugs with regression tests.
 - [x] Verify the complete test suite and main demo flows; report remaining limitations in AUDIT.md.

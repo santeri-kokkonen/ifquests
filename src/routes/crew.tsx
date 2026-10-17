@@ -20,6 +20,7 @@ function Crew() {
   const [name, setName] = useState("");
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState("");
+  const [joinMessage, setJoinMessage] = useState("");
   const [url, setUrl] = useState("");
   useEffect(() => setUrl(`${window.location.origin}/crew`), []);
   return (
@@ -75,6 +76,7 @@ function Crew() {
           onSubmit={(e) => {
             e.preventDefault();
             if (name.trim()) {
+              setJoinMessage(state.crew.includes(name.trim()) ? `${name.trim()} is already in your crew.` : `${name.trim()} joined your crew.`);
               state.join(name.trim());
               setName("");
             }
@@ -92,9 +94,10 @@ function Crew() {
               maxLength={40}
               required
             />
-            <Button type="submit">Join crew</Button>
+            <Button type="submit" disabled={!name.trim()}>Join crew</Button>
           </div>
         </form>
+        {joinMessage && <p role="status" className="mt-3 text-sm text-success">{joinMessage}</p>}
         {state.crew.length > 0 && (
           <>
             <p role="status" className="mt-5 text-sm text-success">

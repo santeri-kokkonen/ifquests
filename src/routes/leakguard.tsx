@@ -18,14 +18,13 @@ export const Route = createFileRoute("/leakguard")({
 });
 function LeakGuard() {
   const state = useMove();
-  const [alert, setAlert] = useState(false);
-  const [fault, setFault] = useState(
-    "Water detected near the bathroom sink. Please inspect urgently.",
-  );
-  const [location, setLocation] = useState("");
+  const alert = state.leakAlert;
+  const fault = state.faultDescription;
+  const location = state.faultLocation;
   const photo = state.photos["leak"] ?? "";
   const [photoError, setPhotoError] = useState<string | null>(null);
   const [downloadError, setDownloadError] = useState("");
+  const [downloadStarted, setDownloadStarted] = useState(false);
   function draft() {
     const text = `FAULT REPORT — DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Confirmed by resident" : "Not confirmed"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to the housing company.`;
     state.setReport(text);
@@ -42,6 +41,7 @@ function LeakGuard() {
       document.body.appendChild(a);
       try {
         a.click();
+        setDownloadStarted(true);
       } finally {
         a.remove();
       }
@@ -75,7 +75,7 @@ function LeakGuard() {
                 ? "Your demo sensor is online."
                 : "No live sensor is connected. Try a simulated alert to walk through your response."}
             </p>
-            <Button className="mt-5" onClick={() => setAlert(true)}>
+            <Button className="mt-5" onClick={() => state.setLeakAlert(true)}>
               <Droplets />
               Simulate a leak alert
             </Button>
@@ -119,11 +119,6 @@ function LeakGuard() {
                   <Button variant="link" asChild className="block px-0">
                     <Link to="/quests/moving">Find the valve in your Bathroom quest</Link>
                   </Button>
-                  {downloadError && (
-                    <p role="alert" className="mt-2 text-sm text-destructive">
-                      {downloadError}
-                    </p>
-                  )}
                 </div>
               )}
               <Button
@@ -147,6 +142,7 @@ function LeakGuard() {
                 Notify your housing company or emergency maintenance promptly. This prepares a
                 draft, not a sent report.
               </p>
+              <form onSubmit={(event) => { event.preventDefault(); if (location.trim() && fault.trim()) draft(); }}>
               <label htmlFor="fault-address" className="mt-4 block text-sm">
                 Address and apartment
               </label>
@@ -154,7 +150,8 @@ function LeakGuard() {
                 className="mt-2"
                 id="fault-address"
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => state.setFaultLocation(e.target.value)}
+                required
                 placeholder="Your address and apartment number"
               />
               <label htmlFor="fault-description" className="mt-4 block text-sm">
@@ -164,11 +161,13 @@ function LeakGuard() {
                 className="mt-2"
                 id="fault-description"
                 value={fault}
-                onChange={(e) => setFault(e.target.value)}
+                onChange={(e) => state.setFaultDescription(e.target.value)}
+                required
               />
-              <Button className="mt-4" disabled={!location.trim() || !fault.trim()} onClick={draft}>
+              <Button type="submit" className="mt-4" disabled={!location.trim() || !fault.trim()}>
                 Prepare fault report
               </Button>
+              </form>
               {state.report && (
                 <div className="mt-4">
                   <pre className="whitespace-pre-wrap rounded-lg bg-secondary p-4 font-sans text-xs leading-relaxed">
@@ -178,6 +177,8 @@ function LeakGuard() {
                     <Download />
                     Download report draft
                   </Button>
+                  {downloadError ? <p role="alert" className="mt-2 text-sm text-destructive">{downloadError}</p>
+                    : downloadStarted && <p role="status" className="mt-2 text-sm text-success">Report download started.</p>}
                 </div>
               )}
             </section>

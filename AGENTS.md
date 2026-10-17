@@ -13,4 +13,5 @@
 - Centralize tasks, milestone rewards and earning rules in a pure domain module so credit eligibility is independently tested.
 - Update demo state atomically with functional setters and stable actions so batched events cannot duplicate awards or overspend.
 - Manage uploaded evidence object URLs in the shared provider so photos survive navigation and are released on replacement or session teardown.
+- Persist the deliberately local demo through versioned, validated browser storage after hydration; persist uploaded evidence as image data, not transient object URLs, so refreshes preserve progress without live services.
 - Use separate TanStack content routes for activity, quests, rewards, crew and LeakGuard; keep personal policy information in its own insurance route.
