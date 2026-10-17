@@ -99,6 +99,11 @@ function StepRing() {
 
 function Index() {
   const state = useMove();
+  const goalMet = 10500 >= 10000;
+  const { optIn, customer, daily, habits, earn } = state;
+  useEffect(() => {
+    if (goalMet && optIn && customer && daily < 50 && !habits.includes("steps")) earn("steps");
+  }, [goalMet, optIn, customer, daily, habits, earn]);
   return (
     <AppShell>
       <div className="mx-auto max-w-md">
@@ -124,20 +129,14 @@ function Index() {
             </span>
           </label>
           <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-            10,500 sample steps · Daily goal reached. Earn up to 50 ActiveCredits per day.
+            10,500 sample steps · Daily goal reached. Credits are added automatically when you hit
+            your step goal — up to 50 ActiveCredits per day.
           </p>
-          <Button
-            className="mt-4 w-full h-11"
-            disabled={!state.optIn || !state.customer || state.daily >= 50}
-            onClick={() => state.earn("steps")}
-          >
-            {state.habits.includes("steps")
-              ? "Daily goal claimed"
-              : state.daily >= 50
-                ? "Daily cap reached"
-                : "Claim today’s +50 ActiveCredits"}
-            <Footprints />
-          </Button>
+          {!state.optIn && (
+            <p className="mt-3 text-xs text-muted-foreground">
+              Turn on activity rewards to start collecting credits automatically.
+            </p>
+          )}
           <Button asChild variant="link" className="mt-2 w-full">
             <Link to="/rewards">
               Prefer a different way to earn?
