@@ -152,12 +152,6 @@ function Index() {
               Turn on activity rewards to start collecting credits automatically.
             </p>
           )}
-          <Button asChild variant="link" className="mt-2 w-full">
-            <Link to="/rewards">
-              Prefer a different way to earn?
-              <ArrowRight />
-            </Link>
-          </Button>
         </section>
         <section className="mt-9 border-t pt-6">
           <h2 className="font-medium">More than a step count</h2>
