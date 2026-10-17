@@ -1,5 +1,11 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { activeAward, canClaimMove, canCompleteMove, CLEANING_COST, moveTotal } from "@/lib/move-rules";
+import {
+  activeAward,
+  canClaimMove,
+  canCompleteMove,
+  CLEANING_COST,
+  moveTotal,
+} from "@/lib/move-rules";
 export function useMoveState() {
   const [completed, setCompleted] = useState<string[]>([]);
   const [photos, setPhotos] = useState<Record<string, string>>({});

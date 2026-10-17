@@ -113,11 +113,20 @@ export const CLEANING_COST = 400;
 export function moveTotal(completed: string[]) {
   return tasks.filter((t) => completed.includes(t.id)).reduce((sum, t) => sum + t.credits, 0);
 }
-export function canCompleteMove(id: string, photos: Record<string, string>, confirmed: string[], sensorArrived: boolean) {
-  const task = tasks.find(t => t.id === id);
+export function canCompleteMove(
+  id: string,
+  photos: Record<string, string>,
+  confirmed: string[],
+  sensorArrived: boolean,
+) {
+  const task = tasks.find((t) => t.id === id);
   if (!task) return false;
-  if (id === 'coverage') return true;
-  return confirmed.includes(id) && (!task.photo || Boolean(photos[id])) && (id !== 'sensor' || sensorArrived);
+  if (id === "coverage") return true;
+  return (
+    confirmed.includes(id) &&
+    (!task.photo || Boolean(photos[id])) &&
+    (id !== "sensor" || sensorArrived)
+  );
 }
 export function canClaimMove(id: string, completed: string[], claimed: string[]) {
   const reward = moveRewards.find((r) => r.id === id);

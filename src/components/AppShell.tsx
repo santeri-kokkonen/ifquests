@@ -21,15 +21,17 @@ export function AppShell({ children }: { children: ReactNode }) {
               </span>
             </span>
           </Link>
-          {path !== "/insurance" && <Button variant="ghost" asChild className="gap-2">
-            <Link to="/rewards">
-              <Coins className="text-primary" />
-              <span className="text-sm tabular-nums">
-                {state.active} <span className="hidden sm:inline">ActiveCredits</span>
-                <span className="sm:hidden">AC</span>
-              </span>
-            </Link>
-          </Button>}
+          {path !== "/insurance" && (
+            <Button variant="ghost" asChild className="gap-2">
+              <Link to="/rewards">
+                <Coins className="text-primary" />
+                <span className="text-sm tabular-nums">
+                  {state.active} <span className="hidden sm:inline">ActiveCredits</span>
+                  <span className="sm:hidden">AC</span>
+                </span>
+              </Link>
+            </Button>
+          )}
         </div>
       </header>
       <main className="mx-auto max-w-5xl px-5 pb-28 pt-7 sm:px-8 sm:pt-10">{children}</main>
