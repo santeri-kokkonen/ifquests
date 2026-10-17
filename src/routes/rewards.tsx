@@ -35,7 +35,7 @@ function Rewards() {
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           <article className="rounded-xl border bg-card p-5">
             <Truck className="h-8 w-8 text-primary" strokeWidth={1.2} />
-            <h3 className="mt-4 text-lg font-medium">One trailer hour</h3>
+            <h3 className="mt-4 text-lg font-medium">A trailer for your troubles</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               {TRAILER_ACTIVE_COST} ActiveCredits · For the boxes that won’t fit in a car.
             </p>
@@ -59,7 +59,7 @@ function Rewards() {
           </article>
           <article className="rounded-xl border bg-card p-5">
             <Sparkles className="h-8 w-8 text-primary" strokeWidth={1.2} />
-            <h3 className="mt-4 text-lg font-medium">Old-flat final cleaning</h3>
+            <h3 className="mt-4 text-lg font-medium">Final cleaning</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               {CLEANING_COST} ActiveCredits · Illustrative demo price, partner and service scope to
               be agreed.
