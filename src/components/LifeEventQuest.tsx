@@ -60,7 +60,7 @@ export function LifeEventQuest() {
                   <li key={t}>
                     <label className="flex cursor-pointer items-center gap-4 rounded-xl border p-4">
                       <Checkbox
-                        checked={done[i]}
+                        checked={done[i] ?? false}
                         onCheckedChange={(v) =>
                           setDone((d) => d.map((x, j) => (j === i ? v === true : x)))
                         }
