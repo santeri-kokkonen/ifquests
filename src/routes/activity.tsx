@@ -119,14 +119,9 @@ function Index() {
         <section>
           <p className="eyebrow">Main quest · Today</p>
           <h1 className="mt-1 text-3xl font-light">Home</h1>
-          <div className="mt-4 rounded-xl bg-secondary py-5">
-            <StepRing />
+          <div className="mt-4 rounded-xl bg-secondary py-4">
+            <StepRing earned={state.habits.includes("steps")} />
           </div>
-          {state.habits.includes("steps") && (
-            <p role="status" className="mt-4 rounded-lg bg-success-soft p-3 text-sm text-success">
-              Daily goal crushed! +50 ActiveCredits earned.
-            </p>
-          )}
           <Link
             to="/quests/moving"
             className="mt-4 flex items-center gap-4 rounded-xl bg-primary p-4 text-primary-foreground"
