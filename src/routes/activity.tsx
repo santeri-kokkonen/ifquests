@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
-import { ArrowRight, Footprints } from "lucide-react";
+import { ArrowRight, Droplets, Footprints, ShieldCheck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
@@ -62,11 +62,11 @@ function StepRing() {
   const pct = Math.round((STEPS / TARGET) * 100);
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[300px] [&_svg]:mx-auto">
+    <div className="relative mx-auto aspect-square w-full max-w-[250px] [&_svg]:mx-auto">
       {mounted && (
         <RadialBarChart
-          width={300}
-          height={300}
+          width={250}
+          height={250}
           innerRadius="80%"
           outerRadius="100%"
           data={[{ value: Math.min(count, TARGET) }]}
@@ -148,6 +148,45 @@ function Index() {
               Daily goal crushed! +50 ActiveCredits earned.
             </p>
           )}
+        </section>
+        <section className="mt-9 border-t pt-6">
+          <h2 className="font-medium">More than a step count</h2>
+          <div className="mt-4 space-y-3">
+            {[
+              { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck },
+              { id: "battery", name: "Sensor battery check", icon: Droplets },
+            ].map((h) => (
+              <div className="flex items-center gap-3 border-b pb-3" key={h.id}>
+                <h.icon className="h-5 w-5 text-primary" />
+                <span className="flex-1 text-sm">{h.name}</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={
+                    !state.optIn ||
+                    !state.customer ||
+                    state.daily >= 50 ||
+                    state.habits.includes(h.id)
+                  }
+                  onClick={() => state.earn(h.id)}
+                >
+                  {state.habits.includes(h.id) ? "Claimed" : "+50"}
+                </Button>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Daily cap: {state.daily}/50 · Yearly cap: {state.yearly}/10,000. Annual safety checks
+            earn once per year. All activity is simulated; only a credit total would leave the
+            device in production.
+          </p>
+          <label className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
+            <Switch checked={state.customer} onCheckedChange={state.setCustomer} />
+            Active If customer (demo eligibility)
+          </label>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Credits only accrue while you are a customer. No currency conversion.
+          </p>
         </section>
       </div>
     </AppShell>
