@@ -40,12 +40,9 @@ function useCountUp(to: number, ms = 1500) {
 
 function StepRing() {
   const [mounted, setMounted] = useState(false);
-  const [value, setValue] = useState(0);
   const count = useCountUp(STEPS);
   useEffect(() => {
     setMounted(true);
-    const id = setTimeout(() => setValue(Math.min(STEPS, TARGET)), 50);
-    return () => clearTimeout(id);
   }, []);
   const pct = Math.round((STEPS / TARGET) * 100);
 
@@ -57,7 +54,7 @@ function StepRing() {
           height={300}
           innerRadius="80%"
           outerRadius="100%"
-          data={[{ value }]}
+          data={[{ value: Math.min(STEPS, TARGET) }]}
           startAngle={90}
           endAngle={-270}
         >
@@ -66,7 +63,7 @@ function StepRing() {
             dataKey="value"
             cornerRadius={20}
             fill="var(--primary)"
-            background={{ fill: "var(--secondary)" }}
+            background={{ fill: "var(--card)" }}
             animationDuration={1500}
             animationEasing="ease-out"
           />
