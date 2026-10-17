@@ -19,6 +19,7 @@ import { Checkbox } from "./ui/checkbox";
 import { Progress } from "./ui/progress";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { Input } from "./ui/input";
+import { MoveRewards } from "./MoveRewards";
 import valve from "@/assets/valve.jpg";
 const icons = { before: Package, kitchen: CookingPot, bathroom: Bath, entry: DoorOpen };
 export function QuestBoard() {
@@ -99,18 +100,7 @@ export function QuestBoard() {
           );
         })}
       </div>
-      <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-b pb-6">
-        <span className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Users className="h-4 w-4" />
-          Good friends. Safer moves.
-        </span>
-        <Button asChild variant="link" className="px-0">
-          <Link to="/rewards">
-            See your rewards
-            <ArrowRight />
-          </Link>
-        </Button>
-      </div>
+      <MoveRewards />
       <section className="mt-6 flex items-center gap-4">
         <Droplets className="h-7 w-7 shrink-0 text-primary" strokeWidth={1.2} />
         <div className="flex-1">
@@ -298,7 +288,8 @@ export function QuestBoard() {
                   )}
                   {task.id === "sensor" && !state.sensorArrived && (
                     <p className="mt-4 text-sm text-muted-foreground">
-                      Claim your sensor at 600 MoveCredits, then mark its demo delivery in Rewards.
+                      Claim your sensor at 600 MoveCredits, then mark its demo delivery under Move
+                      rewards.
                     </p>
                   )}
                   <label className="mt-5 flex items-start gap-3 text-sm">
