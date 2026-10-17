@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Compass, Sparkles, Truck } from "lucide-react";
+import { Bike, Compass, Package, Pizza, Sparkles, Truck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
@@ -78,6 +78,40 @@ function Rewards() {
                 {`${CLEANING_COST} ActiveCredits used. No real cleaning is booked.`}
               </p>
             )}
+          </article>
+        </div>
+      </section>
+      <section className="mt-8 border-t pt-6">
+        <h2 className="text-2xl font-light">Partner offers</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          A few examples of what partners could offer your ActiveCredits. Illustrative demo offers —
+          partners and scope to be agreed.
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border bg-card p-5">
+            <Pizza className="h-8 w-8 text-primary" strokeWidth={1.2} />
+            <h3 className="mt-4 text-lg font-medium">Pizza night at your new place</h3>
+            <p className="mt-1 text-xs text-muted-foreground">Pizza Oven Co. · Turku</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              250 ActiveCredits · A large pizza for the first evening, when the kitchen is still
+              full of boxes.
+            </p>
+          </article>
+          <article className="rounded-xl border bg-card p-5">
+            <Package className="h-8 w-8 text-primary" strokeWidth={1.2} />
+            <h3 className="mt-4 text-lg font-medium">Packing kit</h3>
+            <p className="mt-1 text-xs text-muted-foreground">Boxly · Online</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              120 ActiveCredits · Ten boxes, tape and bubble wrap, delivered to your door.
+            </p>
+          </article>
+          <article className="rounded-xl border bg-card p-5">
+            <Bike className="h-8 w-8 text-primary" strokeWidth={1.2} />
+            <h3 className="mt-4 text-lg font-medium">A month of city bikes</h3>
+            <p className="mt-1 text-xs text-muted-foreground">City Bikes · Turku region</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              400 ActiveCredits · 30 days of rides, a low-effort way to keep the step goal going.
+            </p>
           </article>
         </div>
       </section>
