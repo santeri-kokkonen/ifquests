@@ -10,7 +10,7 @@ export const Route = createFileRoute("/rewards")({
   head: () =>
     pageHead(
       "Your rewards",
-      "Everyday ActiveCredits you build all year, for a trailer hour or the old flat’s final clean.",
+      "Everyday ActiveCredits you build all year, for a trailer hour or a fresh start at your new place.",
     ),
   component: Rewards,
 });

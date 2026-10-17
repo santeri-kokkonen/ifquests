@@ -1,19 +1,11 @@
 export type Room = "before" | "kitchen" | "bathroom" | "entry";
 export const rooms = [
-  { id: "before", name: "Before move", subtitle: "Leave it in good shape" },
+  { id: "before", name: "Before move", subtitle: "Sorted before you move in" },
   { id: "kitchen", name: "Kitchen", subtitle: "Small checks. Big protection." },
   { id: "bathroom", name: "Bathroom", subtitle: "Know your water shut-off" },
   { id: "entry", name: "Entry", subtitle: "A safe start at home" },
 ] as const;
 export const tasks = [
-  {
-    id: "old-photos",
-    room: "before",
-    name: "Photograph the old flat",
-    credits: 100,
-    photo: true,
-    hint: "Capture every room before handing back the keys. Keep a record of its condition.",
-  },
   {
     id: "tray",
     room: "kitchen",

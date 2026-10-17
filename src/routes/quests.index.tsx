@@ -40,12 +40,12 @@ function QuestsHub() {
           <div className="flex-1">
             <p className="font-medium">Moving to a new rental</p>
             <p className="text-sm text-muted-foreground">
-              {state.completed.length}/10 tasks · crew pizza, leak sensor
+              {state.completed.length}/9 tasks · crew pizza, leak sensor
             </p>
           </div>
           <ArrowRight className="h-5 w-5 text-primary" />
         </div>
-        <Progress className="mt-4" value={(state.total / 1100) * 100} />
+        <Progress className="mt-4" value={(state.total / 1000) * 100} />
       </Link>
 
       <h2 className="mt-8 text-xl font-light">Coming soon</h2>

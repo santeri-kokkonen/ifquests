@@ -11,10 +11,9 @@ import {
   TRAILER_ACTIVE_COST,
 } from "@/lib/move-rules";
 describe("MoveReady credit rules", () => {
-  it("all ten quests total 1,100 MoveCredits", () =>
-    expect(moveTotal(tasks.map((t) => t.id))).toBe(1100));
+  it("all nine quests total 1,000 MoveCredits", () =>
+    expect(moveTotal(tasks.map((t) => t.id))).toBe(1000));
   for (const [id, value] of [
-    ["old-photos", 100],
     ["tray", 150],
     ["alarm", 100],
     ["valve", 200],
@@ -51,12 +50,12 @@ describe("MoveReady credit rules", () => {
   it("duplicate quests never award twice", () => expect(moveTotal(["valve", "valve"])).toBe(200));
   it("crew pizza unlocks at 300, not 250", () => {
     expect(canClaimMove("pizza", ["valve", "lifting"], [])).toBe(false);
-    expect(canClaimMove("pizza", ["valve", "old-photos"], [])).toBe(true);
+    expect(canClaimMove("pizza", ["valve", "tray"], [])).toBe(true);
   });
   it("sensor unlocks at 600, not 550", () => {
-    expect(canClaimMove("leak-sensor", ["valve", "tray", "alarm", "old-photos"], [])).toBe(false);
+    expect(canClaimMove("leak-sensor", ["valve", "tray", "alarm"], [])).toBe(false);
     expect(
-      canClaimMove("leak-sensor", ["valve", "tray", "alarm", "old-photos", "lifting"], []),
+      canClaimMove("leak-sensor", ["valve", "tray", "alarm", "sensor"], []),
     ).toBe(true);
   });
   it("photo checks require saved evidence", () => {

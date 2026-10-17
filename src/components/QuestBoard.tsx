@@ -31,7 +31,7 @@ export function QuestBoard() {
   const [address, setAddress] = useState("");
   const [result, setResult] = useState("");
   const task = tasks.find((t) => t.id === selected);
-  const next = state.total < 300 ? 300 : state.total < 600 ? 600 : 1100;
+  const next = state.total < 300 ? 300 : state.total < 600 ? 600 : 1000;
   const [attested, setAttested] = useState(false);
   return (
     <>
@@ -54,16 +54,16 @@ export function QuestBoard() {
       <section className="mt-8 border-y py-5">
         <div className="flex items-baseline justify-between gap-4">
           <span className="font-medium">
-            <span className="text-2xl text-primary tabular-nums">{state.total}</span> / 1,100
+            <span className="text-2xl text-primary tabular-nums">{state.total}</span> / 1,000
             MoveCredits
           </span>
-          <span className="text-sm text-muted-foreground">{state.completed.length}/10 tasks</span>
+          <span className="text-sm text-muted-foreground">{state.completed.length}/9 tasks</span>
         </div>
-        <Progress className="mt-3" value={(state.total / 1100) * 100} />
+        <Progress className="mt-3" value={(state.total / 1000) * 100} />
         <p className="mt-3 text-sm text-muted-foreground">
           {state.total < 600
             ? `${next - state.total} credits to ${next === 300 ? "crew pizza" : "your leak sensor"}`
-            : state.total === 1100
+            : state.total === 1000
               ? "Move complete. Welcome home."
               : "Your safety rewards are unlocked. Finish making your home move-ready."}
         </p>
