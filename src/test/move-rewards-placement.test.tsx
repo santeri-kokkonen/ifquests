@@ -1,27 +1,35 @@
+import { QueryClient } from "@tanstack/react-query";
+import {
+  createMemoryHistory,
+  createRouter,
+  RouterProvider,
+} from "@tanstack/react-router";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { MoveProvider } from "@/components/MoveProvider";
-import { MoveRewards } from "@/components/MoveRewards";
-import { QuestBoard } from "@/components/QuestBoard";
+import { routeTree } from "@/routeTree.gen";
+
+function renderPage(path: string) {
+  const router = createRouter({
+    routeTree,
+    history: createMemoryHistory({ initialEntries: [path] }),
+    context: { queryClient: new QueryClient() },
+  });
+  return render(<RouterProvider router={router} />);
+}
 
 describe("Move rewards live only in the moving sidequest", () => {
-  it("shows all three milestone rewards inside the moving section", () => {
-    render(
-      <MoveProvider>
-        <MoveRewards />
-      </MoveProvider>,
-    );
-    expect(screen.getByText("One trailer hour")).toBeTruthy();
+  it("shows all three milestone rewards on the moving sidequest page", async () => {
+    renderPage("/quests/moving");
+    expect(await screen.findByText("One trailer hour")).toBeTruthy();
     expect(screen.getByText("Pizza for your crew")).toBeTruthy();
     expect(screen.getByText("A leak sensor")).toBeTruthy();
   });
 
-  it("renders the move rewards as part of the moving sidequest board", () => {
-    render(
-      <MoveProvider>
-        <QuestBoard />
-      </MoveProvider>,
-    );
-    expect(screen.getByRole("heading", { name: "Move rewards" })).toBeTruthy();
+  it("keeps move rewards off the everyday rewards page", async () => {
+    renderPage("/rewards");
+    expect(await screen.findByText("Old-flat final cleaning")).toBeTruthy();
+    expect(screen.queryByText("One trailer hour")).toBeNull();
+    expect(screen.queryByText("Pizza for your crew")).toBeNull();
+    expect(screen.queryByText("A leak sensor")).toBeNull();
   });
 });
