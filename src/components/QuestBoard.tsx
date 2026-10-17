@@ -34,7 +34,7 @@ export function QuestBoard() {
   const [attested, setAttested] = useState(false);
   return (
     <>
-      <Link to="/quests" className="text-sm text-primary">← All life quests</Link>
+      <Link to="/quests" className="text-sm text-primary">← All sidequests</Link>
       <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">YOUR NEXT CHAPTER · TURKU</p>
