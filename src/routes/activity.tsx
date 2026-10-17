@@ -143,14 +143,10 @@ function Index() {
             <span className="text-sm font-medium">
               Activity rewards
               <span className="mt-1 block text-xs font-normal text-muted-foreground">
-                Opt-in. No raw activity data shared in production.
+                Credits are added automatically when you hit your step goal.
               </span>
             </span>
           </label>
-          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-            10,500 sample steps · Daily goal reached. Credits are added automatically when you hit
-            your step goal — up to 50 ActiveCredits per day.
-          </p>
           {!state.optIn && (
             <p className="mt-3 text-xs text-muted-foreground">
               Turn on activity rewards to start collecting credits automatically.
