@@ -40,7 +40,7 @@ describe("MoveReady session actions", () => {
       result.current.redeemCleaning();
       result.current.rentVan();
     });
-    expect(result.current.active).toBe(50);
+    expect(result.current.active).toBe(450);
     expect(result.current.cleaning).toBe(true);
     expect(result.current.vanReserved).toBe(false);
   });
@@ -50,7 +50,7 @@ describe("MoveReady session actions", () => {
       result.current.rentVan();
       result.current.rentVan();
     });
-    expect(result.current.active).toBe(300);
+    expect(result.current.active).toBe(4450);
     expect(result.current.vanReserved).toBe(true);
   });
   it("batched evidence and witness updates are available to completion", () => {

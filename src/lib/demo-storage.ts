@@ -5,7 +5,7 @@ export const DEMO_STORAGE_KEY = "if-quests-demo-v1";
 export const initialState = {
   completed: [] as string[], photos: {} as Record<string, string>,
   confirmed: [] as string[], claimed: [] as string[], crew: [] as string[],
-  active: 450, optIn: false, customer: true, daily: 0, yearly: 450,
+  active: 10450, optIn: false, customer: true, daily: 0, yearly: 450,
   habits: [] as string[], cleaning: false, vanReserved: false, report: "",
   leakSteps: [] as string[], sensorArrived: false,
   leakAlert: false, faultLocation: "",
@@ -15,7 +15,7 @@ const strings = z.array(z.string()).catch([]);
 const counter = (fallback: number) => z.number().finite().nonnegative().catch(fallback);
 const schema = z.object({
   completed: strings, confirmed: strings, claimed: strings, crew: strings,
-  photos: z.record(z.string()).catch({}), active: counter(450),
+  photos: z.record(z.string()).catch({}), active: counter(10450),
   optIn: z.boolean().catch(false), customer: z.boolean().catch(true),
   daily: counter(0), yearly: counter(450), habits: strings,
   cleaning: z.boolean().catch(false), vanReserved: z.boolean().catch(false),
