@@ -4,4 +4,4 @@
 - [x] Build LeakGuard response with saved valve photo, fault-report draft and evidence.
 - [x] Preserve personal insurance-only page and If visual identity.
 - [x] Verify credit rules and complete demo flows on phone and desktop.
-- [ ] Deliver two-minute pitch video and supporting script with honest prototype boundaries.
+- [x] Deliver two-minute pitch video and supporting script with honest prototype boundaries; final v2 corrects the break-even equations and LeakGuard framing.
