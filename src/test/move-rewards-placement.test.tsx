@@ -8,12 +8,13 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { routeTree } from "@/routeTree.gen";
 
-function renderPage(path: string) {
+async function renderPage(path: string) {
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [path] }),
     context: { queryClient: new QueryClient() },
   });
+  await router.load();
   return render(<RouterProvider router={router} />);
 }
 
