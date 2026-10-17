@@ -1,6 +1,6 @@
 export type Room = "before" | "kitchen" | "bathroom" | "entry";
 export const rooms = [
-  { id: "before", name: "Before move", subtitle: "Sorted before you move in" },
+  { id: "before", name: "Before you move", subtitle: "Sorted before you move in" },
   { id: "kitchen", name: "Kitchen", subtitle: "Small checks. Big protection." },
   { id: "bathroom", name: "Bathroom", subtitle: "Know your water shut-off" },
   { id: "entry", name: "Entry", subtitle: "A safe start at home" },
@@ -12,7 +12,7 @@ export const tasks = [
     name: "Check the dishwasher leak tray",
     credits: 150,
     photo: true,
-    hint: "Look for a tray beneath the dishwasher. Check for water, cracks and loose hoses. Report defects.",
+    hint: "Look for a tray beneath the dishwasher and visible water or damage. Do not move hoses; report concerns to maintenance.",
   },
   {
     id: "alarm",
@@ -20,7 +20,7 @@ export const tasks = [
     name: "Test the smoke alarm",
     credits: 100,
     photo: false,
-    hint: "Press the test button. If it does not sound, replace the battery or report the fault.",
+    hint: "Use the test button according to the alarm’s instructions. If it does not sound, contact your landlord or maintenance.",
   },
   {
     id: "valve",
@@ -36,7 +36,7 @@ export const tasks = [
     name: "Check the floor drain",
     credits: 100,
     photo: false,
-    hint: "Check that water drains freely and the cover is clear. Report a blockage or unusual smell.",
+    hint: "Look for visible blockage around the drain cover or an unusual smell. Report concerns to maintenance.",
   },
   {
     id: "sensor",
@@ -44,7 +44,7 @@ export const tasks = [
     name: "Bring your leak sensor online",
     credits: 150,
     photo: false,
-    hint: "After the sensor arrives, place it near a likely leak point and test its connection.",
+    hint: "After the sensor arrives, install and test it according to its instructions. Ask the supplier if you are unsure.",
   },
   {
     id: "condition",
@@ -60,7 +60,7 @@ export const tasks = [
     name: "Complete the safe lifting check",
     credits: 50,
     photo: false,
-    hint: "Clear the route, keep boxes manageable, lift with your legs and ask a friend for heavy items.",
+    hint: "Clear your route, keep loads manageable and get help with heavy or awkward items.",
   },
   {
     id: "grip",
@@ -68,7 +68,7 @@ export const tasks = [
     name: "Check winter grip for your commute",
     credits: 50,
     photo: false,
-    hint: "Check your shoes and route for icy conditions. Choose traction aids when needed.",
+    hint: "Check local conditions and choose footwear or traction aids suited to your route.",
   },
   {
     id: "coverage",
@@ -136,8 +136,8 @@ export function coverageResult(policy: string, liability: string, address: strin
   if (policy === "none")
     return "You may need home contents and liability cover. Compare suitable policies before moving; buying is not required to finish this quest.";
   if (liability === "unsure" || liability === "no" || address !== "yes")
-    return "Check your liability cover and insured address with your current insurer before moving. You can keep your existing provider.";
-  return "Your answers suggest the basics are in place. Confirm limits, exclusions and the move date with your insurer.";
+    return "Check your liability cover and new insured address with If before moving. No purchase is needed to complete this check.";
+  return "Your answers suggest the basics are in place. Confirm limits, exclusions and the move date with If.";
 }
 export function canRentVan(active: number, alreadyBought: boolean) {
   return !alreadyBought && active >= VAN_ACTIVE_COST;

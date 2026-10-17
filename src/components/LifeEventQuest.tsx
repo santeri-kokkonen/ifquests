@@ -13,7 +13,7 @@ import { Progress } from "@/components/ui/progress";
 
 const TASKS = [
   "Photograph under the kitchen sink",
-  "Test all smoke detectors",
+  "Test the smoke alarms",
   "Document existing floor scratches",
 ];
 
@@ -24,7 +24,7 @@ export function LifeEventQuest() {
 
   return (
     <section className="mt-10">
-      <h2 className="text-xl font-light">Life Event Quests</h2>
+      <h2 className="text-xl font-light">Sidequests</h2>
       <div className="mt-4 rounded-xl border bg-card p-5">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-primary">
@@ -32,20 +32,20 @@ export function LifeEventQuest() {
           </div>
           <div>
             <p className="font-medium">New home checkup</p>
-            <p className="text-sm text-muted-foreground">3 quick tasks · Reward: Pizza</p>
+            <p className="text-sm text-muted-foreground">3 safety checks · Example pizza reward</p>
           </div>
         </div>
         <Sheet>
           <SheetTrigger asChild>
             <button className="mt-5 inline-flex w-full items-center justify-between gap-3 rounded-lg bg-primary px-5 py-3.5 text-left font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
-              <span>Moving to a new rental? Do your checkup and earn a Pizza!</span>
+              <span>Open your move-in safety checklist</span>
               <ArrowRight className="h-4 w-4 shrink-0" />
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full bg-card sm:max-w-md">
             <SheetHeader>
               <SheetTitle className="text-2xl font-light">New apartment checkup</SheetTitle>
-              <SheetDescription>Complete every step to earn your Pizza.</SheetDescription>
+              <SheetDescription>Explore three move-in safety checks. No real reward is ordered in this demo.</SheetDescription>
             </SheetHeader>
             <div className="px-4">
               <div className="mb-2 flex justify-between text-sm">
@@ -76,7 +76,7 @@ export function LifeEventQuest() {
               {count === TASKS.length && (
                 <div className="mt-6 flex items-center gap-3 rounded-xl bg-accent p-4">
                   <Pizza className="h-5 w-5 text-primary" strokeWidth={1.5} />
-                  <p className="font-semibold">Checkup complete — your Pizza is on us!</p>
+                  <p className="font-semibold">Checklist complete. Example pizza milestone reached.</p>
                 </div>
               )}
             </div>

@@ -11,12 +11,12 @@ export function MoveRewards() {
   return (
     <section className="mt-9 border-t pt-6">
       <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline">
-        <h2 className="text-2xl font-light">Move rewards</h2>
+        <h2 className="text-2xl font-light">Moving rewards</h2>
         <span className="min-w-0 text-sm font-medium text-primary">{state.total} MoveCredits</span>
       </div>
       <p className="mt-2 text-sm text-muted-foreground">
-        Earn milestone rewards through safety quests. Each unlock is yours once; credits track
-        progress, not spending.
+        Complete safety checks to unlock each demo milestone once.
+        MoveCredits measure progress and are not spent when you claim a reward.
       </p>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         {moveRewards.map((r) => {
@@ -44,7 +44,7 @@ export function MoveRewards() {
                 ) : state.total >= r.cost ? (
                   "Claim reward"
                 ) : (
-                  `${r.cost - state.total} credits to unlock`
+                  `${r.cost - state.total} MoveCredits to unlock`
                 )}
               </Button>
               {claimed && (

@@ -117,7 +117,7 @@ function Index() {
     <AppShell>
       <div className="mx-auto max-w-md">
         <section>
-          <p className="eyebrow">Main quest · Today</p>
+          <p className="eyebrow">Main quest · Demo activity</p>
           <h1 className="mt-1 text-3xl font-light">Home</h1>
           <div className="mt-4 rounded-xl bg-secondary py-4">
             <StepRing earned={state.habits.includes("steps")} />
@@ -157,7 +157,7 @@ function Index() {
           <h2 className="font-medium">More than a step count</h2>
           <div className="mt-4 space-y-3">
             {[
-              { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck, Truck },
+              { id: "annual-alarm", name: "Smoke alarm test", icon: ShieldCheck, Truck },
               { id: "battery", name: "Sensor battery check", icon: Droplets },
             ].map((h) => (
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b pb-3" key={h.id}>
@@ -174,15 +174,14 @@ function Index() {
                   }
                   onClick={() => state.earn(h.id)}
                 >
-                  {state.habits.includes(h.id) ? "Claimed" : "+50"}
+                  {state.habits.includes(h.id) ? "Credits earned" : "Earn +50"}
                 </Button>
               </div>
             ))}
           </div>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Daily cap: {state.daily}/50 · Yearly cap: {state.yearly}/10,000. Annual safety checks
-            earn once per year. All activity is simulated; only a credit total would leave the
-            device in production.
+            Daily cap: {state.daily}/50 · Yearly cap: {state.yearly}/10,000. Safety-check rewards are limited to once per year.
+            All steps, checks and credits are simulated; no health app is connected.
           </p>
         </section>
       </div>

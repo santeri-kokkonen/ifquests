@@ -41,7 +41,7 @@ export function QuestBoard() {
       </Link>
       <div className="mt-3 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
         <div className="min-w-0">
-          <p className="eyebrow">YOUR NEXT CHAPTER · TURKU</p>
+          <p className="eyebrow">YOUR NEW HOME · TURKU DEMO</p>
           <h1 className="mt-2 text-4xl font-light">Make yourself at home.</h1>
           <p className="mt-3 text-muted-foreground">
             A little care now. A better move for everyone.
@@ -65,15 +65,16 @@ export function QuestBoard() {
         <Progress className="mt-3" value={(state.total / 1000) * 100} />
         <p className="mt-3 text-sm text-muted-foreground">
           {state.total < 600
-            ? `${next - state.total} credits to ${next === 300 ? "crew pizza" : "your leak sensor"}`
+            ? `${next - state.total} MoveCredits to ${next === 300 ? "crew pizza" : "your leak sensor"}`
             : state.total === 1000
-              ? "Move complete. Welcome home."
-              : "Your safety rewards are unlocked. Finish making your home move-ready."}
+              ? "Moving checklist complete. Welcome home."
+              : "Demo milestones unlocked. Finish the remaining checks for your new home."}
         </p>
       </section>
+      {state.completed.length === 0 && <p className="mt-4 text-sm text-muted-foreground">Start with Before you move, then explore each room. Your first check brings you closer to a safer new home.</p>}
       <div className="mt-7 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <h2 className="text-xl font-light">Your home map</h2>
-        <span className="text-xs text-muted-foreground">4 spaces · 1 fresh start</span>
+        <span className="text-xs text-muted-foreground">4 areas · 9 checks</span>
       </div>
       <div className="home-map mt-4 grid grid-cols-2 gap-3">
         {rooms.map((r) => {
@@ -96,7 +97,7 @@ export function QuestBoard() {
                 <h3 className="mt-6 text-lg font-medium">{r.name}</h3>
                 <p className="mt-1 text-xs font-normal text-muted-foreground">{r.subtitle}</p>
                 <p className={`mt-3 text-xs ${ready ? "text-success" : "text-primary"}`}>
-                  {ready ? "Move-ready" : `${done} of ${list.length} done`}
+                  {ready ? "Checks complete" : `${done} of ${list.length} done`}
                 </p>
               </div>
             </Button>
@@ -290,14 +291,14 @@ export function QuestBoard() {
                           className="mt-2 px-0"
                           onClick={() => state.savePhoto("valve", valve)}
                         >
-                          Use sample valve photo (demo)
+                          Use demo valve photo
                         </Button>
                       )}
                     </div>
                   )}
                   {task.id === "sensor" && !state.sensorArrived && (
                     <p className="mt-4 text-sm text-muted-foreground">
-                      Claim your sensor at 600 MoveCredits, then mark its demo delivery under Move
+                      Claim your sensor at 600 MoveCredits, then mark its demo delivery under Moving
                       rewards.
                     </p>
                   )}
@@ -306,7 +307,7 @@ export function QuestBoard() {
                     <span>I have completed this safety check.</span>
                   </label>
                   <div className="mt-5 border-y py-4">
-                    <p className="text-sm font-medium">Crew witness</p>
+                    <p className="text-sm font-medium">Helper confirmation (demo)</p>
                     {state.crew.length === 0 ? (
                       <Button asChild variant="link" className="mt-2 px-0">
                         <Link to="/crew" onClick={() => setRoom(null)}>
@@ -355,9 +356,9 @@ export function QuestBoard() {
                   {!state.completed.includes(task.id) && <p className="mt-3 text-xs text-muted-foreground">
                     {[
                       !attested && "Confirm the safety check above.",
-                      !state.confirmed.includes(task.id) && "A crew witness is required.",
+                      !state.confirmed.includes(task.id) && "Add a demo helper confirmation.",
                       task.photo && !state.photos[task.id] && "Add an evidence photo.",
-                      task.id === "sensor" && !state.sensorArrived && "Wait for demo sensor delivery.",
+                      task.id === "sensor" && !state.sensorArrived && "Simulate sensor delivery in Moving rewards.",
                     ].filter(Boolean).join(" ")}
                   </p>}
                 </>

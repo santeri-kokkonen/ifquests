@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 
 export const Route = createFileRoute("/")({
-  head: () => pageHead("If — My If", "Your If customer dashboard with Quests built in."),
+  head: () => pageHead("My If", "Your If start menu with daily activity and home safety sidequests."),
   component: IfHome,
 });
 
@@ -66,10 +66,10 @@ function IfHome() {
         <SheetContent className="w-full overflow-y-auto sm:max-w-md">
           <SheetHeader>
             <SheetTitle>{section}</SheetTitle>
-            <SheetDescription>{section === "Menu" ? "My If" : "No customer records or purchases are connected in this demo."}</SheetDescription>
+            <SheetDescription>{section === "Menu" ? "My If" : "This section is not connected in the demo. Explore daily steps and home safety checks in Quests instead."}</SheetDescription>
           </SheetHeader>
           {section === "Menu" ? <nav aria-label="Start menu" className="mt-6 flex flex-col gap-2">
-            {([{ to: "/activity", label: "Quests Home" }, { to: "/quests", label: "Sidequests" }, { to: "/rewards", label: "Rewards" }] as const).map((item) =>
+            {([{ to: "/activity", label: "Quests home" }, { to: "/quests", label: "Sidequests" }, { to: "/rewards", label: "Rewards" }] as const).map((item) =>
               <Button asChild variant="outline" key={item.to}><Link to={item.to} onClick={() => setSection(null)}>{item.label}<ChevronRight /></Link></Button>)}
           </nav> : <Button asChild className="mt-6"><Link to="/activity" onClick={() => setSection(null)}>Open Quests<ChevronRight /></Link></Button>}
         </SheetContent>
