@@ -17,7 +17,7 @@ Reviewed all application routes, feature components, shared UI controls, hooks, 
 
 ## Verification
 - Full automated suite: 57 tests, including new batching, StrictMode duplicate-effect, upload lifecycle, numeric-input and missing-context regressions.
-- Static lint with formatting checks disabled: zero errors; eight existing development hot-reload export warnings.
+- Static lint with formatting checks disabled: zero errors; nine development-only React hook/hot-reload warnings.
 - Preview compilation: automatic build reports checked; successful.
 - Live browser walkthrough: start menu, daily activity opt-in (+50 exactly once), navigation to Rewards and rental van purchase, sidequest hub, helper join, moving coverage questionnaire, simulated leak response, report generation/download and image evidence saving. No browser page exceptions recorded. Report download completed successfully.
 - Existing route heads checked for app-specific title, description, Open Graph fields and Twitter card.
@@ -27,6 +27,6 @@ Reviewed all application routes, feature components, shared UI controls, hooks, 
 - Steps, daily/yearly periods, balances, crew, sensors, partners and reward fulfillment remain an in-memory prototype. There is no live step feed or calendar rollover, and reloading resets the demo. This is not production persistence or verified crew authorization.
 - Developer-only provider hooks intentionally throw clear errors when misused. Actual content routes are wrapped in their provider and have the existing error/404 fallback. This is not a guarantee against every possible browser/extension mutation or future malformed data.
 - Existing page-render tests emit document-shell nesting and empty stylesheet URL warnings in the test environment. They pass, and the live browser walkthrough produced no page exceptions. The test harness warnings were not suppressed.
-- Eight hot-reload warnings concern helpers exported alongside UI components; they are not missing imports or production runtime failures. Pre-existing formatting issues elsewhere were not bulk-rewritten.
+- Eight hot-reload warnings concern helpers exported alongside UI components; one hook-dependency warning concerns the StrictMode regression test. These are not missing imports or production runtime failures. Pre-existing formatting issues elsewhere were not bulk-rewritten.
 - The earlier `removeChild` error did not reproduce in the exercised flow. External browser translation/DOM modification cannot be ruled out; no global DOM workaround was added.
 - Production deployment, real integrations and every possible browser/device combination were not exercised.

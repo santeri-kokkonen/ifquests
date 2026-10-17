@@ -10,8 +10,8 @@ describe("Evidence photo lifecycle", () => {
     vi.stubGlobal(
       "URL",
       class extends URL {
-        static createObjectURL = create;
-        static revokeObjectURL = revoke;
+        static override createObjectURL = create;
+        static override revokeObjectURL = revoke;
       },
     );
     try {
@@ -20,7 +20,7 @@ describe("Evidence photo lifecycle", () => {
       act(() => {
         result.current.savePhotoFile("valve", file);
       });
-      expect(result.current.photos.valve).toBe("blob:first");
+      expect(result.current.photos["valve"]).toBe("blob:first");
       expect(revoke).not.toHaveBeenCalled();
       act(() => {
         result.current.savePhotoFile("valve", file);
