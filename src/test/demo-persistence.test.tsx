@@ -19,7 +19,7 @@ describe("Local demo persistence", () => {
     });
     first.unmount();
     const second = renderHook(() => useMoveState());
-    expect(second.result.current.active).toBe(350);
+    expect(second.result.current.active).toBe(4500);
     expect(second.result.current.vanReserved).toBe(true);
     expect(second.result.current.crew).toEqual(["Sam"]);
     expect(second.result.current.completed).toEqual(["coverage"]);
@@ -27,7 +27,7 @@ describe("Local demo persistence", () => {
     expect(second.result.current.report).toBe("Saved report");
     expect(second.result.current.leakAlert).toBe(true);
     act(() => second.result.current.earn("steps"));
-    expect(second.result.current.active).toBe(350);
+    expect(second.result.current.active).toBe(4500);
   });
   it("restores uploaded evidence as durable image data rather than an expired blob", async () => {
     vi.stubGlobal("URL", class extends URL {
@@ -50,7 +50,7 @@ describe("Local demo persistence", () => {
     const decoded = decodeDemoState(JSON.stringify({ version: 1, state: {
       active: -1, completed: ["coverage", "coverage", "unknown"], photos: { valve: "blob:expired", leak: "javascript:bad" }, crew: null,
     } }));
-    expect(decoded.active).toBe(450);
+    expect(decoded.active).toBe(10450);
     expect(decoded.completed).toEqual(["coverage"]);
     expect(decoded.photos).toEqual({});
     expect(decoded.crew).toEqual([]);

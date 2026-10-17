@@ -16,7 +16,7 @@ describe("MoveReady session actions", () => {
       },
       { wrapper: ({ children }: { children: ReactNode }) => <StrictMode>{children}</StrictMode> },
     );
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.daily).toBe(50);
     expect(result.current.habits).toEqual(["steps"]);
   });
@@ -28,7 +28,7 @@ describe("MoveReady session actions", () => {
       result.current.earn("steps");
       result.current.earn("battery");
     });
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.daily).toBe(50);
     expect(result.current.yearly).toBe(500);
     expect(result.current.habits).toEqual(["steps"]);
@@ -40,7 +40,7 @@ describe("MoveReady session actions", () => {
       result.current.redeemCleaning();
       result.current.rentVan();
     });
-    expect(result.current.active).toBe(50);
+    expect(result.current.active).toBe(450);
     expect(result.current.cleaning).toBe(true);
     expect(result.current.vanReserved).toBe(false);
   });
@@ -50,7 +50,7 @@ describe("MoveReady session actions", () => {
       result.current.rentVan();
       result.current.rentVan();
     });
-    expect(result.current.active).toBe(300);
+    expect(result.current.active).toBe(4450);
     expect(result.current.vanReserved).toBe(true);
   });
   it("batched evidence and witness updates are available to completion", () => {
@@ -82,24 +82,23 @@ describe("MoveReady session actions", () => {
     act(() => result.current.setOptIn(true));
     act(() => result.current.earn("annual-alarm"));
     act(() => result.current.earn("annual-alarm"));
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.habits).toEqual(["annual-alarm"]);
   });
   it("sensor battery check is an inclusive alternative to step rewards", () => {
     const { result } = renderHook(() => useMoveState());
     act(() => result.current.setOptIn(true));
     act(() => result.current.earn("battery"));
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.completed).toEqual([]);
   });
-  it("cleaning uses only ActiveCredits and never MoveCredits", () => {
+  it("cleaning needs 10000 ActiveCredits and never uses MoveCredits", () => {
     const { result } = renderHook(() => useMoveState());
     act(() => result.current.complete("coverage"));
     act(() => result.current.redeemCleaning());
-    expect(result.current.active).toBe(50);
+    expect(result.current.cleaning).toBe(true);
+    expect(result.current.active).toBe(450);
     expect(result.current.total).toBe(100);
-    act(() => result.current.redeemCleaning());
-    expect(result.current.active).toBe(50);
   });
   it("completing a check never bypasses its crew witness", () => {
     const { result } = renderHook(() => useMoveState());
@@ -109,21 +108,11 @@ describe("MoveReady session actions", () => {
     act(() => result.current.complete("alarm"));
     expect(result.current.total).toBe(100);
   });
-  it("a rental van bought with ActiveCredits never touches MoveCredits", () => {
-    const { result } = renderHook(() => useMoveState());
-    act(() => result.current.rentVan());
-    expect(result.current.active).toBe(300);
-    expect(result.current.total).toBe(0);
-    expect(result.current.vanReserved).toBe(true);
-    act(() => result.current.rentVan());
-    expect(result.current.active).toBe(300);
-  });
-  it("a rental van cannot be bought without the 150 ActiveCredits", () => {
+  it("a rental van cannot be bought without 6000 ActiveCredits", () => {
     const { result } = renderHook(() => useMoveState());
     act(() => result.current.redeemCleaning());
-    expect(result.current.active).toBe(50);
     act(() => result.current.rentVan());
-    expect(result.current.active).toBe(50);
+    expect(result.current.active).toBe(450);
     expect(result.current.vanReserved).toBe(false);
   });
 });

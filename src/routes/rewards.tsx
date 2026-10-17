@@ -36,7 +36,7 @@ function Rewards() {
           <span className="min-w-0 text-sm font-medium text-primary">{`${state.active.toLocaleString("en-US")} ActiveCredits`}</span>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
-          Explore example offers. Offer prices are illustrative; demo redemptions use the amounts shown below.
+          Explore example offers. Offer prices are illustrative and no real booking is made.
         </p>
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           <article className="animate-rise rounded-xl border bg-card p-5">
@@ -45,8 +45,7 @@ function Rewards() {
             <p className="mt-2 text-sm text-muted-foreground">
               6,000 ActiveCredits · A rental van for the boxes and furniture a car can’t carry.
             </p>
-            <p className="mt-2 text-xs text-muted-foreground">Demo redemption: {VAN_ACTIVE_COST} ActiveCredits. No real booking.</p>
-            <Button
+                        <Button
               className="mt-5"
               disabled={!canRentVan(state.active, state.vanReserved)}
               onClick={() => {
@@ -77,8 +76,7 @@ function Rewards() {
             <p className="mt-2 text-sm text-muted-foreground">
               10,000 ActiveCredits · Cleaning support for a fresh start in your new home.
             </p>
-            <p className="mt-2 text-xs text-muted-foreground">Demo redemption: {CLEANING_COST} ActiveCredits. No real booking.</p>
-            <Button
+                        <Button
               className="mt-5"
               disabled={state.cleaning || state.active < CLEANING_COST}
               onClick={() => {
