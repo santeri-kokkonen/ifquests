@@ -22,10 +22,9 @@ function QuestsHub() {
   return (
     <AppShell>
       <p className="eyebrow">SIDEQUESTS</p>
-      <h1 className="mt-2 text-4xl font-light">Your main quest? Daily steps.</h1>
+      <h1 className="mt-2 text-4xl font-light">Your sidequests</h1>
       <p className="mt-3 text-muted-foreground">
-        Build an active everyday routine with your daily step goal. Explore practical safety
-        checks for life’s big changes, each with its own sidequest and rewards.
+        Explore practical safety checks for life’s big changes, each with its own sidequest and rewards.
       </p>
 
       <h2 className="mt-8 text-xl font-light">Active</h2>
