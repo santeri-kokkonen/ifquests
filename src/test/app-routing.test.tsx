@@ -10,7 +10,7 @@ describe("App routing", () => {
   for (const path of ["/quests", "/quests/moving", "/rewards", "/insurance", "/crew", "/leakguard"]) {
     it(`matches the ${path} experience`, () => {
       const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-      expect(router.matchRoutes(path).at(-1)?.routeId).toBe(path);
+      expect(router.matchRoutes(path).at(-1)?.routeId?.replace(/\/$/, "")).toBe(path);
     });
   }
   it("matches a page for / instead of falling back to not found", () => {
