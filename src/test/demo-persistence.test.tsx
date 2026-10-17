@@ -37,11 +37,11 @@ describe("Local demo persistence", () => {
     try {
       const first = renderHook(() => useMoveState());
       act(() => first.result.current.savePhotoFile("valve", new File(["photo"], "photo.png", { type: "image/png" })));
-      await waitFor(() => expect(first.result.current.photos.valve).toMatch(/^data:image\/png/));
-      const saved = first.result.current.photos.valve;
+      await waitFor(() => expect(first.result.current.photos["valve"]).toMatch(/^data:image\/png/));
+      const saved = first.result.current.photos["valve"];
       first.unmount();
       const second = renderHook(() => useMoveState());
-      expect(second.result.current.photos.valve).toBe(saved);
+      expect(second.result.current.photos["valve"]).toBe(saved);
     } finally { vi.unstubAllGlobals(); }
   });
   it("falls back safely for corrupted, unknown-version and malformed saved data", () => {
