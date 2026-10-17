@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CrewRouteImport } from './routes/crew'
 import { Route as InsuranceRouteImport } from './routes/insurance'
+import { Route as LeakguardRouteImport } from './routes/leakguard'
 import { Route as QuestsRouteImport } from './routes/quests'
 import { Route as RewardsRouteImport } from './routes/rewards'
 
@@ -30,6 +31,11 @@ const InsuranceRoute = InsuranceRouteImport.update({
   path: '/insurance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeakguardRoute = LeakguardRouteImport.update({
+  id: '/leakguard',
+  path: '/leakguard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuestsRoute = QuestsRouteImport.update({
   id: '/quests',
   path: '/quests',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/crew': typeof CrewRoute
   '/insurance': typeof InsuranceRoute
+  '/leakguard': typeof LeakguardRoute
   '/quests': typeof QuestsRoute
   '/rewards': typeof RewardsRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/crew': typeof CrewRoute
   '/insurance': typeof InsuranceRoute
+  '/leakguard': typeof LeakguardRoute
   '/quests': typeof QuestsRoute
   '/rewards': typeof RewardsRoute
 }
@@ -60,21 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/crew': typeof CrewRoute
   '/insurance': typeof InsuranceRoute
+  '/leakguard': typeof LeakguardRoute
   '/quests': typeof QuestsRoute
   '/rewards': typeof RewardsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/crew' | '/insurance' | '/quests' | '/rewards'
+  fullPaths:
+    '/' | '/crew' | '/insurance' | '/leakguard' | '/quests' | '/rewards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/crew' | '/insurance' | '/quests' | '/rewards'
-  id: '__root__' | '/' | '/crew' | '/insurance' | '/quests' | '/rewards'
+  to: '/' | '/crew' | '/insurance' | '/leakguard' | '/quests' | '/rewards'
+  id:
+    | '__root__'
+    | '/'
+    | '/crew'
+    | '/insurance'
+    | '/leakguard'
+    | '/quests'
+    | '/rewards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CrewRoute: typeof CrewRoute
   InsuranceRoute: typeof InsuranceRoute
+  LeakguardRoute: typeof LeakguardRoute
   QuestsRoute: typeof QuestsRoute
   RewardsRoute: typeof RewardsRoute
 }
@@ -102,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsuranceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/leakguard': {
+      id: '/leakguard'
+      path: '/leakguard'
+      fullPath: '/leakguard'
+      preLoaderRoute: typeof LeakguardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quests': {
       id: '/quests'
       path: '/quests'
@@ -123,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CrewRoute: CrewRoute,
   InsuranceRoute: InsuranceRoute,
+  LeakguardRoute: LeakguardRoute,
   QuestsRoute: QuestsRoute,
   RewardsRoute: RewardsRoute,
 }
