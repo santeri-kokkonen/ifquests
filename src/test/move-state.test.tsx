@@ -100,11 +100,8 @@ describe("MoveReady session actions", () => {
     expect(result.current.active).toBe(450);
     expect(result.current.total).toBe(100);
   });
-  it("completing a check never bypasses its crew witness", () => {
+  it("completing a check works solo, with crew witness as a bonus", () => {
     const { result } = renderHook(() => useMoveState());
-    act(() => result.current.complete("alarm"));
-    expect(result.current.total).toBe(0);
-    act(() => result.current.confirm("alarm"));
     act(() => result.current.complete("alarm"));
     expect(result.current.total).toBe(100);
   });

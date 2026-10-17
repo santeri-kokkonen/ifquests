@@ -325,14 +325,15 @@ export function QuestBoard() {
                     <span>I have completed this safety check.</span>
                   </label>
                   <div className="mt-5 border-y py-4">
-                    <p className="text-sm font-medium">Helper confirmation (demo)</p>
+                    <p className="text-sm font-medium">Helper confirmation (optional)</p>
                     {state.crew.length === 0 ? (
-                      <Button asChild variant="link" className="mt-2 px-0">
-                        <Link to="/crew" onClick={() => setRoom(null)}>
-                          Invite a helper before confirming
-                          <ArrowRight />
-                        </Link>
-                      </Button>
+                      <p className="mt-2 text-xs text-muted-foreground">
+                        Moving solo? Your own confirmation above is enough. You can also{" "}
+                        <Link to="/crew" onClick={() => setRoom(null)} className="text-primary underline">
+                          invite a helper
+                        </Link>{" "}
+                        to witness checks together.
+                      </p>
                     ) : (
                       <label className="mt-3 flex items-start gap-3 text-sm">
                         <Checkbox
@@ -356,7 +357,6 @@ export function QuestBoard() {
                     disabled={
                       state.completed.includes(task.id) ||
                       !attested ||
-                      !state.confirmed.includes(task.id) ||
                       (task.photo && !state.photos[task.id]) ||
                       (task.id === "sensor" && !state.sensorArrived)
                     }
@@ -377,7 +377,6 @@ export function QuestBoard() {
                   {!state.completed.includes(task.id) && <p className="mt-3 text-xs text-muted-foreground">
                     {[
                       !attested && "Confirm the safety check above.",
-                      !state.confirmed.includes(task.id) && "Add a demo helper confirmation.",
                       task.photo && !state.photos[task.id] && "Add an evidence photo.",
                       task.id === "sensor" && !state.sensorArrived && "Simulate sensor delivery in Moving rewards.",
                     ].filter(Boolean).join(" ")}

@@ -60,8 +60,8 @@ describe("MoveReady credit rules", () => {
     expect(canCompleteMove("valve", {}, ["valve"], false)).toBe(false);
     expect(canCompleteMove("valve", { valve: "sample" }, ["valve"], false)).toBe(true);
   });
-  it("crew must witness moving safety checks", () => {
-    expect(canCompleteMove("alarm", {}, [], false)).toBe(false);
+  it("solo movers can self-verify without a crew witness", () => {
+    expect(canCompleteMove("alarm", {}, [], false)).toBe(true);
     expect(canCompleteMove("alarm", {}, ["alarm"], false)).toBe(true);
   });
   it("sensor setup waits for delivery", () => {

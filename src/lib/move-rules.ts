@@ -103,14 +103,13 @@ export function moveTotal(completed: string[]) {
 export function canCompleteMove(
   id: string,
   photos: Record<string, string>,
-  confirmed: string[],
+  _confirmed: string[],
   sensorArrived: boolean,
 ) {
   const task = tasks.find((t) => t.id === id);
   if (!task) return false;
   if (id === "coverage") return true;
   return (
-    confirmed.includes(id) &&
     (!task.photo || Boolean(photos[id])) &&
     (id !== "sensor" || sensorArrived)
   );
