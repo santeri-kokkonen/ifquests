@@ -37,7 +37,7 @@ function Rewards() {
             <Truck className="h-8 w-8 text-primary" strokeWidth={1.2} />
             <h3 className="mt-4 text-lg font-medium">A trailer for your troubles</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              {TRAILER_ACTIVE_COST} ActiveCredits · For the boxes that won’t fit in a car.
+              6000 ActiveCredits · For the boxes that won’t fit in a car.
             </p>
             <Button
               className="mt-5"
@@ -61,8 +61,7 @@ function Rewards() {
             <Sparkles className="h-8 w-8 text-primary" strokeWidth={1.2} />
             <h3 className="mt-4 text-lg font-medium">Final cleaning</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              {CLEANING_COST} ActiveCredits · Illustrative demo price, partner and service scope to
-              be agreed.
+              10000 ActiveCredits · Illustrative demo price, partner and service scope to be agreed.
             </p>
             <Button
               className="mt-5"
