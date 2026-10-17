@@ -4,13 +4,13 @@ import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
-import { CLEANING_COST, TRAILER_ACTIVE_COST, canBuyTrailer } from "@/lib/move-rules";
+import { CLEANING_COST, VAN_ACTIVE_COST, canRentVan } from "@/lib/move-rules";
 import { pageHead } from "@/lib/page-head";
 export const Route = createFileRoute("/rewards")({
   head: () =>
     pageHead(
       "Your rewards",
-      "Everyday ActiveCredits you build all year, for a trailer hour or a fresh start at your new place.",
+      "Everyday ActiveCredits you build all year, for a rental van or a fresh start at your new place.",
     ),
   component: Rewards,
 });
@@ -35,26 +35,26 @@ function Rewards() {
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           <article className="rounded-xl border bg-card p-5">
             <Truck className="h-8 w-8 text-primary" strokeWidth={1.2} />
-            <h3 className="mt-4 text-lg font-medium">A trailer for your troubles</h3>
+            <h3 className="mt-4 text-lg font-medium">A rental van for your troubles</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              6000 ActiveCredits · For the boxes that won’t fit in a car.
+              6000 ActiveCredits · A rental van for the boxes and furniture a car can’t carry.
             </p>
             <Button
               className="mt-5"
-              disabled={!canBuyTrailer(state.active, state.trailerActive)}
-              onClick={state.buyTrailer}
+              disabled={!canRentVan(state.active, state.vanReserved)}
+              onClick={state.rentVan}
             >
-              <span key={String(state.trailerActive)}>
-                {state.trailerActive ? "Trailer hour reserved" : "Buy with ActiveCredits"}
+              <span key={String(state.vanReserved)}>
+                {state.vanReserved ? "Rental van reserved" : "Buy with ActiveCredits"}
               </span>
             </Button>
-            {state.trailerActive ? (
-              <p key="trailer-done" role="status" className="mt-3 text-sm text-success">
-                {`${TRAILER_ACTIVE_COST} ActiveCredits used. Demo voucher: AC-TRAILER · No real booking.`}
+            {state.vanReserved ? (
+              <p key="van-done" role="status" className="mt-3 text-sm text-success">
+                {`${VAN_ACTIVE_COST} ActiveCredits used. Demo voucher: AC-VAN · No real booking.`}
               </p>
-            ) : state.active < TRAILER_ACTIVE_COST ? (
-              <p key="trailer-togo" className="mt-3 text-xs text-muted-foreground">
-                {`${TRAILER_ACTIVE_COST - state.active} ActiveCredits to go.`}
+            ) : state.active < VAN_ACTIVE_COST ? (
+              <p key="van-togo" className="mt-3 text-xs text-muted-foreground">
+                {`${VAN_ACTIVE_COST - state.active} ActiveCredits to go.`}
               </p>
             ) : null}
           </article>
