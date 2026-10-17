@@ -33,7 +33,7 @@ function LeakGuard() {
     const url = URL.createObjectURL(new Blob([state.report], { type: "text/plain" }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = "MoveReady-fault-report.txt";
+    a.download = "IFQuests-fault-report.txt";
     a.click();
     URL.revokeObjectURL(url);
   }
