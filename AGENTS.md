@@ -11,4 +11,6 @@
 
 - Keep demo state in a shared browser-safe React provider across content routes; the hackathon prototype deliberately mocks partners, activity, policies and crew verification without live services.
 - Centralize tasks, milestone rewards and earning rules in a pure domain module so credit eligibility is independently tested.
+- Update demo state atomically with functional setters and stable actions so batched events cannot duplicate awards or overspend.
+- Manage uploaded evidence object URLs in the shared provider so photos survive navigation and are released on replacement or session teardown.
 - Use separate TanStack content routes for activity, quests, rewards, crew and LeakGuard; keep personal policy information in its own insurance route.

@@ -30,6 +30,7 @@ export function QuestBoard() {
   const [liability, setLiability] = useState("");
   const [address, setAddress] = useState("");
   const [result, setResult] = useState("");
+  const [photoError, setPhotoError] = useState<string | null>(null);
   const task = tasks.find((t) => t.id === selected);
   const next = state.total < 300 ? 300 : state.total < 600 ? 600 : 1000;
   const [attested, setAttested] = useState(false);
@@ -151,6 +152,7 @@ export function QuestBoard() {
                     setSelected(t.id);
                     setAttested(false);
                     setResult("");
+                    setPhotoError(null);
                   }}
                 >
                   <span
@@ -271,9 +273,10 @@ export function QuestBoard() {
                         accept="image/*"
                         onChange={(e) => {
                           const file = e.target.files?.[0];
-                          if (file) state.savePhoto(task.id, URL.createObjectURL(file));
+                          if (file) setPhotoError(state.savePhotoFile(task.id, file));
                         }}
                       />
+                      {photoError && <p role="alert" className="mt-2 text-sm text-destructive">{photoError}</p>}
                       {task.id === "valve" && (
                         <Button
                           variant="link"
