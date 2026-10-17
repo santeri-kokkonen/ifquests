@@ -27,7 +27,6 @@ describe("MoveReady credit rules", () => {
   ] as const)
     it(`${id} earns ${value}`, () => expect(moveTotal([id])).toBe(value));
   for (const [id, cost] of [
-    ["trailer", 100],
     ["pizza", 300],
     ["leak-sensor", 600],
   ] as const)
@@ -50,11 +49,7 @@ describe("MoveReady credit rules", () => {
       ).toBe(false);
     });
   it("duplicate quests never award twice", () => expect(moveTotal(["valve", "valve"])).toBe(200));
-  it("trailer unlocks at 100, not 50", () => {
-    expect(canClaimMove("trailer", ["lifting"], [])).toBe(false);
-    expect(canClaimMove("trailer", ["old-photos"], [])).toBe(true);
-  });
-  it("pizza unlocks at 300, not 250", () => {
+  it("crew pizza unlocks at 300, not 250", () => {
     expect(canClaimMove("pizza", ["valve", "lifting"], [])).toBe(false);
     expect(canClaimMove("pizza", ["valve", "old-photos"], [])).toBe(true);
   });

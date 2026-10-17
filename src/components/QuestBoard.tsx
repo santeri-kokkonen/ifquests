@@ -31,7 +31,7 @@ export function QuestBoard() {
   const [address, setAddress] = useState("");
   const [result, setResult] = useState("");
   const task = tasks.find((t) => t.id === selected);
-  const next = state.total < 100 ? 100 : state.total < 300 ? 300 : state.total < 600 ? 600 : 1100;
+  const next = state.total < 300 ? 300 : state.total < 600 ? 600 : 1100;
   const [attested, setAttested] = useState(false);
   return (
     <>
@@ -62,7 +62,7 @@ export function QuestBoard() {
         <Progress className="mt-3" value={(state.total / 1100) * 100} />
         <p className="mt-3 text-sm text-muted-foreground">
           {state.total < 600
-            ? `${next - state.total} credits to ${next === 100 ? "your trailer hour" : next === 300 ? "crew pizza" : "your leak sensor"}`
+            ? `${next - state.total} credits to ${next === 300 ? "crew pizza" : "your leak sensor"}`
             : state.total === 1100
               ? "Move complete. Welcome home."
               : "Your safety rewards are unlocked. Finish making your home move-ready."}

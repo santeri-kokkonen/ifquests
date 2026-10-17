@@ -18,7 +18,7 @@ export function MoveRewards() {
         Earn milestone rewards through safety quests. Each unlock is yours once; credits track
         progress, not spending.
       </p>
-      <div className="mt-5 grid gap-4 md:grid-cols-3">
+      <div className="mt-5 grid gap-4 md:grid-cols-2">
         {moveRewards.map((r) => {
           const Icon = icons[r.id];
           const claimed = state.claimed.includes(r.id);
