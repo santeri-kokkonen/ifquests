@@ -3,6 +3,7 @@ import { Activity, Compass, Shield, Gift, Coins } from "lucide-react";
 import { useMove } from "./MoveProvider";
 import { Button } from "./ui/button";
 import type { ReactNode } from "react";
+import ifLogoAsset from "@/assets/if-logo.png.asset.json";
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const state = useMove();
@@ -11,12 +12,14 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="border-b bg-card">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-xl font-semibold italic text-primary-foreground">
-              if…
-            </span>
-            <span className="text-xl font-medium">
-              Quests
-            </span>
+            <img
+              src={ifLogoAsset.url}
+              alt="If"
+              width={44}
+              height={44}
+              className="h-11 w-11"
+            />
+            <span className="text-xl font-medium">Quests</span>
           </Link>
           {path !== "/insurance" && (
             <Button variant="ghost" asChild className="gap-2">
