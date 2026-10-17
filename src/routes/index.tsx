@@ -50,7 +50,7 @@ function StepRing() {
   const pct = Math.round((STEPS / TARGET) * 100);
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[300px]">
+    <div className="relative mx-auto aspect-square w-full max-w-[300px] [&_svg]:mx-auto">
       {mounted && (
         <RadialBarChart
           width={300}
@@ -60,7 +60,6 @@ function StepRing() {
           data={[{ value }]}
           startAngle={90}
           endAngle={-270}
-          className="!h-full !w-full"
         >
           <PolarAngleAxis type="number" domain={[0, TARGET]} tick={false} />
           <RadialBar
