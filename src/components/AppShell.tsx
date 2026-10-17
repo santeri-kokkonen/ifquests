@@ -19,8 +19,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               height={44}
               className="h-11 w-11"
             />
-              Quests
-            </span>
+            <span className="text-xl font-medium">Quests</span>
           </Link>
           {path !== "/insurance" && (
             <Button variant="ghost" asChild className="gap-2">
