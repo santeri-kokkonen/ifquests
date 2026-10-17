@@ -1,17 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
-import { Home, Compass, Shield, Coins, PartyPopper, ArrowRight, Footprints } from "lucide-react";
-import { LifeEventQuest } from "@/components/LifeEventQuest";
-import { InsuranceOverview } from "@/components/InsuranceOverview";
+import { ArrowRight, Footprints } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { AppShell } from "@/components/AppShell";
+import { useMove } from "@/components/MoveProvider";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import moving from "@/assets/moving.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "If Rewards — Your daily steps" },
-      { name: "description", content: "See today's steps, your IfCredits balance and daily goal progress." },
-      { property: "og:title", content: "If Rewards — Your daily steps" },
-      { property: "og:description", content: "See today's steps, your IfCredits balance and daily goal progress." },
+      { title: "MoveReady by If — A better move" },
+      {
+        name: "description",
+        content:
+          "A moving companion for young renters: practical safety quests, a helping crew and separate everyday rewards.",
+      },
+      { property: "og:title", content: "MoveReady by If — A better move" },
+      {
+        property: "og:description",
+        content:
+          "A moving companion for young renters: practical safety quests, a helping crew and separate everyday rewards.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -22,11 +34,13 @@ export const Route = createFileRoute("/")({
 const TARGET = 10000;
 const STEPS = 10500;
 
-type Tab = "home" | "quests" | "insurance";
-
 function useCountUp(to: number, ms = 1500) {
   const [v, setV] = useState(0);
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setV(to);
+      return;
+    }
     let raf = 0;
     const start = performance.now();
     const tick = (t: number) => {
@@ -72,9 +86,7 @@ function StepRing() {
       )}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
         <Footprints className="mb-2 h-6 w-6 text-primary" strokeWidth={1.5} />
-        <span className="text-5xl font-light tracking-tight tabular-nums">
-          {count.toLocaleString("en-US")}
-        </span>
+        <span className="text-5xl font-light  tabular-nums">{count.toLocaleString("en-US")}</span>
         <span className="mt-1 text-sm text-muted-foreground">
           of {TARGET.toLocaleString("en-US")} steps
         </span>
@@ -87,82 +99,107 @@ function StepRing() {
 }
 
 function Index() {
-  const [tab, setTab] = useState<Tab>("home");
-
+  const state = useMove();
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto flex min-h-screen max-w-md flex-col">
-        <header className="flex items-center justify-between bg-card px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <span className="font-serif text-lg italic font-semibold">if…</span>
-            </div>
-            <span className="text-lg font-medium">Rewards</span>
-          </div>
-          <div className="flex items-center gap-2 rounded-xl bg-secondary px-3 py-2">
-            <Coins className="h-4 w-4 text-primary" strokeWidth={1.5} />
-            <span className="text-sm font-semibold">IfCredits: 450</span>
-          </div>
-        </header>
-
-        <main className="flex-1 px-6 pb-28 pt-8">
-          {tab === "home" ? (
-            <>
-              <p className="text-sm text-muted-foreground">Saturday, 17 October</p>
-              <h1 className="mt-1 text-3xl font-light leading-tight">Today's steps</h1>
-
-              <section className="mt-8 rounded-xl bg-secondary p-6">
-                <StepRing />
-              </section>
-
-              <div className="mt-6 flex items-start gap-3 rounded-xl bg-accent p-4">
-                <PartyPopper className="mt-0.5 h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} />
-                <p className="leading-relaxed">
-                  <span className="font-semibold">Daily Goal Crushed!</span> +50 IfCredits earned.
-                </p>
-              </div>
-
-              <button
-                onClick={() => setTab("quests")}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                Explore quests <ArrowRight className="h-4 w-4" />
-              </button>
-            </>
-          ) : tab === "quests" ? (
+    <AppShell>
+      <div className="grid gap-8 md:grid-cols-[1fr_340px]">
+        <section>
+          <p className="eyebrow">A LITTLE HELP FOR YOUR NEXT CHAPTER</p>
+          <h1 className="mt-2 text-4xl font-light leading-tight">
+            MoveReady.
+            <br />
+            Life happens. We help.
+          </h1>
+          <img
+            src={moving}
+            alt="Friends helping move boxes into a new apartment"
+            width={1280}
+            height={768}
+            className="mt-6 aspect-[5/3] w-full rounded-xl object-cover"
+          />
+          <div className="mt-6 flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-light">Quests</h1>
-              <p className="mt-3 leading-relaxed text-muted-foreground">
-                Complete quests to earn IfCredits.
+              <h2 className="text-xl font-light">Your new home starts here.</h2>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                Protect your deposit. Bring your friends.
+                <br />
+                Make the move a little less moving.
               </p>
-              <LifeEventQuest />
             </div>
-          ) : (
-            <InsuranceOverview />
-          )}
-        </main>
-
-        <nav className="fixed inset-x-0 bottom-0 border-t bg-card">
-          <div className="mx-auto grid max-w-md grid-cols-3 py-2">
-            {([
-              ["home", "Home", Home],
-              ["quests", "Quests", Compass],
-              ["insurance", "Insurance", Shield],
-            ] as const).map(([id, label, Icon]) => (
-              <button
-                key={id}
-                onClick={() => setTab(id)}
-                className={`flex flex-col items-center gap-1 py-2 text-xs ${
-                  tab === id ? "text-primary font-semibold" : "text-muted-foreground"
-                }`}
-              >
-                <Icon className="h-6 w-6" strokeWidth={1.25} />
-                {label}
-              </button>
+          </div>
+          <Button asChild className="mt-5 h-11">
+            <Link to="/quests">
+              Explore move quests
+              <ArrowRight />
+            </Link>
+          </Button>
+          <div className="mt-7 grid grid-cols-3 gap-3 border-y py-5">
+            {[
+              ["10", "useful checks"],
+              ["4", "room quests"],
+              ["3", "move rewards"],
+            ].map(([n, label]) => (
+              <div key={label}>
+                <p className="text-2xl font-light text-primary">{n}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{label}</p>
+              </div>
             ))}
           </div>
-        </nav>
+          <p className="mt-5 text-xs text-muted-foreground">
+            Hackathon prototype · Sample policy, activity and partner services. Progress lasts for
+            this session.
+          </p>
+        </section>
+        <section>
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-xl font-light">Everyday wellbeing</h2>
+            <span className="text-xs text-primary">ActiveCredits</span>
+          </div>
+          <div className="mt-4 rounded-xl bg-secondary py-5">
+            <StepRing />
+          </div>
+          <div className="mt-4 flex items-center justify-between border-b pb-4">
+            <span className="text-sm">Your balance</span>
+            <span className="font-medium text-primary">{state.active} ActiveCredits</span>
+          </div>
+          <label className="mt-5 flex items-start gap-3">
+            <Switch checked={state.optIn} onCheckedChange={state.setOptIn} />
+            <span className="text-sm font-medium">
+              Activity rewards
+              <span className="mt-1 block text-xs font-normal text-muted-foreground">
+                Opt-in. No raw activity data shared in production.
+              </span>
+            </span>
+          </label>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            10,500 sample steps · Daily goal reached. Earn up to 50 ActiveCredits per day. Moving
+            rewards never require exercise.
+          </p>
+          <Button
+            className="mt-4 w-full h-11"
+            disabled={!state.optIn || !state.customer || state.daily >= 50}
+            onClick={() => state.earn("steps")}
+          >
+            {state.habits.includes("steps")
+              ? "Daily goal claimed"
+              : state.daily >= 50
+                ? "Daily cap reached"
+                : "Claim today’s +50 ActiveCredits"}
+            <Footprints />
+          </Button>
+          <Button asChild variant="link" className="mt-2 w-full">
+            <Link to="/rewards">
+              Prefer a different way to earn?
+              <ArrowRight />
+            </Link>
+          </Button>
+          {state.habits.includes("steps") && (
+            <p role="status" className="mt-2 rounded-lg bg-success-soft p-3 text-sm text-success">
+              Daily goal crushed! +50 ActiveCredits earned.
+            </p>
+          )}
+        </section>
       </div>
-    </div>
+    </AppShell>
   );
 }
