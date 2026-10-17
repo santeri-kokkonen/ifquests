@@ -27,8 +27,7 @@ function Rewards() {
       <p className="eyebrow">ALL YEAR ROUND</p>
       <h1 className="mt-2 text-4xl font-light">A balance that grows with you.</h1>
       <p className="mt-3 text-muted-foreground">
-        Earn ActiveCredits through daily steps and safety checks on Home.
-        Moving rewards use separate MoveCredits.
+        Earn ActiveCredits by doing your daily steps and claim rewards!
       </p>
       <section className="mt-8 border-t pt-6">
         <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline">
