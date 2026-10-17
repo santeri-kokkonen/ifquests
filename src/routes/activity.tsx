@@ -122,7 +122,7 @@ function Index() {
       <div className="mx-auto max-w-md">
         <section>
           <p className="eyebrow">Main quest · Demo activity</p>
-          <h1 className="mt-1 text-3xl font-light">Home</h1>
+          <h1 className="mt-1 text-3xl font-light">Main Quest</h1>
           <div className="animate-rise mt-4 rounded-xl bg-secondary py-4">
             <StepRing earned={state.habits.includes("steps")} />
           </div>
