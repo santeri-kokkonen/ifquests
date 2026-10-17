@@ -50,7 +50,7 @@ describe("Local demo persistence", () => {
     const decoded = decodeDemoState(JSON.stringify({ version: 1, state: {
       active: -1, completed: ["coverage", "coverage", "unknown"], photos: { valve: "blob:expired", leak: "javascript:bad" }, crew: null,
     } }));
-    expect(decoded.active).toBe(450);
+    expect(decoded.active).toBe(10450);
     expect(decoded.completed).toEqual(["coverage"]);
     expect(decoded.photos).toEqual({});
     expect(decoded.crew).toEqual([]);

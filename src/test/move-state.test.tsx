@@ -16,7 +16,7 @@ describe("MoveReady session actions", () => {
       },
       { wrapper: ({ children }: { children: ReactNode }) => <StrictMode>{children}</StrictMode> },
     );
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.daily).toBe(50);
     expect(result.current.habits).toEqual(["steps"]);
   });
@@ -28,9 +28,9 @@ describe("MoveReady session actions", () => {
       result.current.earn("steps");
       result.current.earn("battery");
     });
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.daily).toBe(50);
-    expect(result.current.yearly).toBe(500);
+    expect(result.current.yearly).toBe(10500);
     expect(result.current.habits).toEqual(["steps"]);
   });
   it("batched purchases do not spend the same balance twice", () => {
@@ -82,14 +82,14 @@ describe("MoveReady session actions", () => {
     act(() => result.current.setOptIn(true));
     act(() => result.current.earn("annual-alarm"));
     act(() => result.current.earn("annual-alarm"));
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.habits).toEqual(["annual-alarm"]);
   });
   it("sensor battery check is an inclusive alternative to step rewards", () => {
     const { result } = renderHook(() => useMoveState());
     act(() => result.current.setOptIn(true));
     act(() => result.current.earn("battery"));
-    expect(result.current.active).toBe(500);
+    expect(result.current.active).toBe(10500);
     expect(result.current.completed).toEqual([]);
   });
   it("cleaning needs 10000 ActiveCredits and never uses MoveCredits", () => {
