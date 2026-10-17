@@ -1,86 +1,71 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
-import {
-  activeAward,
-  canRentVan,
-  canClaimMove,
-  canCompleteMove,
-  CLEANING_COST,
-  moveTotal,
-  VAN_ACTIVE_COST,
-} from "@/lib/move-rules";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode, type SetStateAction } from "react";
+import { activeAward, canRentVan, canClaimMove, canCompleteMove, CLEANING_COST, moveTotal, VAN_ACTIVE_COST } from "@/lib/move-rules";
+
+const initialState = {
+  completed: [] as string[], photos: {} as Record<string, string>,
+  confirmed: [] as string[], claimed: [] as string[], crew: [] as string[],
+  active: 450, optIn: false, customer: true, daily: 0, yearly: 450,
+  habits: [] as string[], cleaning: false, vanReserved: false, report: "",
+  leakSteps: [] as string[], sensorArrived: false,
+};
+
 export function useMoveState() {
-  const [completed, setCompleted] = useState<string[]>([]);
-  const [photos, setPhotos] = useState<Record<string, string>>({});
-  const [confirmed, setConfirmed] = useState<string[]>([]);
-  const [claimed, setClaimed] = useState<string[]>([]);
-  const [crew, setCrew] = useState<string[]>([]);
-  const [active, setActive] = useState(450);
-  const [optIn, setOptIn] = useState(false);
-  const [customer, setCustomer] = useState(true);
-  const [daily, setDaily] = useState(0);
-  const [yearly, setYearly] = useState(450);
-  const [habits, setHabits] = useState<string[]>([]);
-  const [cleaning, setCleaning] = useState(false);
-  const [vanReserved, setVanReserved] = useState(false);
-  const [report, setReport] = useState("");
-  const [leakSteps, setLeakSteps] = useState<string[]>([]);
-  const [sensorArrived, setSensorArrived] = useState(false);
-  return {
-    completed,
-    photos,
-    confirmed,
-    claimed,
-    crew,
-    active,
-    optIn,
-    setOptIn,
-    customer,
-    setCustomer,
-    daily,
-    yearly,
-    habits,
-    cleaning,
-    vanReserved,
-    report,
-    setReport,
-    leakSteps,
-    sensorArrived,
-    setSensorArrived,
-    total: moveTotal(completed),
-    complete: (id: string) => {
-      if (canCompleteMove(id, photos, confirmed, sensorArrived)) {
-        setCompleted((p) => (p.includes(id) ? p : [...p, id]));
+  const [state, setState] = useState(initialState);
+  const ownedUrls = useRef(new Set<string>());
+  useEffect(() => {
+    const retained = new Set(Object.values(state.photos));
+    for (const url of ownedUrls.current) {
+      if (!retained.has(url)) {
+        URL.revokeObjectURL(url);
+        ownedUrls.current.delete(url);
       }
-    },
-    savePhoto: (id: string, url: string) => setPhotos((p) => ({ ...p, [id]: url })),
-    confirm: (id: string) => setConfirmed((p) => (p.includes(id) ? p : [...p, id])),
-    join: (name: string) => setCrew((p) => (p.includes(name) ? p : [...p, name])),
-    claim: (id: string) => {
-      if (canClaimMove(id, completed, claimed)) setClaimed((p) => [...p, id]);
-    },
-    earn: (id: string) => {
-      if (habits.includes(id)) return;
-      const award = activeAward(customer, optIn, daily, yearly, 50);
-      if (!award) return;
-      setActive((p) => p + award);
-      setDaily((p) => p + award);
-      setYearly((p) => p + award);
-      setHabits((p) => [...p, id]);
-    },
-    redeemCleaning: () => {
-      if (active >= CLEANING_COST && !cleaning) {
-        setActive((p) => p - CLEANING_COST);
-        setCleaning(true);
-      }
-    },
-    rentVan: () => {
-      if (canRentVan(active, vanReserved)) {
-        setActive((p) => p - VAN_ACTIVE_COST);
-        setVanReserved(true);
-      }
-    },
-    finishLeak: (id: string) => setLeakSteps((p) => (p.includes(id) ? p : [...p, id])),
-  };
+    }
+  }, [state.photos]);
+  useEffect(() => {
+    const urls = ownedUrls.current;
+    return () => {
+      for (const url of urls) URL.revokeObjectURL(url);
+      urls.clear();
+    };
+  }, []);
+  const setOptIn = useCallback((value: SetStateAction<boolean>) => setState(p => ({ ...p, optIn: typeof value === "function" ? value(p.optIn) : value })), []);
+  const setCustomer = useCallback((value: SetStateAction<boolean>) => setState(p => ({ ...p, customer: typeof value === "function" ? value(p.customer) : value })), []);
+  const setSensorArrived = useCallback((value: SetStateAction<boolean>) => setState(p => ({ ...p, sensorArrived: typeof value === "function" ? value(p.sensorArrived) : value })), []);
+  const setReport = useCallback((value: SetStateAction<string>) => setState(p => ({ ...p, report: typeof value === "function" ? value(p.report) : value })), []);
+  const complete = useCallback((id: string) => setState(p =>
+    !p.completed.includes(id) && canCompleteMove(id, p.photos, p.confirmed, p.sensorArrived)
+      ? { ...p, completed: [...p.completed, id] } : p), []);
+  const savePhoto = useCallback((id: string, url: string) => setState(p => ({ ...p, photos: { ...p.photos, [id]: url } })), []);
+  const savePhotoFile = useCallback((id: string, file: File): string | null => {
+    if (!file.type.startsWith("image/")) return "Please choose an image file.";
+    try {
+      const url = URL.createObjectURL(file);
+      ownedUrls.current.add(url);
+      savePhoto(id, url);
+      return null;
+    } catch {
+      return "The photo could not be opened. Please try another image.";
+    }
+  }, [savePhoto]);
+  const confirm = useCallback((id: string) => setState(p => p.confirmed.includes(id) ? p : { ...p, confirmed: [...p.confirmed, id] }), []);
+  const join = useCallback((name: string) => {
+    const helper = name.trim();
+    if (!helper) return;
+    setState(p => p.crew.includes(helper) ? p : { ...p, crew: [...p.crew, helper] });
+  }, []);
+  const claim = useCallback((id: string) => setState(p => canClaimMove(id, p.completed, p.claimed) ? { ...p, claimed: [...p.claimed, id] } : p), []);
+  const earn = useCallback((id: string) => setState(p => {
+    if (p.habits.includes(id)) return p;
+    const award = activeAward(p.customer, p.optIn, p.daily, p.yearly, 50);
+    if (!award) return p;
+    return { ...p, active: p.active + award, daily: p.daily + award, yearly: p.yearly + award, habits: [...p.habits, id] };
+  }), []);
+  const redeemCleaning = useCallback(() => setState(p => p.active >= CLEANING_COST && !p.cleaning
+    ? { ...p, active: p.active - CLEANING_COST, cleaning: true } : p), []);
+  const rentVan = useCallback(() => setState(p => canRentVan(p.active, p.vanReserved)
+    ? { ...p, active: p.active - VAN_ACTIVE_COST, vanReserved: true } : p), []);
+  const finishLeak = useCallback((id: string) => setState(p => p.leakSteps.includes(id) ? p : { ...p, leakSteps: [...p.leakSteps, id] }), []);
+  return { ...state, total: moveTotal(state.completed), setOptIn, setCustomer, setReport, setSensorArrived, complete, savePhoto, savePhotoFile, confirm, join, claim, earn, redeemCleaning, rentVan, finishLeak };
 }
 type MoveState = ReturnType<typeof useMoveState>;
 const Context = createContext<MoveState | null>(null);
