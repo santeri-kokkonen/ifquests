@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles, Heart, ShieldCheck, Droplets, Compass, Truck } from "lucide-react";
+import { Sparkles, ShieldCheck, Droplets, Compass, Truck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
@@ -85,7 +85,6 @@ function Rewards() {
           <h3 className="font-medium">More than a step count</h3>
           <div className="mt-4 space-y-3">
             {[
-              { id: "activity", name: "Log any activity", icon: Heart },
               { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck },
               { id: "battery", name: "Sensor battery check", icon: Droplets },
             ].map((h) => (
