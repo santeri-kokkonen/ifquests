@@ -1,10 +1,10 @@
-import { Truck, Pizza, Droplets, Check } from "lucide-react";
+import { Pizza, Droplets, Check } from "lucide-react";
 import { useMove } from "./MoveProvider";
 import { Button } from "./ui/button";
 import { Progress } from "./ui/progress";
 import { moveRewards, canClaimMove } from "@/lib/move-rules";
 
-const icons = { trailer: Truck, pizza: Pizza, "leak-sensor": Droplets };
+const icons = { pizza: Pizza, "leak-sensor": Droplets };
 
 export function MoveRewards() {
   const state = useMove();
