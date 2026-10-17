@@ -1,5 +1,5 @@
 # MoveReady delivery
-- [ ] Review all visible copy and sample data; improve empty states and verify demo flows without changing credit rules.
+- [x] Review all visible copy and sample data; improve empty states and verify demo flows without changing credit rules (63 tests pass; seven screens and reward, crew and report flows checked).
 - [x] Review and optimize all screens at 375px, 768px and 1200px+; verify width, controls, contrast and spacing.
 - [x] Audit every visible interactive flow, feedback, dialogs and navigation end-to-end.
 - [x] Preserve mock progress and evidence across refreshes with safe browser storage and regression tests.
