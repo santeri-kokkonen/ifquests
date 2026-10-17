@@ -1,5 +1,16 @@
 # Project code audit — 17 October 2026
 
+## Final pre-launch cleanup — latest status
+- Removed 41 confirmed-unused or generated files: the old LifeEventQuest, unused moving image, unused UI template controls and mobile hook, and TypeScript cache. Kept active controls, all tests, bootstrap, configuration and platform metadata.
+- All 63 tests pass without test-environment warnings. Route component tests now use a fragment shell and valid stylesheet URL; the real document shell was verified separately in the browser.
+- Latest automatic compilation signal: `build OK`, with no compiler/Vite warnings shown. No manual production build was run.
+- Live checks: all seven screens return HTTP 200; logo, favicon, inline icons and sample valve image render; no failed responses, console warnings or page errors recorded.
+- Root first contentful paint was 184 ms in the final local browser check (not a published-site speed guarantee). The If start menu and prominent Quests shortcut remain intact.
+- Static lint excluding formatting has zero errors and three development-only Fast Refresh export warnings in the shared provider and Button. These are not compilation or runtime failures; a completely warning-free lint run is not claimed.
+- Offer prices and accelerated demo charges are now separately labelled. Live fulfillment, step feeds, customer services and production deployment remain unverified; this is launch-ready as a disclosed prototype, not a live insurance service.
+
+Earlier sections below record the preceding audits; the latest status above supersedes their warning and unused-file observations.
+
 ## Scope
 Reviewed all application routes, feature components, shared UI controls, hooks, domain rules, error-handling modules and configuration. Checked local/package import resolution, unused variables, event handlers, nullable contexts, effects and credit state transitions. Intentional mock services remain mock services.
 

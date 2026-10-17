@@ -1,5 +1,8 @@
 import "@testing-library/jest-dom/vitest";
-import { beforeEach } from "vitest";
+import { beforeEach, vi } from "vitest";
+
+// jsdom does not serve Vite URL imports; provide a valid stylesheet URL in route tests.
+vi.mock("../styles.css?url", () => ({ default: "/src/styles.css" }));
 
 beforeEach(() => window.localStorage.clear());
 
