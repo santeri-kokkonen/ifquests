@@ -133,7 +133,7 @@ function Index() {
               <span className="block text-xs opacity-80">Active sidequest</span>
               <span className="block font-medium">Moving to a new rental</span>
               <span className="block text-xs opacity-80">
-                {state.completed.length}/10 tasks · {state.total} MoveCredits
+                {state.completed.length}/9 tasks · {state.total} MoveCredits
               </span>
             </span>
             <ArrowRight className="h-5 w-5" />
