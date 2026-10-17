@@ -54,7 +54,7 @@ function StepRing() {
           height={300}
           innerRadius="80%"
           outerRadius="100%"
-          data={[{ value: Math.min(STEPS, TARGET) }]}
+          data={[{ value: Math.min(count, TARGET) }]}
           startAngle={90}
           endAngle={-270}
         >
@@ -64,8 +64,7 @@ function StepRing() {
             cornerRadius={20}
             fill="var(--primary)"
             background={{ fill: "var(--card)" }}
-            animationDuration={1500}
-            animationEasing="ease-out"
+            isAnimationActive={false}
           />
         </RadialBarChart>
       )}
