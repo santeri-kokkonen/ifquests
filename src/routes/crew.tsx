@@ -19,6 +19,7 @@ function Crew() {
   const state = useMove();
   const [name, setName] = useState("");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState("");
   const [url, setUrl] = useState("");
   useEffect(() => setUrl(`${window.location.origin}/crew`), []);
   return (
@@ -40,23 +41,31 @@ function Crew() {
             Your crew link
           </label>
           <div className="mt-3 flex gap-2">
-            <Input id="invite" readOnly value={url} />
+            <Input id="invite" readOnly value={url} onFocus={(e) => e.currentTarget.select()} />
             <Button
               aria-label="Copy crew link"
               title="Copy crew link"
               size="icon"
+              disabled={!url}
               onClick={async () => {
                 try {
+                  setCopyError("");
                   await navigator.clipboard.writeText(url);
                   setCopied(true);
                 } catch {
                   setCopied(false);
+                  setCopyError("Could not copy the link. Select the link and copy it manually.");
                 }
               }}
             >
               {copied ? <Check /> : <LinkIcon />}
             </Button>
           </div>
+          {copyError && (
+            <p role="alert" className="mt-2 text-sm text-destructive">
+              {copyError}
+            </p>
+          )}
           <p className="mt-3 text-xs text-muted-foreground">
             Demo link opens this crew experience. Shared live crew sessions are not connected.
           </p>

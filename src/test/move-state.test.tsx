@@ -1,7 +1,81 @@
 import { act, renderHook } from "@testing-library/react";
+import { StrictMode, useEffect, type ReactNode } from "react";
 import { describe, it, expect } from "vitest";
 import { useMoveState } from "@/components/MoveProvider";
 describe("MoveReady session actions", () => {
+  it("repeated StrictMode effects cannot award daily steps twice", () => {
+    const { result } = renderHook(
+      () => {
+        const state = useMoveState();
+        useEffect(() => {
+          state.setOptIn(true);
+          state.earn("steps");
+        }, [state.setOptIn, state.earn]);
+        return state;
+      },
+      { wrapper: ({ children }: { children: ReactNode }) => <StrictMode>{children}</StrictMode> },
+    );
+    expect(result.current.active).toBe(500);
+    expect(result.current.daily).toBe(50);
+    expect(result.current.habits).toEqual(["steps"]);
+  });
+  it("batched repeated earning never exceeds the 50-credit daily cap", () => {
+    const { result } = renderHook(() => useMoveState());
+    act(() => {
+      result.current.setOptIn(true);
+      result.current.earn("steps");
+      result.current.earn("steps");
+      result.current.earn("battery");
+    });
+    expect(result.current.active).toBe(500);
+    expect(result.current.daily).toBe(50);
+    expect(result.current.yearly).toBe(500);
+    expect(result.current.habits).toEqual(["steps"]);
+  });
+  it("batched purchases do not spend the same balance twice", () => {
+    const { result } = renderHook(() => useMoveState());
+    act(() => {
+      result.current.redeemCleaning();
+      result.current.redeemCleaning();
+      result.current.rentVan();
+    });
+    expect(result.current.active).toBe(50);
+    expect(result.current.cleaning).toBe(true);
+    expect(result.current.vanReserved).toBe(false);
+  });
+  it("batched van bookings are charged only once", () => {
+    const { result } = renderHook(() => useMoveState());
+    act(() => {
+      result.current.rentVan();
+      result.current.rentVan();
+    });
+    expect(result.current.active).toBe(300);
+    expect(result.current.vanReserved).toBe(true);
+  });
+  it("batched evidence and witness updates are available to completion", () => {
+    const { result } = renderHook(() => useMoveState());
+    act(() => {
+      result.current.savePhoto("valve", "sample");
+      result.current.confirm("valve");
+      result.current.complete("valve");
+      result.current.complete("valve");
+    });
+    expect(result.current.completed).toEqual(["valve"]);
+    expect(result.current.total).toBe(200);
+  });
+  it("batched milestone claims cannot duplicate a reward", () => {
+    const { result } = renderHook(() => useMoveState());
+    act(() => {
+      result.current.savePhoto("valve", "sample");
+      result.current.confirm("valve");
+      result.current.complete("valve");
+      result.current.complete("coverage");
+      result.current.claim("pizza");
+      result.current.claim("pizza");
+    });
+    expect(result.current.claimed).toEqual(["pizza"]);
+    expect(result.current.total).toBe(300);
+  });
   it("annual smoke alarm check cannot pay twice in the demo year", () => {
     const { result } = renderHook(() => useMoveState());
     act(() => result.current.setOptIn(true));

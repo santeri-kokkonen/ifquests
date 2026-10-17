@@ -54,9 +54,7 @@ describe("MoveReady credit rules", () => {
   });
   it("sensor unlocks at 600, not 550", () => {
     expect(canClaimMove("leak-sensor", ["valve", "tray", "alarm"], [])).toBe(false);
-    expect(
-      canClaimMove("leak-sensor", ["valve", "tray", "alarm", "sensor"], []),
-    ).toBe(true);
+    expect(canClaimMove("leak-sensor", ["valve", "tray", "alarm", "sensor"], [])).toBe(true);
   });
   it("photo checks require saved evidence", () => {
     expect(canCompleteMove("valve", {}, ["valve"], false)).toBe(false);
@@ -81,6 +79,11 @@ describe("MoveReady credit rules", () => {
   it("requires activity opt-in", () => expect(activeAward(true, false, 0, 0, 50)).toBe(0));
   it("caps activity credits daily", () => expect(activeAward(true, true, 40, 0, 50)).toBe(10));
   it("caps activity credits yearly", () => expect(activeAward(true, true, 0, 9990, 50)).toBe(10));
+  it("invalid numeric activity data cannot corrupt credit balances", () => {
+    expect(activeAward(true, true, Number.NaN, 0, 50)).toBe(0);
+    expect(activeAward(true, true, 0, Infinity, 50)).toBe(0);
+    expect(activeAward(true, true, -10, 0, 50)).toBe(0);
+  });
   it("a rental van costs 150 ActiveCredits, not 100", () => {
     expect(VAN_ACTIVE_COST).toBe(150);
     expect(canRentVan(100, false)).toBe(false);

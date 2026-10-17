@@ -23,19 +23,36 @@ function LeakGuard() {
     "Water detected near the bathroom sink. Please inspect urgently.",
   );
   const [location, setLocation] = useState("");
-  const [photo, setPhoto] = useState("");
+  const photo = state.photos["leak"] ?? "";
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  const [downloadError, setDownloadError] = useState("");
   function draft() {
     const text = `FAULT REPORT — DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Confirmed by resident" : "Not confirmed"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to the housing company.`;
     state.setReport(text);
     state.finishLeak("report");
   }
   function download() {
-    const url = URL.createObjectURL(new Blob([state.report], { type: "text/plain" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "IFQuests-fault-report.txt";
-    a.click();
-    URL.revokeObjectURL(url);
+    let url: string | undefined;
+    try {
+      setDownloadError("");
+      url = URL.createObjectURL(new Blob([state.report], { type: "text/plain" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "IFQuests-fault-report.txt";
+      document.body.appendChild(a);
+      try {
+        a.click();
+      } finally {
+        a.remove();
+      }
+    } catch {
+      setDownloadError("The download could not start. You can copy the report above instead.");
+    } finally {
+      if (url) {
+        const downloadUrl = url;
+        window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+      }
+    }
   }
   return (
     <AppShell>
@@ -102,6 +119,11 @@ function LeakGuard() {
                   <Button variant="link" asChild className="block px-0">
                     <Link to="/quests/moving">Find the valve in your Bathroom quest</Link>
                   </Button>
+                  {downloadError && (
+                    <p role="alert" className="mt-2 text-sm text-destructive">
+                      {downloadError}
+                    </p>
+                  )}
                 </div>
               )}
               <Button
@@ -175,9 +197,14 @@ function LeakGuard() {
                 accept="image/*"
                 onChange={(e) => {
                   const file = e.target.files?.[0];
-                  if (file) setPhoto(URL.createObjectURL(file));
+                  if (file) setPhotoError(state.savePhotoFile("leak", file));
                 }}
               />
+              {photoError && (
+                <p role="alert" className="mt-2 text-sm text-destructive">
+                  {photoError}
+                </p>
+              )}
               {photo && (
                 <img
                   src={photo}

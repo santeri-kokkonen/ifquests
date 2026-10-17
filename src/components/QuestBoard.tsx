@@ -30,12 +30,15 @@ export function QuestBoard() {
   const [liability, setLiability] = useState("");
   const [address, setAddress] = useState("");
   const [result, setResult] = useState("");
+  const [photoError, setPhotoError] = useState<string | null>(null);
   const task = tasks.find((t) => t.id === selected);
   const next = state.total < 300 ? 300 : state.total < 600 ? 600 : 1000;
   const [attested, setAttested] = useState(false);
   return (
     <>
-      <Link to="/quests" className="text-sm text-primary">← All sidequests</Link>
+      <Link to="/quests" className="text-sm text-primary">
+        ← All sidequests
+      </Link>
       <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">YOUR NEXT CHAPTER · TURKU</p>
@@ -151,6 +154,7 @@ export function QuestBoard() {
                     setSelected(t.id);
                     setAttested(false);
                     setResult("");
+                    setPhotoError(null);
                   }}
                 >
                   <span
@@ -271,9 +275,14 @@ export function QuestBoard() {
                         accept="image/*"
                         onChange={(e) => {
                           const file = e.target.files?.[0];
-                          if (file) state.savePhoto(task.id, URL.createObjectURL(file));
+                          if (file) setPhotoError(state.savePhotoFile(task.id, file));
                         }}
                       />
+                      {photoError && (
+                        <p role="alert" className="mt-2 text-sm text-destructive">
+                          {photoError}
+                        </p>
+                      )}
                       {task.id === "valve" && (
                         <Button
                           variant="link"

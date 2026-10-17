@@ -90,7 +90,7 @@ function Rewards() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <article className="rounded-xl border bg-card p-5">
             <Pizza className="h-8 w-8 text-primary" strokeWidth={1.2} />
-            <h3 className="mt-4 text-lg font-medium">Pizza </h3>
+            <h3 className="mt-4 text-lg font-medium">{"Pizza\u00a0"}</h3>
             <p className="mt-1 text-xs text-muted-foreground">Pizza Oven Co. · Turku</p>
             <p className="mt-2 text-sm text-muted-foreground">
               1000 ActiveCredits · Two large pizzas for the price of one
