@@ -85,7 +85,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "IF Quests" },
-      { name: "description", content: "Quests and rewards for life’s big changes, with IF Quests." },
+      {
+        name: "description",
+        content: "Quests and rewards for life’s big changes, with IF Quests.",
+      },
       { property: "og:title", content: "IF Quests" },
       {
         property: "og:description",

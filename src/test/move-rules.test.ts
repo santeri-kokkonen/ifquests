@@ -54,9 +54,7 @@ describe("MoveReady credit rules", () => {
   });
   it("sensor unlocks at 600, not 550", () => {
     expect(canClaimMove("leak-sensor", ["valve", "tray", "alarm"], [])).toBe(false);
-    expect(
-      canClaimMove("leak-sensor", ["valve", "tray", "alarm", "sensor"], []),
-    ).toBe(true);
+    expect(canClaimMove("leak-sensor", ["valve", "tray", "alarm", "sensor"], [])).toBe(true);
   });
   it("photo checks require saved evidence", () => {
     expect(canCompleteMove("valve", {}, ["valve"], false)).toBe(false);

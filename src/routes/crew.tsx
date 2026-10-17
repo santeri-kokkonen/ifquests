@@ -61,7 +61,11 @@ function Crew() {
               {copied ? <Check /> : <LinkIcon />}
             </Button>
           </div>
-          {copyError && <p role="alert" className="mt-2 text-sm text-destructive">{copyError}</p>}
+          {copyError && (
+            <p role="alert" className="mt-2 text-sm text-destructive">
+              {copyError}
+            </p>
+          )}
           <p className="mt-3 text-xs text-muted-foreground">
             Demo link opens this crew experience. Shared live crew sessions are not connected.
           </p>

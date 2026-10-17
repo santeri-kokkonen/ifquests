@@ -126,7 +126,8 @@ export function activeAward(
   yearly: number,
   amount: number,
 ) {
-  if (![daily, yearly, amount].every(Number.isFinite) || daily < 0 || yearly < 0 || amount < 0) return 0;
+  if (![daily, yearly, amount].every(Number.isFinite) || daily < 0 || yearly < 0 || amount < 0)
+    return 0;
   return customer && optIn
     ? Math.max(0, Math.min(amount, ACTIVE_DAILY_CAP - daily, ACTIVE_YEARLY_CAP - yearly))
     : 0;

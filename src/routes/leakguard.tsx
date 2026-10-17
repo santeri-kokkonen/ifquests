@@ -40,7 +40,11 @@ function LeakGuard() {
       a.href = url;
       a.download = "IFQuests-fault-report.txt";
       document.body.appendChild(a);
-      try { a.click(); } finally { a.remove(); }
+      try {
+        a.click();
+      } finally {
+        a.remove();
+      }
     } catch {
       setDownloadError("The download could not start. You can copy the report above instead.");
     } finally {
@@ -115,7 +119,11 @@ function LeakGuard() {
                   <Button variant="link" asChild className="block px-0">
                     <Link to="/quests/moving">Find the valve in your Bathroom quest</Link>
                   </Button>
-                  {downloadError && <p role="alert" className="mt-2 text-sm text-destructive">{downloadError}</p>}
+                  {downloadError && (
+                    <p role="alert" className="mt-2 text-sm text-destructive">
+                      {downloadError}
+                    </p>
+                  )}
                 </div>
               )}
               <Button
@@ -192,7 +200,11 @@ function LeakGuard() {
                   if (file) setPhotoError(state.savePhotoFile("leak", file));
                 }}
               />
-              {photoError && <p role="alert" className="mt-2 text-sm text-destructive">{photoError}</p>}
+              {photoError && (
+                <p role="alert" className="mt-2 text-sm text-destructive">
+                  {photoError}
+                </p>
+              )}
               {photo && (
                 <img
                   src={photo}

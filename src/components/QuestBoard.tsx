@@ -36,7 +36,9 @@ export function QuestBoard() {
   const [attested, setAttested] = useState(false);
   return (
     <>
-      <Link to="/quests" className="text-sm text-primary">← All sidequests</Link>
+      <Link to="/quests" className="text-sm text-primary">
+        ← All sidequests
+      </Link>
       <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">YOUR NEXT CHAPTER · TURKU</p>
@@ -276,7 +278,11 @@ export function QuestBoard() {
                           if (file) setPhotoError(state.savePhotoFile(task.id, file));
                         }}
                       />
-                      {photoError && <p role="alert" className="mt-2 text-sm text-destructive">{photoError}</p>}
+                      {photoError && (
+                        <p role="alert" className="mt-2 text-sm text-destructive">
+                          {photoError}
+                        </p>
+                      )}
                       {task.id === "valve" && (
                         <Button
                           variant="link"
