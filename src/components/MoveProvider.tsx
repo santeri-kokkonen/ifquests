@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import {
   activeAward,
+  canBuyTrailer,
   canClaimMove,
   canCompleteMove,
   CLEANING_COST,
   moveTotal,
+  TRAILER_ACTIVE_COST,
 } from "@/lib/move-rules";
 export function useMoveState() {
   const [completed, setCompleted] = useState<string[]>([]);
@@ -19,6 +21,7 @@ export function useMoveState() {
   const [yearly, setYearly] = useState(450);
   const [habits, setHabits] = useState<string[]>([]);
   const [cleaning, setCleaning] = useState(false);
+  const [trailerActive, setTrailerActive] = useState(false);
   const [report, setReport] = useState("");
   const [leakSteps, setLeakSteps] = useState<string[]>([]);
   const [sensorArrived, setSensorArrived] = useState(false);
@@ -37,6 +40,7 @@ export function useMoveState() {
     yearly,
     habits,
     cleaning,
+    trailerActive,
     report,
     setReport,
     leakSteps,
@@ -67,6 +71,12 @@ export function useMoveState() {
       if (active >= CLEANING_COST && !cleaning) {
         setActive((p) => p - CLEANING_COST);
         setCleaning(true);
+      }
+    },
+    buyTrailer: () => {
+      if (canBuyTrailer(active, trailerActive)) {
+        setActive((p) => p - TRAILER_ACTIVE_COST);
+        setTrailerActive(true);
       }
     },
     finishLeak: (id: string) => setLeakSteps((p) => (p.includes(id) ? p : [...p, id])),
