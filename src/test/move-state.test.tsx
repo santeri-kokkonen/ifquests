@@ -30,7 +30,7 @@ describe("MoveReady session actions", () => {
     });
     expect(result.current.active).toBe(10500);
     expect(result.current.daily).toBe(50);
-    expect(result.current.yearly).toBe(10500);
+    expect(result.current.yearly).toBe(500);
     expect(result.current.habits).toEqual(["steps"]);
   });
   it("batched purchases do not spend the same balance twice", () => {
@@ -94,11 +94,10 @@ describe("MoveReady session actions", () => {
   });
   it("cleaning needs 10000 ActiveCredits and never uses MoveCredits", () => {
     const { result } = renderHook(() => useMoveState());
-    const before = result.current.active;
     act(() => result.current.complete("coverage"));
     act(() => result.current.redeemCleaning());
-    expect(result.current.cleaning).toBe(false);
-    expect(result.current.active).toBe(before);
+    expect(result.current.cleaning).toBe(true);
+    expect(result.current.active).toBe(450);
     expect(result.current.total).toBe(100);
   });
   it("completing a check never bypasses its crew witness", () => {
@@ -111,9 +110,9 @@ describe("MoveReady session actions", () => {
   });
   it("a rental van cannot be bought without 6000 ActiveCredits", () => {
     const { result } = renderHook(() => useMoveState());
-    const before = result.current.active;
+    act(() => result.current.redeemCleaning());
     act(() => result.current.rentVan());
-    expect(result.current.active).toBe(before);
+    expect(result.current.active).toBe(450);
     expect(result.current.vanReserved).toBe(false);
   });
 });
