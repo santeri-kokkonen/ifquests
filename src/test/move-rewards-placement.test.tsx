@@ -23,7 +23,7 @@ describe("Move rewards live only in the moving sidequest", () => {
     await renderPage("/quests/moving");
     expect(await screen.findByText("Pizza for your crew")).toBeTruthy();
     expect(screen.getByText("A leak sensor")).toBeTruthy();
-    expect(screen.queryByText("A trailer for your troubles")).toBeNull();
+    expect(screen.queryByText("A rental van for your troubles")).toBeNull();
   });
 
   it("keeps the moving sidequest's own rewards off the everyday rewards page", async () => {
@@ -35,9 +35,9 @@ describe("Move rewards live only in the moving sidequest", () => {
     expect(screen.queryByText("300 MoveCredits")).toBeNull();
   });
 
-  it("sells a trailer hour for ActiveCredits on the rewards page", async () => {
+  it("rents a van for ActiveCredits on the rewards page", async () => {
     await renderPage("/rewards");
-    expect(await screen.findByText("A trailer for your troubles")).toBeTruthy();
+    expect(await screen.findByText("A rental van for your troubles")).toBeTruthy();
     expect(screen.getByText(/6000 ActiveCredits/)).toBeTruthy();
     expect(screen.getByRole("button", { name: "Buy with ActiveCredits" })).toBeTruthy();
 });

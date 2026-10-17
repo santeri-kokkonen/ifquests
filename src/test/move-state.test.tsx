@@ -34,21 +34,21 @@ describe("MoveReady session actions", () => {
     act(() => result.current.complete("alarm"));
     expect(result.current.total).toBe(100);
   });
-  it("a trailer hour bought with ActiveCredits never touches MoveCredits", () => {
+  it("a rental van bought with ActiveCredits never touches MoveCredits", () => {
     const { result } = renderHook(() => useMoveState());
-    act(() => result.current.buyTrailer());
+    act(() => result.current.rentVan());
     expect(result.current.active).toBe(300);
     expect(result.current.total).toBe(0);
-    expect(result.current.trailerActive).toBe(true);
-    act(() => result.current.buyTrailer());
+    expect(result.current.vanReserved).toBe(true);
+    act(() => result.current.rentVan());
     expect(result.current.active).toBe(300);
   });
-  it("a trailer hour cannot be bought without the 150 ActiveCredits", () => {
+  it("a rental van cannot be bought without the 150 ActiveCredits", () => {
     const { result } = renderHook(() => useMoveState());
     act(() => result.current.redeemCleaning());
     expect(result.current.active).toBe(50);
-    act(() => result.current.buyTrailer());
+    act(() => result.current.rentVan());
     expect(result.current.active).toBe(50);
-    expect(result.current.trailerActive).toBe(false);
+    expect(result.current.vanReserved).toBe(false);
   });
 });
