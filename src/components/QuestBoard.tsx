@@ -39,15 +39,15 @@ export function QuestBoard() {
       <Link to="/quests" className="text-sm text-primary">
         ← All sidequests
       </Link>
-      <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-        <div>
+      <div className="mt-3 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+        <div className="min-w-0">
           <p className="eyebrow">YOUR NEXT CHAPTER · TURKU</p>
           <h1 className="mt-2 text-4xl font-light">Make yourself at home.</h1>
           <p className="mt-3 text-muted-foreground">
             A little care now. A better move for everyone.
           </p>
         </div>
-        <Button variant="outline" asChild>
+        <Button variant="outline" asChild className="justify-self-start sm:justify-self-end">
           <Link to="/crew">
             <Users />
             Your crew {state.crew.length > 0 && `· ${state.crew.length}`}
@@ -55,8 +55,8 @@ export function QuestBoard() {
         </Button>
       </div>
       <section className="mt-8 border-y py-5">
-        <div className="flex items-baseline justify-between gap-4">
-          <span className="font-medium">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3">
+          <span className="min-w-0 text-sm font-medium">
             <span className="text-2xl text-primary tabular-nums">{state.total}</span> / 1,000
             MoveCredits
           </span>
@@ -71,7 +71,7 @@ export function QuestBoard() {
               : "Your safety rewards are unlocked. Finish making your home move-ready."}
         </p>
       </section>
-      <div className="mt-7 flex items-center justify-between">
+      <div className="mt-7 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <h2 className="text-xl font-light">Your home map</h2>
         <span className="text-xs text-muted-foreground">4 spaces · 1 fresh start</span>
       </div>
@@ -86,7 +86,7 @@ export function QuestBoard() {
               key={r.id}
               variant="ghost"
               onClick={() => setRoom(r.id)}
-              className={`room-tile h-auto min-h-44 flex-col items-start justify-between whitespace-normal rounded-xl border p-5 text-left ${ready ? "border-success bg-success-soft text-success" : "bg-card"}`}
+              className={`room-tile h-auto min-w-0 min-h-44 flex-col items-start justify-between whitespace-normal rounded-xl border p-4 sm:p-5 text-left ${ready ? "border-success bg-success-soft text-success" : "bg-card"}`}
             >
               <div className="flex w-full items-center justify-between">
                 <Icon className="!h-8 !w-8" strokeWidth={1.2} />
@@ -168,7 +168,7 @@ export function QuestBoard() {
                       <ShieldCheck />
                     )}
                   </span>
-                  <span className="flex-1">
+                  <span className="min-w-0 flex-1">
                     {t.name}
                     <span className="mt-1 block text-xs text-muted-foreground">
                       +{t.credits} MoveCredits {state.completed.includes(t.id) && "· Complete"}

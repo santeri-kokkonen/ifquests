@@ -129,10 +129,10 @@ function Index() {
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-foreground/15">
               <Truck className="h-5 w-5" strokeWidth={1.5} />
             </span>
-            <span className="flex-1">
-              <span className="block text-xs opacity-80">Active sidequest</span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-xs">Active sidequest</span>
               <span className="block font-medium">Moving to a new rental</span>
-              <span className="block text-xs opacity-80">
+              <span className="block text-xs">
                 {state.completed.length}/9 tasks · {state.total} MoveCredits
               </span>
             </span>
@@ -160,9 +160,9 @@ function Index() {
               { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck, Truck },
               { id: "battery", name: "Sensor battery check", icon: Droplets },
             ].map((h) => (
-              <div className="flex items-center gap-3 border-b pb-3" key={h.id}>
-                <h.icon className="h-5 w-5 text-primary" />
-                <span className="flex-1 text-sm">{h.name}</span>
+              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b pb-3" key={h.id}>
+                <h.icon className="h-5 w-5 shrink-0 text-primary" />
+                <span className="min-w-0 text-sm">{h.name}</span>
                 <Button
                   variant="outline"
                   size="sm"

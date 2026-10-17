@@ -37,13 +37,13 @@ function QuestsHub() {
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-primary">
             <Package className="h-5 w-5" strokeWidth={1.5} />
           </div>
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <p className="font-medium">Moving to a new rental</p>
             <p className="text-sm text-muted-foreground">
               {state.completed.length}/9 tasks · crew pizza, leak sensor
             </p>
           </div>
-          <ArrowRight className="h-5 w-5 text-primary" />
+          <ArrowRight className="h-5 w-5 shrink-0 text-primary" />
         </div>
         <Progress className="mt-4" value={(state.total / 1000) * 100} />
       </Link>
@@ -51,15 +51,15 @@ function QuestsHub() {
       <h2 className="mt-8 text-xl font-light">Coming soon</h2>
       <div className="mt-4 space-y-3">
         {upcoming.map(({ name, text, icon: Icon }) => (
-          <div key={name} className="flex items-center gap-3 rounded-xl border border-dashed bg-secondary/50 p-5 opacity-80">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-card text-muted-foreground">
+          <div key={name} className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-dashed bg-secondary/50 p-5">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card text-muted-foreground">
               <Icon className="h-5 w-5" strokeWidth={1.5} />
             </div>
-            <div className="flex-1">
+            <div className="min-w-0">
               <p className="font-medium">{name}</p>
               <p className="text-sm text-muted-foreground">{text}</p>
             </div>
-            <Lock className="h-4 w-4 text-muted-foreground" strokeWidth={1.5} />
+            <Lock className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
           </div>
         ))}
       </div>

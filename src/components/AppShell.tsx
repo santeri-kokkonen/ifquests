@@ -10,23 +10,23 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
-          <Link to="/" aria-label="Back to the If app" className="flex items-center gap-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 py-4 sm:flex sm:justify-between sm:px-8">
+          <Link to="/" aria-label="Back to the If app" className="flex min-w-0 items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             <img
               src={ifLogoAsset.url}
               alt="If"
               width={44}
               height={44}
-              className="h-11 w-11"
+              className="h-11 w-11 shrink-0"
             />
-            <span className="text-xl font-medium">Quests</span>
+            <span className="truncate text-xl font-medium">Quests</span>
           </Link>
           {path.startsWith("/quests/moving") || path === "/crew" || path === "/leakguard" ? (
             <Button variant="ghost" asChild className="gap-2">
               <Link to="/quests/moving" aria-label={`${state.total} MoveCredits`}>
                 <Coins className="text-primary" />
                 <span className="text-sm tabular-nums">
-                  {state.total} <span className="hidden sm:inline">MoveCredits</span>
+                  {state.total.toLocaleString("en-US")} <span className="hidden sm:inline">MoveCredits</span>
                   <span className="sm:hidden">MC</span>
                 </span>
               </Link>
@@ -36,7 +36,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/rewards" aria-label={`${state.active} ActiveCredits`}>
                 <Coins className="text-primary" />
                 <span className="text-sm tabular-nums">
-                  {state.active} <span className="hidden sm:inline">ActiveCredits</span>
+                  {state.active.toLocaleString("en-US")} <span className="hidden sm:inline">ActiveCredits</span>
                   <span className="sm:hidden">AC</span>
                 </span>
               </Link>
