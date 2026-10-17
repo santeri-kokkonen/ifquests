@@ -19,11 +19,11 @@ async function renderPage(path: string) {
 }
 
 describe("Move rewards live only in the moving sidequest", () => {
-  it("shows all three milestone rewards on the moving sidequest page", async () => {
+  it("shows only crew pizza and a leak sensor on the moving sidequest page", async () => {
     await renderPage("/quests/moving");
-    expect(await screen.findByText("One trailer hour")).toBeTruthy();
-    expect(screen.getByText("Pizza for your crew")).toBeTruthy();
+    expect(await screen.findByText("Pizza for your crew")).toBeTruthy();
     expect(screen.getByText("A leak sensor")).toBeTruthy();
+    expect(screen.queryByText("One trailer hour")).toBeNull();
   });
 
   it("keeps the moving sidequest's own rewards off the everyday rewards page", async () => {
@@ -32,7 +32,7 @@ describe("Move rewards live only in the moving sidequest", () => {
     expect(screen.queryByText("Move rewards")).toBeNull();
     expect(screen.queryByText("Pizza for your crew")).toBeNull();
     expect(screen.queryByText("A leak sensor")).toBeNull();
-    expect(screen.queryByText("100 MoveCredits")).toBeNull();
+    expect(screen.queryByText("300 MoveCredits")).toBeNull();
   });
 
   it("sells a trailer hour for ActiveCredits on the rewards page", async () => {
