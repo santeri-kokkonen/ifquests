@@ -121,8 +121,6 @@ function Index() {
                 </p>
               </div>
 
-              <LifeEventQuest />
-
               <button
                 onClick={() => setTab("quests")}
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
@@ -130,13 +128,19 @@ function Index() {
                 Explore quests <ArrowRight className="h-4 w-4" />
               </button>
             </>
-          ) : (
-            <div className="pt-8">
-              <h1 className="text-3xl font-light">{tab === "quests" ? "Quests" : "Insurance"}</h1>
+          ) : tab === "quests" ? (
+            <div>
+              <h1 className="text-3xl font-light">Quests</h1>
               <p className="mt-3 leading-relaxed text-muted-foreground">
-                {tab === "quests"
-                  ? "New challenges to earn IfCredits are coming soon."
-                  : "Use your IfCredits towards your If insurance — coming soon."}
+                Complete quests to earn IfCredits.
+              </p>
+              <LifeEventQuest />
+            </div>
+          ) : (
+            <div>
+              <h1 className="text-3xl font-light">Insurance</h1>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                Use your IfCredits towards your If insurance — coming soon.
               </p>
             </div>
           )}
