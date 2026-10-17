@@ -24,7 +24,7 @@ function Crew() {
   return (
     <AppShell>
       <Button variant="link" asChild className="mb-4 px-0">
-        <Link to="/quests">
+        <Link to="/quests/moving">
           <ArrowLeft />
           Move quests
         </Link>

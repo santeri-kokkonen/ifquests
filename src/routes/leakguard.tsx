@@ -41,7 +41,7 @@ function LeakGuard() {
     <AppShell>
       <div className="max-w-2xl">
         <Button asChild variant="link" className="mb-4 px-0">
-          <Link to="/quests">
+          <Link to="/quests/moving">
             <ArrowLeft />
             Move quests
           </Link>
@@ -100,7 +100,7 @@ function LeakGuard() {
                 <div className="mt-4 rounded-lg bg-secondary p-4 text-sm">
                   No valve photo saved yet.
                   <Button variant="link" asChild className="block px-0">
-                    <Link to="/quests">Find the valve in your Bathroom quest</Link>
+                    <Link to="/quests/moving">Find the valve in your Bathroom quest</Link>
                   </Button>
                 </div>
               )}

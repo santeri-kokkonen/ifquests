@@ -128,7 +128,7 @@ function Index() {
             </div>
           </div>
           <Button asChild className="mt-5 h-11">
-            <Link to="/quests">
+            <Link to="/quests/moving">
               Explore move quests
               <ArrowRight />
             </Link>
