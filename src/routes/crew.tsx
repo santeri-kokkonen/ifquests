@@ -41,7 +41,7 @@ function Crew() {
           <label htmlFor="invite" className="text-sm font-medium">
             Your crew link
           </label>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 grid grid-cols-[minmax(0,1fr)_auto] gap-2">
             <Input id="invite" readOnly value={url} onFocus={(e) => e.currentTarget.select()} />
             <Button
               aria-label="Copy crew link"
@@ -85,7 +85,7 @@ function Crew() {
           <label className="text-sm font-medium" htmlFor="crew-name">
             Join as a helper
           </label>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto]">
             <Input
               id="crew-name"
               value={name}
@@ -111,8 +111,8 @@ function Crew() {
               {tasks
                 .filter((t) => t.id !== "coverage")
                 .map((t) => (
-                  <div className="flex items-center gap-3 py-4" key={t.id}>
-                    <span className="flex-1 text-sm">{t.name}</span>
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-4" key={t.id}>
+                    <span className="min-w-0 text-sm">{t.name}</span>
                     <Button
                       variant="outline"
                       size="sm"

@@ -10,9 +10,9 @@ export function MoveRewards() {
   const state = useMove();
   return (
     <section className="mt-9 border-t pt-6">
-      <div className="flex items-baseline justify-between">
+      <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline">
         <h2 className="text-2xl font-light">Move rewards</h2>
-        <span className="font-medium text-primary">{state.total} MoveCredits</span>
+        <span className="min-w-0 text-sm font-medium text-primary">{state.total} MoveCredits</span>
       </div>
       <p className="mt-2 text-sm text-muted-foreground">
         Earn milestone rewards through safety quests. Each unlock is yours once; credits track

@@ -25,9 +25,9 @@ function Rewards() {
         page. The moving sidequest keeps its own rewards.
       </p>
       <section className="mt-8 border-t pt-6">
-        <div className="flex items-baseline justify-between">
+        <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline">
           <h2 className="text-2xl font-light">Everyday rewards</h2>
-          <span className="font-medium text-primary">{`${state.active} ActiveCredits`}</span>
+          <span className="min-w-0 text-sm font-medium text-primary">{`${state.active.toLocaleString("en-US")} ActiveCredits`}</span>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
           One balance, several ways to use it. Prices are illustrative demo values.
@@ -87,7 +87,7 @@ function Rewards() {
           A few examples of what partners could offer your ActiveCredits. Illustrative demo offers —
           partners and scope to be agreed.
         </p>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <article className="rounded-xl border bg-card p-5">
             <Pizza className="h-8 w-8 text-primary" strokeWidth={1.2} />
             <h3 className="mt-4 text-lg font-medium">{"Pizza\u00a0"}</h3>

@@ -152,6 +152,25 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     letter-spacing: 0;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, p, label, legend, pre {
+    overflow-wrap: anywhere;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  input[type="checkbox"], [role="checkbox"], [role="switch"] {
+    flex-shrink: 0;
   }
 }
 
