@@ -7,10 +7,11 @@ describe("MoveReady session actions", () => {
     const { result } = renderHook(
       () => {
         const state = useMoveState();
+        const { setOptIn, earn } = state;
         useEffect(() => {
-          state.setOptIn(true);
-          state.earn("steps");
-        }, [state.setOptIn, state.earn]);
+          setOptIn(true);
+          earn("steps");
+        }, [setOptIn, earn]);
         return state;
       },
       { wrapper: ({ children }: { children: ReactNode }) => <StrictMode>{children}</StrictMode> },

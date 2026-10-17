@@ -10,7 +10,7 @@ import { routeTree } from "@/routeTree.gen";
 
 async function renderPage(path: string) {
   // Component tests mount in a div; the real document shell belongs to SSR/browser checks.
-  routeTree.update({ shellComponent: ({ children }) => <>{children}</> });
+  routeTree.options.shellComponent = ({ children }) => <>{children}</>;
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [path] }),
