@@ -28,7 +28,7 @@ describe("Move rewards live only in the moving sidequest", () => {
 
   it("keeps the moving sidequest's own rewards off the everyday rewards page", async () => {
     await renderPage("/rewards");
-    expect(await screen.findByText("Final cleaning")).toBeTruthy();
+    expect(await screen.findByText("Cleaning services")).toBeTruthy();
     expect(screen.queryByText("Move rewards")).toBeNull();
     expect(screen.queryByText("Pizza for your crew")).toBeNull();
     expect(screen.queryByText("A leak sensor")).toBeNull();
@@ -52,7 +52,7 @@ describe("Yearly safety checks live on the activity page", () => {
 
   it("keeps the yearly checks off the everyday rewards page", async () => {
     await renderPage("/rewards");
-    expect(await screen.findByText("Final cleaning")).toBeTruthy();
+    expect(await screen.findByText("Cleaning services")).toBeTruthy();
     expect(screen.queryByText("More than a step count")).toBeNull();
     expect(screen.queryByText("Yearly smoke alarm test")).toBeNull();
     expect(screen.queryByText("Sensor battery check")).toBeNull();
