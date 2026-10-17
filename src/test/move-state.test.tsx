@@ -4,14 +4,17 @@ import { describe, it, expect } from "vitest";
 import { useMoveState } from "@/components/MoveProvider";
 describe("MoveReady session actions", () => {
   it("repeated StrictMode effects cannot award daily steps twice", () => {
-    const { result } = renderHook(() => {
-      const state = useMoveState();
-      useEffect(() => {
-        state.setOptIn(true);
-        state.earn("steps");
-      }, [state.setOptIn, state.earn]);
-      return state;
-    }, { wrapper: ({ children }: { children: ReactNode }) => <StrictMode>{children}</StrictMode> });
+    const { result } = renderHook(
+      () => {
+        const state = useMoveState();
+        useEffect(() => {
+          state.setOptIn(true);
+          state.earn("steps");
+        }, [state.setOptIn, state.earn]);
+        return state;
+      },
+      { wrapper: ({ children }: { children: ReactNode }) => <StrictMode>{children}</StrictMode> },
+    );
     expect(result.current.active).toBe(500);
     expect(result.current.daily).toBe(50);
     expect(result.current.habits).toEqual(["steps"]);
