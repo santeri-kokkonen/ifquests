@@ -26,7 +26,7 @@ function LeakGuard() {
   const [downloadError, setDownloadError] = useState("");
   const [downloadStarted, setDownloadStarted] = useState(false);
   function draft() {
-    const text = `FAULT REPORT — DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Confirmed by resident" : "Not confirmed"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to the housing company.`;
+    const text = `FAULT REPORT — DEMO DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Marked complete in demo" : "Not recorded"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to maintenance or the housing company.`;
     state.setReport(text);
     state.finishLeak("report");
   }
@@ -157,6 +157,7 @@ function LeakGuard() {
               <label htmlFor="fault-description" className="mt-4 block text-sm">
                 What happened?
               </label>
+              <p className="mt-1 text-xs text-muted-foreground">An example description is provided. Edit it to match what you observed.</p>
               <Textarea
                 className="mt-2"
                 id="fault-description"

@@ -29,7 +29,7 @@ describe("Move rewards live only in the moving sidequest", () => {
   it("keeps the moving sidequest's own rewards off the everyday rewards page", async () => {
     await renderPage("/rewards");
     expect(await screen.findByText("Cleaning services")).toBeTruthy();
-    expect(screen.queryByText("Move rewards")).toBeNull();
+    expect(screen.queryByText("Moving rewards")).toBeNull();
     expect(screen.queryByText("Pizza for your crew")).toBeNull();
     expect(screen.queryByText("A leak sensor")).toBeNull();
     expect(screen.queryByText("300 MoveCredits")).toBeNull();
@@ -38,15 +38,15 @@ describe("Move rewards live only in the moving sidequest", () => {
   it("rents a van for ActiveCredits on the rewards page", async () => {
     await renderPage("/rewards");
     expect(await screen.findByText("A rental van for your troubles")).toBeTruthy();
-    expect(screen.getByText(/6000 ActiveCredits/)).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Buy with ActiveCredits" })).toBeTruthy();
+    expect(screen.getByText(/6,000 ActiveCredits/)).toBeTruthy();
+    expect(screen.getAllByRole("button", { name: "Buy with ActiveCredits" })).toHaveLength(2);
 });
 
 describe("Yearly safety checks live on the activity page", () => {
   it("lists both yearly checks under 'More than a step count'", async () => {
     await renderPage("/activity");
     expect(await screen.findByText("More than a step count")).toBeTruthy();
-    expect(screen.getByText("Yearly smoke alarm test")).toBeTruthy();
+    expect(screen.getByText("Smoke alarm test")).toBeTruthy();
     expect(screen.getByText("Sensor battery check")).toBeTruthy();
   });
 
@@ -54,7 +54,7 @@ describe("Yearly safety checks live on the activity page", () => {
     await renderPage("/rewards");
     expect(await screen.findByText("Cleaning services")).toBeTruthy();
     expect(screen.queryByText("More than a step count")).toBeNull();
-    expect(screen.queryByText("Yearly smoke alarm test")).toBeNull();
+    expect(screen.queryByText("Smoke alarm test")).toBeNull();
     expect(screen.queryByText("Sensor battery check")).toBeNull();
   });
 });
