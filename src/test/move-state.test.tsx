@@ -92,14 +92,14 @@ describe("MoveReady session actions", () => {
     expect(result.current.active).toBe(500);
     expect(result.current.completed).toEqual([]);
   });
-  it("cleaning uses only ActiveCredits and never MoveCredits", () => {
+  it("cleaning needs 10000 ActiveCredits and never uses MoveCredits", () => {
     const { result } = renderHook(() => useMoveState());
+    const before = result.current.active;
     act(() => result.current.complete("coverage"));
     act(() => result.current.redeemCleaning());
-    expect(result.current.active).toBe(50);
+    expect(result.current.cleaning).toBe(false);
+    expect(result.current.active).toBe(before);
     expect(result.current.total).toBe(100);
-    act(() => result.current.redeemCleaning());
-    expect(result.current.active).toBe(50);
   });
   it("completing a check never bypasses its crew witness", () => {
     const { result } = renderHook(() => useMoveState());
@@ -109,21 +109,11 @@ describe("MoveReady session actions", () => {
     act(() => result.current.complete("alarm"));
     expect(result.current.total).toBe(100);
   });
-  it("a rental van bought with ActiveCredits never touches MoveCredits", () => {
+  it("a rental van cannot be bought without 6000 ActiveCredits", () => {
     const { result } = renderHook(() => useMoveState());
+    const before = result.current.active;
     act(() => result.current.rentVan());
-    expect(result.current.active).toBe(300);
-    expect(result.current.total).toBe(0);
-    expect(result.current.vanReserved).toBe(true);
-    act(() => result.current.rentVan());
-    expect(result.current.active).toBe(300);
-  });
-  it("a rental van cannot be bought without the 150 ActiveCredits", () => {
-    const { result } = renderHook(() => useMoveState());
-    act(() => result.current.redeemCleaning());
-    expect(result.current.active).toBe(50);
-    act(() => result.current.rentVan());
-    expect(result.current.active).toBe(50);
+    expect(result.current.active).toBe(before);
     expect(result.current.vanReserved).toBe(false);
   });
 });

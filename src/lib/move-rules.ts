@@ -95,8 +95,8 @@ export const moveRewards = [
 ] as const;
 export const ACTIVE_DAILY_CAP = 50;
 export const ACTIVE_YEARLY_CAP = 10000;
-export const CLEANING_COST = 400;
-export const VAN_ACTIVE_COST = 150;
+export const CLEANING_COST = 10000;
+export const VAN_ACTIVE_COST = 6000;
 export function moveTotal(completed: string[]) {
   return tasks.filter((t) => completed.includes(t.id)).reduce((sum, t) => sum + t.credits, 0);
 }

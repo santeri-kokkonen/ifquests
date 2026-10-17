@@ -84,10 +84,10 @@ describe("MoveReady credit rules", () => {
     expect(activeAward(true, true, 0, Infinity, 50)).toBe(0);
     expect(activeAward(true, true, -10, 0, 50)).toBe(0);
   });
-  it("a rental van costs 150 ActiveCredits, not 100", () => {
-    expect(VAN_ACTIVE_COST).toBe(150);
-    expect(canRentVan(100, false)).toBe(false);
-    expect(canRentVan(150, false)).toBe(true);
+  it("a rental van costs 6000 ActiveCredits", () => {
+    expect(VAN_ACTIVE_COST).toBe(6000);
+    expect(canRentVan(5999, false)).toBe(false);
+    expect(canRentVan(6000, false)).toBe(true);
   });
-  it("a rental van can only be booked once", () => expect(canRentVan(500, true)).toBe(false));
+  it("a rental van can only be booked once", () => expect(canRentVan(7000, true)).toBe(false));
 });
