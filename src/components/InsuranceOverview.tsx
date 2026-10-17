@@ -4,7 +4,7 @@ const PLAN = {
   name: "Home Insurance",
   tier: "Plus",
   policy: "1234 567 890",
-  period: "1 Jan 2026 – 31 Dec 2026",
+  period: "1 Jan – 31 Dec 2026",
   premium: "€12.90 / month",
 };
 
@@ -48,7 +48,7 @@ export function InsuranceOverview() {
 
         <div className="mt-6 space-y-4 border-t border-border pt-5">
           <div className="flex items-baseline justify-between gap-4">
-            <span className="text-sm text-muted-foreground">Coverage period</span>
+            <span className="text-sm text-muted-foreground">Coverage</span>
             <span className="text-right font-medium">{PLAN.period}</span>
           </div>
           <div className="flex items-baseline justify-between gap-4">
