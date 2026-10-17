@@ -89,12 +89,6 @@ export const tasks = [
 ] as const;
 export const moveRewards = [
   {
-    id: "trailer",
-    name: "One trailer hour",
-    cost: 100,
-    detail: "For the boxes that won’t fit in a car.",
-  },
-  {
     id: "pizza",
     name: "Pizza for your crew",
     cost: 300,
