@@ -1,17 +1,37 @@
-# If Quests
+# If Quests — Practical Help First, Insurance Second
 
-A hackathon prototype for daily activity and practical risk-prevention sidequests.
+If Quests is an insurance-app prototype that keeps customers engaged every day through ActiveCredits, earned by hitting a daily step goal and completing safety habits, and rewards practical prevention during a life change through MoveCredits, earned by verifying rental safety checks in the Moving sidequest. The two currencies stay separate on purpose: everyday wellness progress can never be spent on moving help, and moving progress can never drain an active routine.
 
-## Development
+## Key features
 
-Install dependencies with `bun install`, start locally with `bun run dev`, and run regression checks with `bun run test`.
+- **If start menu (`/`)** — the My If dashboard the prototype plugs into, with a direct shortcut into Quests.
+- **Main Quest (`/activity`)** — daily step ring, automatic ActiveCredits when the goal is met (50/day cap, 10,000/year), and safety reminders such as smoke-alarm and sensor battery checks.
+- **Sidequests (`/quests`)** — the Moving sidequest is live; Buying a car, Having a baby and Buying your own home are shown as coming soon.
+- **Moving sidequest (`/quests/moving`)** — 9 room-by-room checks (water shut-off valve, dishwasher leak tray, floor drain, smoke alarm, move-in condition photos, safe lifting, winter grip, coverage check) worth 1,000 MoveCredits.
+- **Photo evidence** — upload a photo or use the built-in demo valve photo; evidence is stored as image data and survives a refresh.
+- **Crew (`/crew`)** — optional helper links and witness confirmations; every check can also be completed solo.
+- **LeakGuard (`/leakguard`)** — guided water-leak reporting with photo verification, sensor status and a downloadable report draft.
+- **Rewards (`/rewards`)** — ActiveCredits offers (rental van 6,000, cleaning services 10,000) plus example partner offers; MoveCredits rewards (crew pizza 300, leak sensor 600) live inside the Moving sidequest.
+- **Persistence and reset** — progress and evidence persist in versioned, validated browser storage; a Reset demo control returns everything to the walkthrough state.
 
-TanStack Start, React, TypeScript and Tailwind CSS power the application. Read `AGENTS.md` before changing its architecture.
+## Tech stack
 
-## Demo boundaries
+- TanStack Start v1 (React 19, file-based routing, SSR)
+- TypeScript
+- Tailwind CSS v4 with shadcn/ui primitives (Radix UI)
+- TanStack Query for data state
+- Zod for storage validation, Vitest + Testing Library for tests
+- Vite build, ESLint and Prettier
 
-- The If start menu is `/`; the Quests shortcut opens daily activity at `/activity`.
-- Activity, policies, crew confirmations, sensor alerts and rewards are simulated. No live customer services or partner bookings are connected.
-- Progress and uploaded evidence persist in this browser. They are not shared between devices or crew members.
-- Offer prices and accelerated demo redemption costs are separately labelled. Real launch requires agreed reward terms and live-service integrations.
-- Keep tests, configuration, generated routing and error-reporting infrastructure when cleaning up files.
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open the printed local URL. Other scripts: `npm run build`, `npm run preview`, `npm run test`, `npm run lint`.
+
+## Notes
+
+Partner offers, crew confirmations, sensor alerts and policy checks are simulated — no live customer or partner services are connected. `AGENTS.md` records the architecture rules; `AUDIT.md` records the audit trail.
