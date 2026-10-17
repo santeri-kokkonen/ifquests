@@ -90,11 +90,10 @@ function Rewards() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <article className="rounded-xl border bg-card p-5">
             <Pizza className="h-8 w-8 text-primary" strokeWidth={1.2} />
-            <h3 className="mt-4 text-lg font-medium">Pizza night at your new place</h3>
+            <h3 className="mt-4 text-lg font-medium">Pizza </h3>
             <p className="mt-1 text-xs text-muted-foreground">Pizza Oven Co. · Turku</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              250 ActiveCredits · A large pizza for the first evening, when the kitchen is still
-              full of boxes.
+              1000 ActiveCredits · Two large pizzas for the price of one
             </p>
           </article>
           <article className="rounded-xl border bg-card p-5">
@@ -102,7 +101,7 @@ function Rewards() {
             <h3 className="mt-4 text-lg font-medium">Packing kit</h3>
             <p className="mt-1 text-xs text-muted-foreground">Boxly · Online</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              120 ActiveCredits · Ten boxes, tape and bubble wrap, delivered to your door.
+              1000 ActiveCredits · Ten boxes, tape and bubble wrap, delivered to your door.
             </p>
           </article>
           <article className="rounded-xl border bg-card p-5">
@@ -110,7 +109,7 @@ function Rewards() {
             <h3 className="mt-4 text-lg font-medium">A month of city bikes</h3>
             <p className="mt-1 text-xs text-muted-foreground">City Bikes · Turku region</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              400 ActiveCredits · 30 days of rides, a low-effort way to keep the step goal going.
+              3000 ActiveCredits · 30 days of rides, a low-effort way to keep the step goal going.
             </p>
           </article>
         </div>
