@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
 import { Home, Compass, Shield, Coins, PartyPopper, ArrowRight, Footprints } from "lucide-react";
+import { LifeEventQuest } from "@/components/LifeEventQuest";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -119,6 +120,8 @@ function Index() {
                   <span className="font-semibold">Daily Goal Crushed!</span> +50 IfCredits earned.
                 </p>
               </div>
+
+              <LifeEventQuest />
 
               <button
                 onClick={() => setTab("quests")}
