@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { Pizza, Droplets, Check } from "lucide-react";
+import { toast } from "sonner";
 import { useMove } from "./MoveProvider";
+import { Confetti } from "./Confetti";
 import { Button } from "./ui/button";
 import { Progress } from "./ui/progress";
 import { moveRewards, canClaimMove } from "@/lib/move-rules";
@@ -8,8 +11,10 @@ const icons = { pizza: Pizza, "leak-sensor": Droplets };
 
 export function MoveRewards() {
   const state = useMove();
+  const [burst, setBurst] = useState(0);
   return (
     <section className="mt-9 border-t pt-6">
+      {burst > 0 && <Confetti key={burst} />}
       <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline">
         <h2 className="text-2xl font-light">Moving rewards</h2>
         <span className="min-w-0 text-sm font-medium text-primary">{state.total} MoveCredits</span>
@@ -34,7 +39,13 @@ export function MoveRewards() {
               <Button
                 className="mt-4 w-full"
                 disabled={claimed || !canClaimMove(r.id, state.completed, state.claimed)}
-                onClick={() => state.claim(r.id)}
+                onClick={() => {
+                  state.claim(r.id);
+                  setBurst((n) => n + 1);
+                  toast.success(`${r.name} claimed`, {
+                    description: "Demo milestone unlocked. No real booking or order.",
+                  });
+                }}
               >
                 {claimed ? (
                   <>
