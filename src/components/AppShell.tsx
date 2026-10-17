@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Activity, Compass, Shield, Gift, Coins } from "lucide-react";
+import { Activity, Compass, Gift, Coins } from "lucide-react";
 import { useMove } from "./MoveProvider";
 import { Button } from "./ui/button";
 import type { ReactNode } from "react";
@@ -11,7 +11,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/if" aria-label="Back to the If app" className="flex items-center gap-3">
             <img
               src={ifLogoAsset.url}
               alt="If"
@@ -21,7 +21,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             />
             <span className="text-xl font-medium">Quests</span>
           </Link>
-          {path !== "/insurance" && (
+          {(
             <Button variant="ghost" asChild className="gap-2">
               <Link to="/rewards">
                 <Coins className="text-primary" />
@@ -39,13 +39,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         aria-label="Main navigation"
         className="fixed inset-x-0 bottom-0 z-30 border-t bg-card pb-[env(safe-area-inset-bottom)]"
       >
-        <div className="mx-auto grid max-w-xl grid-cols-4 py-2">
+        <div className="mx-auto grid max-w-xl grid-cols-3 py-2">
           {(
             [
               { to: "/", label: "Home", icon: Activity },
               { to: "/quests", label: "Sidequests", icon: Compass },
               { to: "/rewards", label: "Rewards", icon: Gift },
-              { to: "/insurance", label: "Insurance", icon: Shield },
             ] as const
           ).map(({ to, label, icon: Icon }) => (
             <Button
