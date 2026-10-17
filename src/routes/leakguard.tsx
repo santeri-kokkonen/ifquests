@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Droplets, Check, ArrowLeft, Camera, Download, AlertTriangle } from "lucide-react";
+import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,7 @@ function LeakGuard() {
     const text = `FAULT REPORT — DEMO DRAFT\nLocation: ${location}\nIssue: ${fault}\nWater shut off: ${state.leakSteps.includes("water") ? "Marked complete in demo" : "Not recorded"}\nPlease contact the resident and arrange an urgent inspection.\n\nDemo draft — not sent to maintenance or the housing company.`;
     state.setReport(text);
     state.finishLeak("report");
+    toast.success("Step 2 recorded", { description: "Fault report draft prepared." });
   }
   function download() {
     let url: string | undefined;
@@ -124,7 +126,10 @@ function LeakGuard() {
               <Button
                 className="mt-4"
                 disabled={state.leakSteps.includes("water")}
-                onClick={() => state.finishLeak("water")}
+                onClick={() => {
+                  state.finishLeak("water");
+                  toast.success("Step 1 recorded", { description: "Water shut-off marked complete." });
+                }}
               >
                 {state.leakSteps.includes("water") ? (
                   <>
@@ -224,6 +229,7 @@ function LeakGuard() {
                 onClick={() => {
                   state.savePhoto("leak", photo);
                   state.finishLeak("evidence");
+                  toast.success("Step 3 recorded", { description: "Evidence photo saved." });
                 }}
               >
                 <Camera />

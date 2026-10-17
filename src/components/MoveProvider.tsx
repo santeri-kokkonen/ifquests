@@ -181,12 +181,20 @@ export function useMoveState() {
       setState((p) => (p.leakSteps.includes(id) ? p : { ...p, leakSteps: [...p.leakSteps, id] })),
     [],
   );
+  const resetDemo = useCallback(() => {
+    try {
+      window.localStorage.removeItem(DEMO_STORAGE_KEY);
+    } catch {
+      setStorageError("Progress could not be cleared in this browser. Close and reopen the tab to start fresh.");
+    }
+    setState(initialState);
+  }, []);
   const setLeakAlert = useCallback((value: boolean) => setState((p) => ({ ...p, leakAlert: value })), []);
   const setFaultLocation = useCallback((value: string) => setState((p) => ({ ...p, faultLocation: value })), []);
   const setFaultDescription = useCallback((value: string) => setState((p) => ({ ...p, faultDescription: value })), []);
   return {
     ...state,
-    ready, storageError, setLeakAlert, setFaultLocation, setFaultDescription,
+    ready, storageError, resetDemo, setLeakAlert, setFaultLocation, setFaultDescription,
     total: moveTotal(state.completed),
     setOptIn,
     setCustomer,

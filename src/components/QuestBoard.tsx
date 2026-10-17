@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
+import { Confetti } from "./Confetti";
 import {
   Bath,
   CookingPot,
@@ -34,8 +36,20 @@ export function QuestBoard() {
   const task = tasks.find((t) => t.id === selected);
   const next = state.total < 300 ? 300 : state.total < 600 ? 600 : 1000;
   const [attested, setAttested] = useState(false);
+  const celebrated = useRef(state.total >= 1000);
+  const [burst, setBurst] = useState(0);
+  useEffect(() => {
+    if (state.total >= 1000 && !celebrated.current) {
+      celebrated.current = true;
+      setBurst((n) => n + 1);
+      toast.success("Moving checklist complete", {
+        description: "1,000 MoveCredits. Welcome home.",
+      });
+    }
+  }, [state.total]);
   return (
     <>
+      {burst > 0 && <Confetti key={burst} />}
       <Link to="/quests" className="text-sm text-primary">
         ← All sidequests
       </Link>
@@ -77,7 +91,7 @@ export function QuestBoard() {
         <span className="text-xs text-muted-foreground">4 areas · 9 checks</span>
       </div>
       <div className="home-map mt-4 grid grid-cols-2 gap-3">
-        {rooms.map((r) => {
+        {rooms.map((r, i) => {
           const list = tasks.filter((t) => t.room === r.id);
           const done = list.filter((t) => state.completed.includes(t.id)).length;
           const ready = done === list.length;
@@ -87,7 +101,8 @@ export function QuestBoard() {
               key={r.id}
               variant="ghost"
               onClick={() => setRoom(r.id)}
-              className={`room-tile h-auto min-w-0 min-h-44 flex-col items-start justify-between whitespace-normal rounded-xl border p-4 sm:p-5 text-left ${ready ? "border-success bg-success-soft text-success" : "bg-card"}`}
+              style={{ animationDelay: `${i * 80}ms` }}
+              className={`room-tile animate-rise h-auto min-w-0 min-h-44 flex-col items-start justify-between whitespace-normal rounded-xl border p-4 sm:p-5 text-left ${ready ? "border-success bg-success-soft text-success" : "bg-card"}`}
             >
               <div className="flex w-full items-center justify-between">
                 <Icon className="!h-8 !w-8" strokeWidth={1.2} />
@@ -238,6 +253,9 @@ export function QuestBoard() {
                     onClick={() => {
                       setResult(coverageResult(policy, liability, address));
                       state.complete("coverage");
+                      toast.success("+100 MoveCredits", {
+                        description: "Home coverage check complete.",
+                      });
                     }}
                   >
                     Get my coverage guidance
@@ -345,6 +363,9 @@ export function QuestBoard() {
                     onClick={() => {
                       state.complete(task.id);
                       setSelected(null);
+                      toast.success(`+${task.credits} MoveCredits`, {
+                        description: `${task.name} complete.`,
+                      });
                     }}
                   >
                     {" "}

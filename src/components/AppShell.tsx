@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Activity, Compass, Gift, Coins } from "lucide-react";
+import { Activity, Compass, Gift, Coins, RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 import { useMove } from "./MoveProvider";
 import { Button } from "./ui/button";
 import type { ReactNode } from "react";
@@ -45,6 +46,19 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main className="mx-auto max-w-5xl px-5 pb-28 pt-7 sm:px-8 sm:pt-10">{children}</main>
+      <button
+        type="button"
+        onClick={() => {
+          state.resetDemo();
+          toast.success("Demo reset", {
+            description: "All progress cleared. Ready for a fresh walkthrough.",
+          });
+        }}
+        className="fixed bottom-20 right-4 z-30 flex items-center gap-1.5 rounded-full border bg-card px-3 py-1.5 text-xs text-muted-foreground shadow-sm transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <RotateCcw className="h-3.5 w-3.5" />
+        Reset demo
+      </button>
       <nav
         aria-label="Main navigation"
         className="fixed inset-x-0 bottom-0 z-30 border-t bg-card pb-[env(safe-area-inset-bottom)]"

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Users, Link as LinkIcon, Check, ArrowLeft } from "lucide-react";
+import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
@@ -76,7 +77,9 @@ function Crew() {
           onSubmit={(e) => {
             e.preventDefault();
             if (name.trim()) {
-              setJoinMessage(state.crew.includes(name.trim()) ? `${name.trim()} is already in your crew.` : `${name.trim()} joined your crew.`);
+              const already = state.crew.includes(name.trim());
+              setJoinMessage(already ? `${name.trim()} is already in your crew.` : `${name.trim()} joined your crew.`);
+              if (!already) toast.success(`${name.trim()} joined your crew`);
               state.join(name.trim());
               setName("");
             }
@@ -118,7 +121,10 @@ function Crew() {
                       variant="outline"
                       size="sm"
                       disabled={state.confirmed.includes(t.id)}
-                      onClick={() => state.confirm(t.id)}
+                      onClick={() => {
+                        state.confirm(t.id);
+                        toast.success("Check witnessed", { description: t.name });
+                      }}
                     >
                       {state.confirmed.includes(t.id) ? (
                         <>

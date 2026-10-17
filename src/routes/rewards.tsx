@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bike, Compass, Package, Pizza, Sparkles, Truck } from "lucide-react";
+import { useState } from "react";
+import { Bike, Compass, Gift, Package, Pizza, Sparkles, Truck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
+import { Confetti } from "@/components/Confetti";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
@@ -16,8 +19,11 @@ export const Route = createFileRoute("/rewards")({
 });
 function Rewards() {
   const state = useMove();
+  const [burst, setBurst] = useState(0);
+  const celebrate = () => setBurst((n) => n + 1);
   return (
     <AppShell>
+      {burst > 0 && <Confetti key={burst} />}
       <p className="eyebrow">ALL YEAR ROUND</p>
       <h1 className="mt-2 text-4xl font-light">A balance that grows with you.</h1>
       <p className="mt-3 text-muted-foreground">
@@ -33,7 +39,7 @@ function Rewards() {
           Explore example offers. Offer prices are illustrative; demo redemptions use the amounts shown below.
         </p>
         <div className="mt-5 grid gap-6 md:grid-cols-2">
-          <article className="rounded-xl border bg-card p-5">
+          <article className="animate-rise rounded-xl border bg-card p-5">
             <Truck className="h-8 w-8 text-primary" strokeWidth={1.2} />
             <h3 className="mt-4 text-lg font-medium">A rental van for your troubles</h3>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -43,7 +49,13 @@ function Rewards() {
             <Button
               className="mt-5"
               disabled={!canRentVan(state.active, state.vanReserved)}
-              onClick={state.rentVan}
+              onClick={() => {
+                state.rentVan();
+                celebrate();
+                toast.success("Rental van reserved in demo", {
+                  description: `${VAN_ACTIVE_COST} ActiveCredits used. Demo voucher: AC-VAN.`,
+                });
+              }}
             >
               <span key={String(state.vanReserved)}>
                 {state.vanReserved ? "Rental van reserved in demo" : "Buy with ActiveCredits"}
@@ -59,7 +71,7 @@ function Rewards() {
               </p>
             ) : null}
           </article>
-          <article className="rounded-xl border bg-card p-5">
+          <article className="animate-rise rounded-xl border bg-card p-5" style={{ animationDelay: "100ms" }}>
             <Sparkles className="h-8 w-8 text-primary" strokeWidth={1.2} />
             <h3 className="mt-4 text-lg font-medium">Cleaning services</h3>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -69,7 +81,13 @@ function Rewards() {
             <Button
               className="mt-5"
               disabled={state.cleaning || state.active < CLEANING_COST}
-              onClick={state.redeemCleaning}
+              onClick={() => {
+                state.redeemCleaning();
+                celebrate();
+                toast.success("Cleaning reserved in demo", {
+                  description: `${CLEANING_COST} ActiveCredits used. No real cleaning is booked.`,
+                });
+              }}
             >
               <span key={String(state.cleaning)}>
                 {state.cleaning ? "Cleaning reserved in demo" : "Buy with ActiveCredits"}
@@ -119,7 +137,17 @@ function Rewards() {
       <section className="mt-8 border-t pt-6">
         <h2 className="text-2xl font-light">Reward history</h2>
         {!state.vanReserved && !state.cleaning ? (
-          <p className="mt-3 text-sm text-muted-foreground">Your first reward is ahead. Build ActiveCredits on Home, then choose a reward above.</p>
+          <div className="animate-rise mt-4 flex flex-col items-center gap-3 rounded-xl border border-dashed bg-secondary/50 px-6 py-8 text-center">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-card">
+              <Gift className="h-6 w-6 text-primary" strokeWidth={1.5} />
+            </span>
+            <p className="text-sm text-muted-foreground">
+              Your first reward is ahead. Build ActiveCredits on Home, then choose a reward above.
+            </p>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/activity">Go to Home</Link>
+            </Button>
+          </div>
         ) : (
           <ul className="mt-3 divide-y text-sm">
             {state.vanReserved && <li className="py-3">Rental van · {VAN_ACTIVE_COST} ActiveCredits used · Reserved in demo</li>}
