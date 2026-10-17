@@ -11,7 +11,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
-          <Link to="/if" aria-label="Back to the If app" className="flex items-center gap-3">
+          <Link to="/" aria-label="Back to the If app" className="flex items-center gap-3">
             <img
               src={ifLogoAsset.url}
               alt="If"
@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mx-auto grid max-w-xl grid-cols-3 py-2">
           {(
             [
-              { to: "/", label: "Home", icon: Activity },
+              { to: "/activity", label: "Home", icon: Activity },
               { to: "/quests", label: "Sidequests", icon: Compass },
               { to: "/rewards", label: "Rewards", icon: Gift },
             ] as const
