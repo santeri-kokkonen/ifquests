@@ -21,9 +21,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             />
             <span className="text-xl font-medium">Quests</span>
           </Link>
-          {(
+          {path.startsWith("/quests/moving") || path === "/crew" || path === "/leakguard" ? (
             <Button variant="ghost" asChild className="gap-2">
-              <Link to="/rewards">
+              <Link to="/quests/moving" aria-label={`${state.total} MoveCredits`}>
+                <Coins className="text-primary" />
+                <span className="text-sm tabular-nums">
+                  {state.total} <span className="hidden sm:inline">MoveCredits</span>
+                  <span className="sm:hidden">MC</span>
+                </span>
+              </Link>
+            </Button>
+          ) : (
+            <Button variant="ghost" asChild className="gap-2">
+              <Link to="/rewards" aria-label={`${state.active} ActiveCredits`}>
                 <Coins className="text-primary" />
                 <span className="text-sm tabular-nums">
                   {state.active} <span className="hidden sm:inline">ActiveCredits</span>
