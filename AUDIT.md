@@ -58,3 +58,12 @@ Reviewed all application routes, feature components, shared UI controls, hooks, 
 - Existing reward display/charge discrepancies remain documented above; this audit does not silently change previously chosen business rules.
 - Storage is local to this browser and can be cleared by the browser/user; quota failures are reported rather than guaranteed away. Active dialogs, selected room and transient feedback are intentionally not reopened after refresh.
 - Root error retry was not fault-injected during this browser pass; arbitrary rendering failures, all devices and production services are not exhaustively verified.
+
+## Responsive readability review — 17 October 2026
+- Checked all seven screens at 375×812, 768×1024 and 1280×1800. Document width equals viewport width on every screen; translated progress fills are intentionally clipped within their tracks and do not overflow the page.
+- Header and text/action rows now use shrink-safe layouts. Mobile reward totals stack beneath headings, the helper form stacks, and partner offers use two columns on tablets before expanding to three on desktop.
+- Shared buttons and icon actions have 44px minimum touch targets; small controls retain readable 14px labels. Form fields are 44px tall with 16px text, visible focus rings and stable widths. Buttons can wrap instead of clipping.
+- Sheets share consistent 20px mobile/24px larger-screen horizontal spacing, safe-area bottom space, scroll containment, reserved title space and a 44px close target. Long crew names wrap without squeezing actions.
+- Removed low-opacity text from the blue active-sidequest shortcut and upcoming sidequests. Browser-computed contrast checks found no below-WCAG-AA ratios in enabled text on the inspected pages and task/coverage dialogs (4.5:1 normal text, 3:1 large text); disabled controls are exempt and were separately made less faint. This is a targeted check, not a formal complete accessibility certification.
+- Verified dialog bottom actions can scroll into view, coverage answers remain usable, keyboard navigation opens Rewards, navigation targets meet 44px height, and Escape restores background scrolling at all three sizes. Screenshots inspected for mobile dialogs, mobile rewards and tablet reward grids.
+- All 63 regression tests pass, the automatic preview build is clean, and the responsive browser runs produced no page exceptions. No business rules or storage behavior changed.

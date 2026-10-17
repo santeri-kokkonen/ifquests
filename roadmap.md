@@ -1,5 +1,5 @@
 # MoveReady delivery
-- [ ] Review and optimize all screens at 375px, 768px and 1200px+; verify width, controls, contrast and spacing.
+- [x] Review and optimize all screens at 375px, 768px and 1200px+; verify width, controls, contrast and spacing.
 - [x] Audit every visible interactive flow, feedback, dialogs and navigation end-to-end.
 - [x] Preserve mock progress and evidence across refreshes with safe browser storage and regression tests.
 - [x] Re-test fixes and document remaining prototype limitations.
