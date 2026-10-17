@@ -10,8 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as CrewRouteImport } from './routes/crew'
-import { Route as IfRouteImport } from './routes/if'
 import { Route as LeakguardRouteImport } from './routes/leakguard'
 import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as QuestsIndexRouteImport } from './routes/quests.index'
@@ -22,14 +22,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivityRoute = ActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CrewRoute = CrewRouteImport.update({
   id: '/crew',
   path: '/crew',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IfRoute = IfRouteImport.update({
-  id: '/if',
-  path: '/if',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeakguardRoute = LeakguardRouteImport.update({
@@ -55,8 +55,8 @@ const QuestsMovingRoute = QuestsMovingRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
   '/crew': typeof CrewRoute
-  '/if': typeof IfRoute
   '/leakguard': typeof LeakguardRoute
   '/rewards': typeof RewardsRoute
   '/quests/moving': typeof QuestsMovingRoute
@@ -64,8 +64,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
   '/crew': typeof CrewRoute
-  '/if': typeof IfRoute
   '/leakguard': typeof LeakguardRoute
   '/rewards': typeof RewardsRoute
   '/quests/moving': typeof QuestsMovingRoute
@@ -74,8 +74,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
   '/crew': typeof CrewRoute
-  '/if': typeof IfRoute
   '/leakguard': typeof LeakguardRoute
   '/rewards': typeof RewardsRoute
   '/quests/moving': typeof QuestsMovingRoute
@@ -85,8 +85,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/activity'
     | '/crew'
-    | '/if'
     | '/leakguard'
     | '/rewards'
     | '/quests/moving'
@@ -94,8 +94,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/activity'
     | '/crew'
-    | '/if'
     | '/leakguard'
     | '/rewards'
     | '/quests/moving'
@@ -103,8 +103,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/activity'
     | '/crew'
-    | '/if'
     | '/leakguard'
     | '/rewards'
     | '/quests/moving'
@@ -113,8 +113,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivityRoute: typeof ActivityRoute
   CrewRoute: typeof CrewRoute
-  IfRoute: typeof IfRoute
   LeakguardRoute: typeof LeakguardRoute
   RewardsRoute: typeof RewardsRoute
   QuestsMovingRoute: typeof QuestsMovingRoute
@@ -130,18 +130,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/crew': {
       id: '/crew'
       path: '/crew'
       fullPath: '/crew'
       preLoaderRoute: typeof CrewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/if': {
-      id: '/if'
-      path: '/if'
-      fullPath: '/if'
-      preLoaderRoute: typeof IfRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leakguard': {
@@ -177,8 +177,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivityRoute: ActivityRoute,
   CrewRoute: CrewRoute,
-  IfRoute: IfRoute,
   LeakguardRoute: LeakguardRoute,
   RewardsRoute: RewardsRoute,
   QuestsMovingRoute: QuestsMovingRoute,

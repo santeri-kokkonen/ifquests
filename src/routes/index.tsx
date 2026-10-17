@@ -5,15 +5,15 @@ import { pageHead } from "@/lib/page-head";
 import { useMove } from "@/components/MoveProvider";
 
 export const Route = createFileRoute("/")({
-  head: () => pageHead("If — Oma If", "Your If customer dashboard with Quests built in."),
+  head: () => pageHead("If — My If", "Your If customer dashboard with Quests built in."),
   component: IfHome,
 });
 
 const tiles = [
-  { label: "Vakuutukset", icon: Umbrella },
-  { label: "Vahingot", icon: CloudLightning },
-  { label: "Laskut", icon: Coins },
-  { label: "Asiakirjat", icon: FileText },
+  { label: "Insurance", icon: Umbrella },
+  { label: "Claims", icon: CloudLightning },
+  { label: "Bills", icon: Coins },
+  { label: "Documents", icon: FileText },
 ];
 
 function IfHome() {
@@ -24,11 +24,11 @@ function IfHome() {
         <img src={ifLogoAsset.url} alt="If" width={48} height={48} className="h-12 w-12" />
         <span className="absolute right-5 flex flex-col items-center text-xs">
           <Menu className="h-7 w-7" strokeWidth={1.2} />
-          Valikko
+          Menu
         </span>
       </header>
       <main className="mx-auto max-w-md px-5 pb-16 pt-10">
-        <h1 className="text-3xl font-light">Hei, Timo-Antti</h1>
+        <h1 className="text-3xl font-light">Hi, Timo-Antti</h1>
         <div className="mt-8 grid grid-cols-2 gap-4">
           {tiles.map(({ label, icon: Icon }) => (
             <div key={label} className="flex aspect-[5/4] flex-col items-center justify-center gap-4 rounded-xl bg-background">
@@ -49,13 +49,13 @@ function IfHome() {
           <span className="flex-1">
             <span className="block text-lg font-medium">Quests</span>
             <span className="text-sm opacity-90">
-              Päivän askeleet ja sivutehtävät · {state.active} ActiveCredits
+              Daily steps and sidequests · {state.active} ActiveCredits
             </span>
           </span>
           <ChevronRight />
         </Link>
         <div className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-muted py-4 text-primary">
-          <Plus strokeWidth={1.5} /> Osta uusi vakuutus
+          <Plus strokeWidth={1.5} /> Buy new insurance
         </div>
       </main>
     </div>
