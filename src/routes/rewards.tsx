@@ -19,14 +19,11 @@ export const Route = createFileRoute("/rewards")({
 });
 function Rewards() {
   const state = useMove();
-  const [celebrating, setCelebrating] = useState(false);
-  const celebrate = () => {
-    setCelebrating(false);
-    requestAnimationFrame(() => setCelebrating(true));
-  };
+  const [burst, setBurst] = useState(0);
+  const celebrate = () => setBurst((n) => n + 1);
   return (
     <AppShell>
-      {celebrating && <Confetti key={String(celebrating)} />}
+      {burst > 0 && <Confetti key={burst} />}
       <p className="eyebrow">ALL YEAR ROUND</p>
       <h1 className="mt-2 text-4xl font-light">A balance that grows with you.</h1>
       <p className="mt-3 text-muted-foreground">
