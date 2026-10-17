@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
-import { ArrowRight, Droplets, Footprints, ShieldCheck } from "lucide-react";
+import { ArrowRight, Droplets, Footprints, ShieldCheck, Truck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
@@ -11,13 +11,13 @@ import { Switch } from "@/components/ui/switch";
 export const Route = createFileRoute("/activity")({
   head: () => ({
     meta: [
-      { title: "IF Quests — Your daily activity" },
+      { title: "IF Quests — Home" },
       {
         name: "description",
         content:
           "Track your daily steps and earn ActiveCredits with IF Quests.",
       },
-      { property: "og:title", content: "IF Quests — Your daily activity" },
+      { property: "og:title", content: "IF Quests — Home" },
       {
         property: "og:description",
         content:
@@ -108,17 +108,32 @@ function Index() {
     <AppShell>
       <div className="mx-auto max-w-md">
         <section>
-          <div className="flex items-baseline justify-between">
-            <h1 className="text-3xl font-light">Your daily activity</h1>
-            <span className="text-xs text-primary">ActiveCredits</span>
-          </div>
+          <p className="eyebrow">Main quest · Today</p>
+          <h1 className="mt-1 text-3xl font-light">Home</h1>
           <div className="mt-4 rounded-xl bg-secondary py-5">
             <StepRing />
           </div>
-          <div className="mt-4 flex items-center justify-between border-b pb-4">
-            <span className="text-sm">Your balance</span>
-            <span className="font-medium text-primary">{state.active} ActiveCredits</span>
-          </div>
+          {state.habits.includes("steps") && (
+            <p role="status" className="mt-4 rounded-lg bg-success-soft p-3 text-sm text-success">
+              Daily goal crushed! +50 ActiveCredits earned.
+            </p>
+          )}
+          <Link
+            to="/quests/moving"
+            className="mt-4 flex items-center gap-4 rounded-xl bg-primary p-4 text-primary-foreground"
+          >
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-foreground/15">
+              <Truck className="h-5 w-5" strokeWidth={1.5} />
+            </span>
+            <span className="flex-1">
+              <span className="block text-xs opacity-80">Active sidequest</span>
+              <span className="block font-medium">Moving to a new rental</span>
+              <span className="block text-xs opacity-80">
+                {state.completed.length}/10 tasks · {state.total} MoveCredits
+              </span>
+            </span>
+            <ArrowRight className="h-5 w-5" />
+          </Link>
           <label className="mt-5 flex items-start gap-3">
             <Switch checked={state.optIn} onCheckedChange={state.setOptIn} />
             <span className="text-sm font-medium">
@@ -143,17 +158,12 @@ function Index() {
               <ArrowRight />
             </Link>
           </Button>
-          {state.habits.includes("steps") && (
-            <p role="status" className="mt-2 rounded-lg bg-success-soft p-3 text-sm text-success">
-              Daily goal crushed! +50 ActiveCredits earned.
-            </p>
-          )}
         </section>
         <section className="mt-9 border-t pt-6">
           <h2 className="font-medium">More than a step count</h2>
           <div className="mt-4 space-y-3">
             {[
-              { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck },
+              { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck, Truck },
               { id: "battery", name: "Sensor battery check", icon: Droplets },
             ].map((h) => (
               <div className="flex items-center gap-3 border-b pb-3" key={h.id}>
