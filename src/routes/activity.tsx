@@ -109,10 +109,10 @@ function StepRing({ earned }: { earned: boolean }) {
 function Index() {
   const state = useMove();
   const goalMet = 10500 >= 10000;
-  const { optIn, customer, daily, habits, earn } = state;
+  const { optIn, customer, daily, habits, earn, ready } = state;
   useEffect(() => {
-    if (goalMet && optIn && customer && daily < 50 && !habits.includes("steps")) earn("steps");
-  }, [goalMet, optIn, customer, daily, habits, earn]);
+    if (ready && goalMet && optIn && customer && daily < 50 && !habits.includes("steps")) earn("steps");
+  }, [ready, goalMet, optIn, customer, daily, habits, earn]);
   return (
     <AppShell>
       <div className="mx-auto max-w-md">

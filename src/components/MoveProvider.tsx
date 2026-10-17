@@ -17,29 +17,28 @@ import {
   moveTotal,
   VAN_ACTIVE_COST,
 } from "@/lib/move-rules";
-
-const initialState = {
-  completed: [] as string[],
-  photos: {} as Record<string, string>,
-  confirmed: [] as string[],
-  claimed: [] as string[],
-  crew: [] as string[],
-  active: 450,
-  optIn: false,
-  customer: true,
-  daily: 0,
-  yearly: 450,
-  habits: [] as string[],
-  cleaning: false,
-  vanReserved: false,
-  report: "",
-  leakSteps: [] as string[],
-  sensorArrived: false,
-};
+import { DEMO_STORAGE_KEY, initialState, decodeDemoState, encodeDemoState } from "@/lib/demo-storage";
 
 export function useMoveState() {
   const [state, setState] = useState(initialState);
+  const [ready, setReady] = useState(false);
+  const [storageError, setStorageError] = useState("");
   const ownedUrls = useRef(new Set<string>());
+  const readers = useRef(new Set<FileReader>());
+  useEffect(() => {
+    try { setState(decodeDemoState(window.localStorage.getItem(DEMO_STORAGE_KEY))); }
+    catch { setStorageError("Progress cannot be saved in this browser. Keep this tab open to retain your demo."); }
+    setReady(true);
+  }, []);
+  useEffect(() => {
+    if (!ready) return;
+    try {
+      window.localStorage.setItem(DEMO_STORAGE_KEY, encodeDemoState(state));
+      setStorageError("");
+    } catch {
+      setStorageError("Progress could not be saved. Browser storage may be full or blocked; keep this tab open.");
+    }
+  }, [state, ready]);
   useEffect(() => {
     const retained = new Set(Object.values(state.photos));
     for (const url of ownedUrls.current) {
@@ -51,7 +50,10 @@ export function useMoveState() {
   }, [state.photos]);
   useEffect(() => {
     const urls = ownedUrls.current;
+    const pending = readers.current;
     return () => {
+      for (const reader of pending) reader.abort();
+      pending.clear();
       for (const url of urls) URL.revokeObjectURL(url);
       urls.clear();
     };
@@ -98,10 +100,24 @@ export function useMoveState() {
   const savePhotoFile = useCallback(
     (id: string, file: File): string | null => {
       if (!file.type.startsWith("image/")) return "Please choose an image file.";
+      if (file.size > 2 * 1024 * 1024) return "Please choose a photo smaller than 2 MB so it can be saved in this browser.";
       try {
         const url = URL.createObjectURL(file);
         ownedUrls.current.add(url);
         savePhoto(id, url);
+        const reader = new FileReader();
+        readers.current.add(reader);
+        reader.onload = () => {
+          readers.current.delete(reader);
+          const photo = reader.result;
+          if (typeof photo !== "string") return;
+          setState((p) => p.photos[id] === url ? { ...p, photos: { ...p.photos, [id]: photo } } : p);
+        };
+        reader.onerror = () => {
+          readers.current.delete(reader);
+          setStorageError("This photo could not be saved for refreshes. Please choose another image.");
+        };
+        reader.readAsDataURL(file);
         return null;
       } catch {
         return "The photo could not be opened. Please try another image.";
@@ -165,8 +181,12 @@ export function useMoveState() {
       setState((p) => (p.leakSteps.includes(id) ? p : { ...p, leakSteps: [...p.leakSteps, id] })),
     [],
   );
+  const setLeakAlert = useCallback((value: boolean) => setState((p) => ({ ...p, leakAlert: value })), []);
+  const setFaultLocation = useCallback((value: string) => setState((p) => ({ ...p, faultLocation: value })), []);
+  const setFaultDescription = useCallback((value: string) => setState((p) => ({ ...p, faultDescription: value })), []);
   return {
     ...state,
+    ready, storageError, setLeakAlert, setFaultLocation, setFaultDescription,
     total: moveTotal(state.completed),
     setOptIn,
     setCustomer,
@@ -188,7 +208,10 @@ type MoveState = ReturnType<typeof useMoveState>;
 const Context = createContext<MoveState | null>(null);
 export function MoveProvider({ children }: { children: ReactNode }) {
   const state = useMoveState();
-  return <Context.Provider value={state}>{children}</Context.Provider>;
+  return <Context.Provider value={state}>
+    {state.storageError && <p role="alert" className="border-b bg-destructive/10 px-5 py-3 text-sm text-destructive">{state.storageError}</p>}
+    {children}
+  </Context.Provider>;
 }
 export function useMove() {
   const state = useContext(Context);
