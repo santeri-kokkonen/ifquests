@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
 import { Home, Compass, Shield, Coins, PartyPopper, ArrowRight, Footprints } from "lucide-react";
 import { LifeEventQuest } from "@/components/LifeEventQuest";
+import { InsuranceOverview } from "@/components/InsuranceOverview";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -137,12 +138,7 @@ function Index() {
               <LifeEventQuest />
             </div>
           ) : (
-            <div>
-              <h1 className="text-3xl font-light">Insurance</h1>
-              <p className="mt-3 leading-relaxed text-muted-foreground">
-                Use your IfCredits towards your If insurance — coming soon.
-              </p>
-            </div>
+            <InsuranceOverview />
           )}
         </main>
 
