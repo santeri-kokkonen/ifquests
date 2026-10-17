@@ -187,7 +187,6 @@ export function QuestBoard() {
                       set: setPolicy,
                       options: [
                         ["if", "With If"],
-                        ["other", "Another insurer"],
                         ["none", "No policy"],
                       ],
                     },
