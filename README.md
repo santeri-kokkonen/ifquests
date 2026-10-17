@@ -1,29 +1,17 @@
-# Welcome to your Lovable project
+# If Quests
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+A hackathon prototype for daily activity and practical risk-prevention sidequests.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Install dependencies with `bun install`, start locally with `bun run dev`, and run regression checks with `bun run test`.
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+TanStack Start, React, TypeScript and Tailwind CSS power the application. Read `AGENTS.md` before changing its architecture.
 
-## Built with
+## Demo boundaries
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+- The If start menu is `/`; the Quests shortcut opens daily activity at `/activity`.
+- Activity, policies, crew confirmations, sensor alerts and rewards are simulated. No live customer services or partner bookings are connected.
+- Progress and uploaded evidence persist in this browser. They are not shared between devices or crew members.
+- Offer prices and accelerated demo redemption costs are separately labelled. Real launch requires agreed reward terms and live-service integrations.
+- Keep tests, configuration, generated routing and error-reporting infrastructure when cleaning up files.
