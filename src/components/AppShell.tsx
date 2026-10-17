@@ -15,7 +15,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               if…
             </span>
             <span className="text-xl font-medium">
-              MoveReady
+              IF Quests
               <span className="ml-2 hidden text-xs font-normal text-muted-foreground sm:inline">
                 by If
               </span>

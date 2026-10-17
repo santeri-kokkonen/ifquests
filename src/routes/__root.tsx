@@ -79,12 +79,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MoveReady by If" },
-      { name: "description", content: "Practical help for your next move, with MoveReady by If." },
-      { property: "og:title", content: "MoveReady by If" },
+      { title: "IF Quests" },
+      { name: "description", content: "Quests and rewards for life’s big changes, with IF Quests." },
+      { property: "og:title", content: "IF Quests" },
       {
         property: "og:description",
-        content: "Practical help for your next move, with MoveReady by If.",
+        content: "Quests and rewards for life’s big changes, with IF Quests.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

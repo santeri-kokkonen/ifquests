@@ -7,22 +7,21 @@ import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import moving from "@/assets/moving.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MoveReady by If — A better move" },
+      { title: "IF Quests — Your daily activity" },
       {
         name: "description",
         content:
-          "A moving companion for young renters: practical safety quests, a helping crew and separate everyday rewards.",
+          "Track your daily steps and earn ActiveCredits with IF Quests.",
       },
-      { property: "og:title", content: "MoveReady by If — A better move" },
+      { property: "og:title", content: "IF Quests — Your daily activity" },
       {
         property: "og:description",
         content:
-          "A moving companion for young renters: practical safety quests, a helping crew and separate everyday rewards.",
+          "Track your daily steps and earn ActiveCredits with IF Quests.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -102,57 +101,10 @@ function Index() {
   const state = useMove();
   return (
     <AppShell>
-      <div className="grid gap-8 md:grid-cols-[1fr_340px]">
-        <section>
-          <p className="eyebrow">A LITTLE HELP FOR YOUR NEXT CHAPTER</p>
-          <h1 className="mt-2 text-4xl font-light leading-tight">
-            MoveReady.
-            <br />
-            Life happens. We help.
-          </h1>
-          <img
-            src={moving}
-            alt="Friends helping move boxes into a new apartment"
-            width={1280}
-            height={768}
-            className="mt-6 aspect-[5/3] w-full rounded-xl object-cover"
-          />
-          <div className="mt-6 flex items-start justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-light">Your new home starts here.</h2>
-              <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                Protect your deposit. Bring your friends.
-                <br />
-                Make the move a little less moving.
-              </p>
-            </div>
-          </div>
-          <Button asChild className="mt-5 h-11">
-            <Link to="/quests/moving">
-              Explore move quests
-              <ArrowRight />
-            </Link>
-          </Button>
-          <div className="mt-7 grid grid-cols-3 gap-3 border-y py-5">
-            {[
-              ["10", "useful checks"],
-              ["4", "room quests"],
-              ["3", "move rewards"],
-            ].map(([n, label]) => (
-              <div key={label}>
-                <p className="text-2xl font-light text-primary">{n}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{label}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-5 text-xs text-muted-foreground">
-            Hackathon prototype · Sample policy, activity and partner services. Progress lasts for
-            this session.
-          </p>
-        </section>
+      <div className="mx-auto max-w-md">
         <section>
           <div className="flex items-baseline justify-between">
-            <h2 className="text-xl font-light">Everyday wellbeing</h2>
+            <h1 className="text-3xl font-light">Your daily activity</h1>
             <span className="text-xs text-primary">ActiveCredits</span>
           </div>
           <div className="mt-4 rounded-xl bg-secondary py-5">
@@ -172,8 +124,7 @@ function Index() {
             </span>
           </label>
           <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-            10,500 sample steps · Daily goal reached. Earn up to 50 ActiveCredits per day. Moving
-            rewards never require exercise.
+            10,500 sample steps · Daily goal reached. Earn up to 50 ActiveCredits per day.
           </p>
           <Button
             className="mt-4 w-full h-11"
