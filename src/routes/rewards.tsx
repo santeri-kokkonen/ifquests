@@ -27,7 +27,7 @@ function Rewards() {
       <section className="mt-8 border-t pt-6">
         <div className="flex items-baseline justify-between">
           <h2 className="text-2xl font-light">Everyday rewards</h2>
-          <span className="font-medium text-primary">{state.active} ActiveCredits</span>
+          <span className="font-medium text-primary">{`${state.active} ActiveCredits`}</span>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
           One balance, several ways to use it. Prices are illustrative demo values.
@@ -44,16 +44,17 @@ function Rewards() {
               disabled={!canBuyTrailer(state.active, state.trailerActive)}
               onClick={state.buyTrailer}
             >
-              {state.trailerActive ? "Trailer hour reserved" : "Buy with ActiveCredits"}
+              <span key={String(state.trailerActive)}>
+                {state.trailerActive ? "Trailer hour reserved" : "Buy with ActiveCredits"}
+              </span>
             </Button>
             {state.trailerActive ? (
-              <p role="status" className="mt-3 text-sm text-success">
-                {TRAILER_ACTIVE_COST} ActiveCredits used. Demo voucher: AC-TRAILER · No real
-                booking.
+              <p key="trailer-done" role="status" className="mt-3 text-sm text-success">
+                {`${TRAILER_ACTIVE_COST} ActiveCredits used. Demo voucher: AC-TRAILER · No real booking.`}
               </p>
             ) : state.active < TRAILER_ACTIVE_COST ? (
-              <p className="mt-3 text-xs text-muted-foreground">
-                {TRAILER_ACTIVE_COST - state.active} ActiveCredits to go.
+              <p key="trailer-togo" className="mt-3 text-xs text-muted-foreground">
+                {`${TRAILER_ACTIVE_COST - state.active} ActiveCredits to go.`}
               </p>
             ) : null}
           </article>
@@ -68,11 +69,13 @@ function Rewards() {
               disabled={state.cleaning || state.active < CLEANING_COST}
               onClick={state.redeemCleaning}
             >
-              {state.cleaning ? "Cleaning reserved in demo" : "Reserve final cleaning"}
+              <span key={String(state.cleaning)}>
+                {state.cleaning ? "Cleaning reserved in demo" : "Reserve final cleaning"}
+              </span>
             </Button>
             {state.cleaning && (
               <p role="status" className="mt-3 text-sm text-success">
-                {CLEANING_COST} ActiveCredits used. No real cleaning is booked.
+                {`${CLEANING_COST} ActiveCredits used. No real cleaning is booked.`}
               </p>
             )}
           </article>
