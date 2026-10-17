@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Umbrella, CloudLightning, Coins, FileText, Compass, Plus, Menu, ChevronRight } from "lucide-react";
+import { Umbrella, CloudLightning, Coins, FileText, Compass, Plus, Menu, ChevronRight, RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 import ifLogoAsset from "@/assets/if-logo.png.asset.json";
 import { pageHead } from "@/lib/page-head";
 import { useMove } from "@/components/MoveProvider";
@@ -34,8 +35,8 @@ function IfHome() {
       <main className="mx-auto max-w-md px-5 pb-16 pt-10">
         <h1 className="text-3xl font-light">Hello, Dear Customer</h1>
         <div className="mt-8 grid grid-cols-2 gap-4">
-          {tiles.map(({ label, icon: Icon }) => (
-            <Button variant="ghost" onClick={() => setSection(label)} key={label} className="flex h-auto aspect-[5/4] flex-col items-center justify-center gap-4 rounded-xl bg-background">
+          {tiles.map(({ label, icon: Icon }, i) => (
+            <Button variant="ghost" onClick={() => setSection(label)} key={label} style={{ animationDelay: `${i * 80}ms` }} className="animate-rise flex h-auto aspect-[5/4] flex-col items-center justify-center gap-4 rounded-xl bg-background">
               <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary">
                 <Icon className="h-8 w-8 text-primary" strokeWidth={1.2} />
               </span>
@@ -45,7 +46,8 @@ function IfHome() {
         </div>
         <Link
           to="/activity"
-          className="mt-4 flex items-center gap-4 rounded-xl bg-primary p-5 text-primary-foreground"
+          className="animate-rise mt-4 flex items-center gap-4 rounded-xl bg-primary p-5 text-primary-foreground"
+          style={{ animationDelay: "320ms" }}
         >
           <span className="grid h-14 w-14 place-items-center rounded-full bg-background/15">
             <Compass className="h-8 w-8" strokeWidth={1.2} />
@@ -61,6 +63,19 @@ function IfHome() {
         <Button variant="secondary" onClick={() => setSection("Buy new insurance")} className="mt-4 h-auto w-full gap-2 rounded-xl py-4 text-primary">
           <Plus strokeWidth={1.5} /> Buy new insurance
         </Button>
+        <button
+          type="button"
+          onClick={() => {
+            state.resetDemo();
+            toast.success("Demo reset", {
+              description: "All progress cleared. Ready for a fresh walkthrough.",
+            });
+          }}
+          className="mx-auto mt-8 flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <RotateCcw className="h-3.5 w-3.5" />
+          Reset demo
+        </button>
       </main>
       <Sheet open={section !== null} onOpenChange={(open) => { if (!open) setSection(null); }}>
         <SheetContent className="w-full overflow-y-auto sm:max-w-md">
