@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles, ShieldCheck, Droplets, Compass, Truck } from "lucide-react";
+import { Compass, Sparkles, Truck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { CLEANING_COST, TRAILER_ACTIVE_COST, canBuyTrailer } from "@/lib/move-rules";
 import { pageHead } from "@/lib/page-head";
 export const Route = createFileRoute("/rewards")({
@@ -22,8 +21,8 @@ function Rewards() {
       <p className="eyebrow">ALL YEAR ROUND</p>
       <h1 className="mt-2 text-4xl font-light">A balance that grows with you.</h1>
       <p className="mt-3 text-muted-foreground">
-        ActiveCredits come from everyday activity and simple safety checks. The moving sidequest
-        keeps its own rewards.
+        ActiveCredits come from everyday activity. Your yearly safety checks live on the activity
+        page. The moving sidequest keeps its own rewards.
       </p>
       <section className="mt-8 border-t pt-6">
         <div className="flex items-baseline justify-between">
@@ -78,51 +77,6 @@ function Rewards() {
               </p>
             )}
           </article>
-        </div>
-      </section>
-      <section className="mt-9 border-t pt-6">
-        <div className="md:max-w-lg">
-          <h3 className="font-medium">More than a step count</h3>
-          <div className="mt-4 space-y-3">
-            {[
-              { id: "annual-alarm", name: "Yearly smoke alarm test", icon: ShieldCheck },
-              { id: "battery", name: "Sensor battery check", icon: Droplets },
-            ].map((h) => (
-              <div className="flex items-center gap-3 border-b pb-3" key={h.id}>
-                <h.icon className="h-5 w-5 text-primary" />
-                <span className="flex-1 text-sm">{h.name}</span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={
-                    !state.optIn ||
-                    !state.customer ||
-                    state.daily >= 50 ||
-                    state.habits.includes(h.id)
-                  }
-                  onClick={() => state.earn(h.id)}
-                >
-                  {state.habits.includes(h.id) ? "Claimed" : "+50"}
-                </Button>
-              </div>
-            ))}
-          </div>
-          <label className="mt-4 flex items-center gap-3 text-sm">
-            <Switch checked={state.optIn} onCheckedChange={state.setOptIn} />
-            Opt in to ActiveCredits
-          </label>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Daily cap: {state.daily}/50 · Yearly cap: {state.yearly}/10,000. Annual safety checks
-            earn once per year. All activity is simulated; only a credit total would leave the
-            device in production.
-          </p>
-          <label className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
-            <Switch checked={state.customer} onCheckedChange={state.setCustomer} />
-            Active If customer (demo eligibility)
-          </label>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Credits only accrue while you are a customer. No currency conversion.
-          </p>
         </div>
       </section>
       <Button asChild variant="link" className="mt-5 px-0">
