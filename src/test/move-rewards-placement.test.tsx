@@ -23,12 +23,12 @@ describe("Move rewards live only in the moving sidequest", () => {
     await renderPage("/quests/moving");
     expect(await screen.findByText("Pizza for your crew")).toBeTruthy();
     expect(screen.getByText("A leak sensor")).toBeTruthy();
-    expect(screen.queryByText("One trailer hour")).toBeNull();
+    expect(screen.queryByText("A trailer for your troubles")).toBeNull();
   });
 
   it("keeps the moving sidequest's own rewards off the everyday rewards page", async () => {
     await renderPage("/rewards");
-    expect(await screen.findByText("Old-flat final cleaning")).toBeTruthy();
+    expect(await screen.findByText("Final cleaning")).toBeTruthy();
     expect(screen.queryByText("Move rewards")).toBeNull();
     expect(screen.queryByText("Pizza for your crew")).toBeNull();
     expect(screen.queryByText("A leak sensor")).toBeNull();
@@ -37,7 +37,7 @@ describe("Move rewards live only in the moving sidequest", () => {
 
   it("sells a trailer hour for ActiveCredits on the rewards page", async () => {
     await renderPage("/rewards");
-    expect(await screen.findByText("One trailer hour")).toBeTruthy();
+    expect(await screen.findByText("A trailer for your troubles")).toBeTruthy();
     expect(screen.getByText(/150 ActiveCredits/)).toBeTruthy();
     expect(screen.getByRole("button", { name: "Buy with ActiveCredits" })).toBeTruthy();
 });
@@ -52,7 +52,7 @@ describe("Yearly safety checks live on the activity page", () => {
 
   it("keeps the yearly checks off the everyday rewards page", async () => {
     await renderPage("/rewards");
-    expect(await screen.findByText("Old-flat final cleaning")).toBeTruthy();
+    expect(await screen.findByText("Final cleaning")).toBeTruthy();
     expect(screen.queryByText("More than a step count")).toBeNull();
     expect(screen.queryByText("Yearly smoke alarm test")).toBeNull();
     expect(screen.queryByText("Sensor battery check")).toBeNull();

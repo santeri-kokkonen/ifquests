@@ -190,13 +190,6 @@ function Index() {
             earn once per year. All activity is simulated; only a credit total would leave the
             device in production.
           </p>
-          <label className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
-            <Switch checked={state.customer} onCheckedChange={state.setCustomer} />
-            Active If customer (demo eligibility)
-          </label>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Credits only accrue while you are a customer. No currency conversion.
-          </p>
         </section>
       </div>
     </AppShell>
