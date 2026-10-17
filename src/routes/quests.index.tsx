@@ -13,7 +13,7 @@ const upcoming = [
 
 export const Route = createFileRoute("/quests/")({
   head: () =>
-    pageHead("Life quests", "Quests for life's big changes: moving now, with more on the way."),
+    pageHead("Sidequests", "Your main quest is your daily steps. Sidequests are life's big changes."),
   component: QuestsHub,
 });
 
@@ -21,9 +21,12 @@ function QuestsHub() {
   const state = useMove();
   return (
     <AppShell>
-      <p className="eyebrow">LIFE QUESTS</p>
-      <h1 className="mt-2 text-4xl font-light">Big life changes, made safer.</h1>
-      <p className="mt-3 text-muted-foreground">Pick the chapter you're in. Each one has its own quests and rewards.</p>
+      <p className="eyebrow">SIDEQUESTS</p>
+      <h1 className="mt-2 text-4xl font-light">Your main quest? Daily steps.</h1>
+      <p className="mt-3 text-muted-foreground">
+        Stay healthy and happy with your step goal every day. Life's big changes become sidequests
+        — pick the chapter you're in, each with its own quests and rewards.
+      </p>
 
       <h2 className="mt-8 text-xl font-light">Active</h2>
       <Link

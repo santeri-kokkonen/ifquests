@@ -43,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           {(
             [
               { to: "/", label: "Home", icon: Activity },
-              { to: "/quests", label: "Quests", icon: Compass },
+              { to: "/quests", label: "Sidequests", icon: Compass },
               { to: "/rewards", label: "Rewards", icon: Gift },
               { to: "/insurance", label: "Insurance", icon: Shield },
             ] as const

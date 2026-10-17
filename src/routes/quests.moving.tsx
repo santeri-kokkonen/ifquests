@@ -5,7 +5,7 @@ import { pageHead } from "@/lib/page-head";
 export const Route = createFileRoute("/quests/moving")({
   head: () =>
     pageHead(
-      "Moving quest",
+"Moving sidequest",
       "Make your rental move safer with a room-by-room checklist, evidence and crew support.",
     ),
   component: () => (
