@@ -20,14 +20,14 @@ async function renderPage(path: string) {
 
 describe("Move rewards live only in the moving sidequest", () => {
   it("shows all three milestone rewards on the moving sidequest page", async () => {
-    renderPage("/quests/moving");
+    await renderPage("/quests/moving");
     expect(await screen.findByText("One trailer hour")).toBeTruthy();
     expect(screen.getByText("Pizza for your crew")).toBeTruthy();
     expect(screen.getByText("A leak sensor")).toBeTruthy();
   });
 
   it("keeps move rewards off the everyday rewards page", async () => {
-    renderPage("/rewards");
+    await renderPage("/rewards");
     expect(await screen.findByText("Old-flat final cleaning")).toBeTruthy();
     expect(screen.queryByText("One trailer hour")).toBeNull();
     expect(screen.queryByText("Pizza for your crew")).toBeNull();
