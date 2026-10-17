@@ -7,10 +7,11 @@ import {
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { routeTree } from "@/routeTree.gen";
+import { Route as rootRoute } from "@/routes/__root";
 
 async function renderPage(path: string) {
   // Component tests mount in a div; the real document shell belongs to SSR/browser checks.
-  routeTree.options.shellComponent = ({ children }) => <>{children}</>;
+  rootRoute.options.shellComponent = ({ children }) => <>{children}</>;
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [path] }),
