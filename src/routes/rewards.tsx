@@ -60,7 +60,7 @@ function Rewards() {
           </article>
           <article className="rounded-xl border bg-card p-5">
             <Sparkles className="h-8 w-8 text-primary" strokeWidth={1.2} />
-            <h3 className="mt-4 text-lg font-medium">Final cleaning</h3>
+            <h3 className="mt-4 text-lg font-medium">Cleaning services</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               10000 ActiveCredits · Illustrative demo price, partner and service scope to be agreed.
             </p>
