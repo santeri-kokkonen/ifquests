@@ -28,7 +28,7 @@ function IfHome() {
         </span>
       </header>
       <main className="mx-auto max-w-md px-5 pb-16 pt-10">
-        <h1 className="text-3xl font-light">Hi, Timo-Antti</h1>
+        <h1 className="text-3xl font-light">Hello, Dear Customer</h1>
         <div className="mt-8 grid grid-cols-2 gap-4">
           {tiles.map(({ label, icon: Icon }) => (
             <div key={label} className="flex aspect-[5/4] flex-col items-center justify-center gap-4 rounded-xl bg-background">
