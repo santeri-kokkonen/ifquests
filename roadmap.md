@@ -1,7 +1,7 @@
 # MoveReady delivery
-- [ ] Audit imports, dependencies, null handling and all event handlers across the project.
-- [ ] Fix confirmed state and error-handling bugs with regression tests.
-- [ ] Verify the complete test suite and main demo flows; report remaining limitations.
+- [x] Audit imports, dependencies, null handling and all event handlers across the project.
+- [x] Fix confirmed state and error-handling bugs with regression tests.
+- [x] Verify the complete test suite and main demo flows; report remaining limitations in AUDIT.md.
 - [x] Deliver a silent two-minute IF Quests app demo draft and timed speaking guide answering the original case questions; disclose motion-review and capture limitations.
 - [x] Build four-room quest map, all ten tasks, evidence, crew confirmation and coverage check.
 - [x] Implement separate credit rules, move rewards and opt-in ActiveCredits with inclusive capped earning (illustrative demo caps: 50/day, 10,000/year; cleaning 400).
