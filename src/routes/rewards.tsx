@@ -73,7 +73,7 @@ function Rewards() {
             <Sparkles className="h-8 w-8 text-primary" strokeWidth={1.2} />
             <h3 className="mt-4 text-lg font-medium">Cleaning services</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              10,000 ActiveCredits · Cleaning support for a fresh start in your new home.
+              10,000 ActiveCredits · Cleaning support
             </p>
                         <Button
               className="mt-5"
