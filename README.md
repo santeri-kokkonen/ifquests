@@ -12,7 +12,7 @@ If Quests is an insurance-app prototype that keeps customers engaged every day t
 - **Crew (`/crew`)** — optional helper links and witness confirmations; every check can also be completed solo.
 - **LeakGuard (`/leakguard`)** — guided water-leak reporting with photo verification, sensor status and a downloadable report draft.
 - **Rewards (`/rewards`)** — ActiveCredits offers (rental van 6,000, cleaning services 10,000) plus example partner offers; MoveCredits rewards (crew pizza 300, leak sensor 600) live inside the Moving sidequest.
-- **Persistence and reset** — progress and evidence persist in versioned, validated browser storage; a Reset demo control returns everything to the walkthrough state.
+- **Persistence and reset** — progress and evidence persist in versioned and validated browser storage, a Reset demo control returns everything to the walkthrough state.
 
 ## Tech stack
 
