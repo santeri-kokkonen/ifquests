@@ -5,5 +5,5 @@
 - [x] Preserve personal insurance-only page and If visual identity.
 - [x] Verify credit rules and complete demo flows on phone and desktop.
 - [x] Deliver two-minute pitch video and supporting script with honest prototype boundaries; final v2 corrects the break-even equations and LeakGuard framing.
-- [ ] Add "One trailer hour" to the Rewards section as a purchase with ActiveCredits.
-- [ ] Verify claiming a move reward inside the moving section in the live preview (room panel click).
+- [x] Add "One trailer hour" to the Rewards section as a purchase with ActiveCredits (150, sample price).
+- [ ] Verify claiming a move reward inside the moving section in the live preview (claim works; room panel tile does not open under automation).
