@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
 import { ArrowRight, Droplets, Footprints, ShieldCheck, Truck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useMove } from "@/components/MoveProvider";
 import { Button } from "@/components/ui/button";
@@ -111,7 +112,10 @@ function Index() {
   const goalMet = 10500 >= 10000;
   const { optIn, customer, daily, habits, earn, ready } = state;
   useEffect(() => {
-    if (ready && goalMet && optIn && customer && daily < 50 && !habits.includes("steps")) earn("steps");
+    if (ready && goalMet && optIn && customer && daily < 50 && !habits.includes("steps")) {
+      earn("steps");
+      toast.success("+50 ActiveCredits", { description: "Daily step goal reached. Nicely done." });
+    }
   }, [ready, goalMet, optIn, customer, daily, habits, earn]);
   return (
     <AppShell>
@@ -119,12 +123,13 @@ function Index() {
         <section>
           <p className="eyebrow">Main quest · Demo activity</p>
           <h1 className="mt-1 text-3xl font-light">Home</h1>
-          <div className="mt-4 rounded-xl bg-secondary py-4">
+          <div className="animate-rise mt-4 rounded-xl bg-secondary py-4">
             <StepRing earned={state.habits.includes("steps")} />
           </div>
           <Link
             to="/quests/moving"
-            className="mt-4 flex items-center gap-4 rounded-xl bg-primary p-4 text-primary-foreground"
+            className="animate-rise mt-4 flex items-center gap-4 rounded-xl bg-primary p-4 text-primary-foreground"
+            style={{ animationDelay: "120ms" }}
           >
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-foreground/15">
               <Truck className="h-5 w-5" strokeWidth={1.5} />
@@ -139,7 +144,17 @@ function Index() {
             <ArrowRight className="h-5 w-5" />
           </Link>
           <label className="mt-5 flex items-start gap-3">
-            <Switch checked={state.optIn} onCheckedChange={state.setOptIn} />
+            <Switch
+              checked={state.optIn}
+              onCheckedChange={(v) => {
+                state.setOptIn(v);
+                toast(v ? "Activity rewards on" : "Activity rewards off", {
+                  description: v
+                    ? "Credits are added automatically when you hit your step goal."
+                    : "You can turn rewards back on anytime.",
+                });
+              }}
+            />
             <span className="text-sm font-medium">
               Activity rewards
               <span className="mt-1 block text-xs font-normal text-muted-foreground">
@@ -159,8 +174,12 @@ function Index() {
             {[
               { id: "annual-alarm", name: "Smoke alarm test", icon: ShieldCheck, Truck },
               { id: "battery", name: "Sensor battery check", icon: Droplets },
-            ].map((h) => (
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b pb-3" key={h.id}>
+            ].map((h, i) => (
+              <div
+                className="animate-rise grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b pb-3"
+                style={{ animationDelay: `${i * 90}ms` }}
+                key={h.id}
+              >
                 <h.icon className="h-5 w-5 shrink-0 text-primary" />
                 <span className="min-w-0 text-sm">{h.name}</span>
                 <Button
@@ -172,7 +191,10 @@ function Index() {
                     state.daily >= 50 ||
                     state.habits.includes(h.id)
                   }
-                  onClick={() => state.earn(h.id)}
+                  onClick={() => {
+                    state.earn(h.id);
+                    toast.success("+50 ActiveCredits", { description: `${h.name} recorded.` });
+                  }}
                 >
                   {state.habits.includes(h.id) ? "Credits earned" : "Earn +50"}
                 </Button>
