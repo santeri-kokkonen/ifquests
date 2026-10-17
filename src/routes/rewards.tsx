@@ -165,7 +165,7 @@ function Rewards() {
         </div>
       </section>
       <Button asChild variant="link" className="mt-5 px-0">
-        <Link to="/quests">
+        <Link to="/quests/moving">
           <Footprints />
           Back to move quests
         </Link>
