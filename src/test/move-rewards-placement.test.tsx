@@ -38,7 +38,7 @@ describe("Move rewards live only in the moving sidequest", () => {
   it("sells a trailer hour for ActiveCredits on the rewards page", async () => {
     await renderPage("/rewards");
     expect(await screen.findByText("A trailer for your troubles")).toBeTruthy();
-    expect(screen.getByText(/150 ActiveCredits/)).toBeTruthy();
+    expect(screen.getByText(/6000 ActiveCredits/)).toBeTruthy();
     expect(screen.getByRole("button", { name: "Buy with ActiveCredits" })).toBeTruthy();
 });
 
