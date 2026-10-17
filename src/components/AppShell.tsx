@@ -61,9 +61,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               key={to}
               asChild
               variant="ghost"
-              className={`h-14 flex-col gap-1 text-xs ${path === to ? "text-primary" : "text-muted-foreground"}`}
+              className={`h-14 flex-col gap-1 text-xs ${path === to || (to === "/quests" && path.startsWith("/quests/")) ? "text-primary" : "text-muted-foreground"}`}
             >
-              <Link to={to} aria-current={path === to ? "page" : undefined}>
+              <Link to={to} aria-current={path === to || (to === "/quests" && path.startsWith("/quests/")) ? "page" : undefined}>
                 <Icon className="!h-5 !w-5" strokeWidth={1.5} />
                 {label}
               </Link>

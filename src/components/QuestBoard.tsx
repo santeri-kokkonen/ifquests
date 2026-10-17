@@ -223,7 +223,8 @@ export function QuestBoard() {
                             key={value}
                             variant={q.value === value ? "default" : "outline"}
                             size="sm"
-                            onClick={() => q.set(value ?? "")}
+                            onClick={() => { q.set(value ?? ""); setResult(""); }}
+                            aria-pressed={q.value === value}
                           >
                             {label}
                           </Button>
@@ -317,6 +318,7 @@ export function QuestBoard() {
                       <label className="mt-3 flex items-start gap-3 text-sm">
                         <Checkbox
                           checked={state.confirmed.includes(task.id)}
+                          disabled={state.confirmed.includes(task.id)}
                           onCheckedChange={(v) => {
                             if (v === true) state.confirm(task.id);
                           }}
@@ -350,6 +352,14 @@ export function QuestBoard() {
                       : `Finish check · +${task.credits} MoveCredits`}
                     <Check />
                   </Button>
+                  {!state.completed.includes(task.id) && <p className="mt-3 text-xs text-muted-foreground">
+                    {[
+                      !attested && "Confirm the safety check above.",
+                      !state.confirmed.includes(task.id) && "A crew witness is required.",
+                      task.photo && !state.photos[task.id] && "Add an evidence photo.",
+                      task.id === "sensor" && !state.sensorArrived && "Wait for demo sensor delivery.",
+                    ].filter(Boolean).join(" ")}
+                  </p>}
                 </>
               )}
             </div>
