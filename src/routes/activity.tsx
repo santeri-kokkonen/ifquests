@@ -53,7 +53,7 @@ function useCountUp(to: number, ms = 1500) {
   return v;
 }
 
-function StepRing() {
+function StepRing({ earned }: { earned: boolean }) {
   const [mounted, setMounted] = useState(false);
   const count = useCountUp(STEPS);
   useEffect(() => {
@@ -62,11 +62,11 @@ function StepRing() {
   const pct = Math.round((STEPS / TARGET) * 100);
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[250px] [&_svg]:mx-auto">
+    <div className="relative mx-auto aspect-square w-full max-w-[190px] [&_svg]:mx-auto">
       {mounted && (
         <RadialBarChart
-          width={250}
-          height={250}
+          width={190}
+          height={190}
           innerRadius="80%"
           outerRadius="100%"
           data={[{ value: Math.min(count, TARGET) }]}
@@ -77,21 +77,30 @@ function StepRing() {
           <RadialBar
             dataKey="value"
             cornerRadius={20}
-            fill="var(--primary)"
+            fill={earned ? "var(--success)" : "var(--primary)"}
             background={{ fill: "var(--card)" }}
             isAnimationActive={false}
           />
         </RadialBarChart>
       )}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <Footprints className="mb-2 h-6 w-6 text-primary" strokeWidth={1.5} />
-        <span className="text-5xl font-light  tabular-nums">{count.toLocaleString("en-US")}</span>
-        <span className="mt-1 text-sm text-muted-foreground">
+        <Footprints
+          className={`mb-1 h-5 w-5 ${earned ? "text-success" : "text-primary"}`}
+          strokeWidth={1.5}
+        />
+        <span className="text-4xl font-light  tabular-nums">{count.toLocaleString("en-US")}</span>
+        <span className="mt-1 text-xs text-muted-foreground">
           of {TARGET.toLocaleString("en-US")} steps
         </span>
-        <span className="mt-3 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-primary">
-          {pct}%
-        </span>
+        {earned ? (
+          <span className="mt-2 rounded-full bg-success-soft px-3 py-1 text-[11px] font-semibold text-success">
+            +50 ActiveCredits earned
+          </span>
+        ) : (
+          <span className="mt-2 rounded-full bg-accent px-3 py-1 text-[11px] font-semibold text-primary">
+            {pct}%
+          </span>
+        )}
       </div>
     </div>
   );
