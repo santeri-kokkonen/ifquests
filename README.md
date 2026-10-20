@@ -1,6 +1,6 @@
 # If Quests — Practical Help First, Insurance Second
 
-If Quests is an insurance-app prototype that keeps customers engaged every day through ActiveCredits, earned by hitting a daily step goal and completing safety habits, and rewards practical prevention during a life change through MoveCredits, earned by verifying rental safety checks in the Moving sidequest. The two currencies stay separate on purpose: everyday wellness progress can never be spent on moving help, and moving progress can never drain an active routine.
+If Quests was built during JunctionX hackathon in Turku with my team using Lovable. It is an insurance-app prototype that keeps customers engaged every day through ActiveCredits, earned by hitting a daily step goal and completing safety habits, and rewards practical prevention during a life change through MoveCredits, earned by verifying rental safety checks in the Moving sidequest. The two currencies stay separate on purpose: everyday wellness progress can never be spent on moving help, and moving progress can never drain an active routine.
 
 ## Key features
 
